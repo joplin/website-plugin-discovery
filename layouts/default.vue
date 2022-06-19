@@ -1,7 +1,7 @@
 <template>
   <v-app dark>
     <v-app-bar fixed app>
-      <JoplinLogo class="appbar-logo"/>
+      <JoplinLogo class="appbar-logo" />
       <v-spacer />
     </v-app-bar>
     <v-main>

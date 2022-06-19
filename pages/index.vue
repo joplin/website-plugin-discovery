@@ -8,7 +8,6 @@
         <v-card-title class="headline">
           Welcome to Joplin Plugins
         </v-card-title>
-        
       </v-card>
     </v-col>
   </v-row>
