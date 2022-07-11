@@ -1,0 +1,146 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const allPossibleCategories = ['Appearance', 'Developer Tools', 'Productivity', 'Themes', 'Integrations', 'Viewer', 'Search', 'Tags', 'Editor', 'Files', 'Personal Knowledge Management'];
+
+---
+
+<Layout title="Joplin Plugins">
+	<main>
+		<div class="container banner">
+			<div class="row justify-content-center pb-3">
+				<div class="col-12 text-center">
+					<h2 class="mb-3">Extend Your Joplin.</h2>
+				</div>
+				<div class="col-lg-5 text-center">
+					<p class="text-muted subtitle mb-3">Joplin has a plenty of plugins provided by community which can be helpful
+						in your workflow.</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row gy-3">
+				<!-- Tab Selector -->
+				<div class="col-lg-2 d-none d-lg-block px-0">
+					<div class="nav-list py-3 px-3">
+						<nav class="nav nav-pills flex-column" id="nav-tab" role="tablist" aria-orientation="vertical">
+							<button class="nav-link active" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all"
+								type="button" role="tab" aria-controls="nav-all" aria-selected="false">All</button>
+							{allPossibleCategories.map((item) => (
+							<>
+								<button class="nav-link" id={`nav-${item.toLowerCase().replace(/[ ]/g, '-' )}-tab`} data-bs-toggle="tab"
+									data-bs-target={`#nav-${item.toLowerCase().replace(/[ ]/g, '-' )}`} type="button" role="tab"
+									aria-controls={`nav-${item.toLowerCase().replace(/[ ]/g, '-' )}`}
+									aria-selected="false">{item}</button>
+							</>
+							))}
+						</nav>
+					</div>
+				</div>
+				<!-- Tab Selector for Small Screens -->
+				<div class="col-12 d-lg-none">
+					<div class="nav-list py-3 px-3">
+						<nav class="nav nav-pills" id="nav-tab" role="tablist" aria-orientation="horizontal">
+							<button class="nav-link active" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all"
+								type="button" role="tab" aria-controls="nav-all" aria-selected="false">All</button>
+							{allPossibleCategories.map((item) => (
+							<>
+								<button class="nav-link" id={`nav-${item.toLowerCase().replace(/[ ]/g, '-' )}-tab`} data-bs-toggle="tab"
+									data-bs-target={`#nav-${item.toLowerCase().replace(/[ ]/g, '-' )}`} type="button" role="tab"
+									aria-controls={`nav-${item.toLowerCase().replace(/[ ]/g, '-' )}`}
+									aria-selected="false">{item}</button>
+							</>
+							))}
+						</nav>
+					</div>
+
+				</div>
+
+				<!-- Tab Content -->
+				<div class="col-lg-10 col-12">
+					<div class="tab-content" id="nav-tabContent">
+						<div class="tab-pane fade show active" id='nav-all' role="tabpanel" aria-labelledby='nav-all-tab'
+							tabindex={0}>
+							<!-- Trending Section -->
+							<div class="row mx-3 py-4">
+								<div class="anchor" id="trending-section"></div>
+								<h5 class="py-3">Trending Plugins</h5>
+
+							</div>
+							<!-- Recommended Section -->
+
+							<div class="row mx-3 py-4">
+								<div class="anchor" id="recommended-section"></div>
+								<h5 class="py-3">Recommended Plugins</h5>
+
+							</div>
+							<!-- All Plugins -->
+							<div class="row mx-3 py-4">
+								<div class="anchor" id="all-plugins-section"></div>
+								<h5 class="py-3">All Plugins</h5>
+
+							</div>
+
+						</div>
+
+						<!-- Plugins in categories -->
+						{allPossibleCategories.map((category) => (
+						<>
+							<div class="tab-pane fade show" id={`nav-${category.toLowerCase().replace(/[ ]/g, '-' )}`} role="tabpanel"
+								aria-labelledby={`nav-${category.toLowerCase().replace(/[ ]/g, '-' )}-tab`} tabindex={0}>
+								<div class="row mx-3 py-4">
+
+								</div>
+							</div>
+						</>
+						))}
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</Layout>
+
+<style>
+	:root {
+		--astro-gradient: linear-gradient(0deg, #4F39FA, #DA62C4);
+	}
+
+	.banner {
+		padding-top: 4rem;
+		padding-bottom: 4rem;
+	}
+
+	.nav-pills {
+		--bs-nav-pills-border-radius: 0.375rem;
+		--bs-nav-pills-link-active-color: var(--bs-black);
+		--bs-nav-pills-link-active-bg: var(--bs-gray-300);
+	}
+
+	.nav {
+		--bs-nav-link-color: var(--bs-gray-700);
+		--bs-nav-link-hover-color: var(--bs-black);
+		--bs-nav-link-disabled-color: #6c757d;
+	}
+
+	.nav-list {
+		background-color: white;
+		border-radius: 0.375rem;
+	}
+
+	.tab-content {
+		min-height: auto;
+		background-color: white;
+		border-radius: 0.375rem;
+	}
+
+	.anchor {
+		position: relative;
+		top: -100px;
+		display: block;
+		height: 0;
+		overflow: hidden;
+	}
+</style>

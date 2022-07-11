@@ -1,0 +1,61 @@
+---
+import joplinLogo from '../joplin-logo.png';
+const allPossibleCategories = ['Appearance', 'Developer Tools', 'Productivity', 'Themes', 'Integrations', 'Viewer', 'Search', 'Tags', 'Editor', 'Files', 'Personal Knowledge Management'];
+---
+
+<nav class="navbar navbar-expand-lg bg-light sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href={`${Astro.site.pathname}#`}>
+      <img src={joplinLogo} width="110">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href={`${Astro.site.pathname}#trending-section`}
+            onclick="openTabAll()">Trending</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href={`${Astro.site.pathname}#recommended-section`} onclick="openTabAll()">Recommended</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href={`${Astro.site.pathname}#all-plugins-section`} onclick="openTabAll()">All Plugins</a>
+        </li>
+      </ul>
+      <div class="search-field col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="search" class="form-control search-input" placeholder="Search..." aria-label="Search">
+      </div>
+    </div>
+  </div>
+</nav>
+<style>
+  .navbar {
+    padding: 16px 40px 16px 40px;
+  }
+
+  .search-field {
+    position: relative;
+  }
+  
+  .search-icon {
+    position: absolute;
+    padding: 10px;
+    pointer-events: none;
+    left: 0px;
+  }
+
+  .search-input {
+    padding-left: 30px;
+  }
+
+</style>
+<script is:inline>
+  function openTabAll() {
+    const triggerFirstTabEl = document.querySelector('#nav-tab :first-child')
+    bootstrap.Tab.getInstance(triggerFirstTabEl).show() // Select 'All' Tab
+  }
+</script>
