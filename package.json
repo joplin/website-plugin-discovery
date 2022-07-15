@@ -1,0 +1,16 @@
+{
+  "name": "website-plugin-discovery",
+  "version": "1.0.0",
+  "main": "build.js",
+  "scripts": {
+    "build": "node build.js",
+    "watch": "npx @11ty/eleventy --serve"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@11ty/eleventy": "^1.0.1"
+  },
+  "dependencies": {
+    "fs-extra": "^10.1.0"
+  }
+}
