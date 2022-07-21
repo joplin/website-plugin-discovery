@@ -1,28 +1,25 @@
-const Eleventy = require("@11ty/eleventy");
-var fs = require("fs-extra"); 
- 
-BUILD_PATH = "./_site";
+const fs = require("fs-extra");
+const generateHTMLs = require("./utils/generateHTMLs.js");
+const config = require("./config.js");
 
-function clearBuildPath(BUILD_PATH){
+function clearBuildPath(buildPath){
   try {
-    fs.rmSync(BUILD_PATH, { recursive: true });
+    fs.rmSync(buildPath, { recursive: true });
   } catch (err) {
     console.log(err);
   }
 }
 
-function copyStaticFiles(BUILD_PATH){
+function copyStaticFiles(buildPath){
   try {
-    fs.copy("./assets", BUILD_PATH);
+    fs.copySync("./assets", buildPath);
   } catch (err) {
     console.log(err);
   }
 }
 
 (async function() {
-  clearBuildPath(BUILD_PATH);
-  copyStaticFiles(BUILD_PATH);
-  // The first argument is the input directory. The second argument is the output directory.
-  let elev = new Eleventy( "./pages", BUILD_PATH );
-  await elev.write();
+  clearBuildPath(config.distDir);
+  copyStaticFiles(config.distDir);
+  generateHTMLs();
 })();

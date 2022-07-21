@@ -5,7 +5,7 @@ async function fetchPluginData() {
   return Object.values(plugins);
 }
 
-module.exports = async function() {
-  const plugins = await fetchPluginData();
+module.exports = function() {
+  const plugins = fetchPluginData((res) => {return res});
   return plugins;
 };

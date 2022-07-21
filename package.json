@@ -3,14 +3,12 @@
   "version": "1.0.0",
   "main": "build.js",
   "scripts": {
-    "build": "node build.js",
-    "watch": "npx @11ty/eleventy --serve"
+    "build": "node build.js"
   },
   "license": "MIT",
-  "devDependencies": {
-    "@11ty/eleventy": "^1.0.1"
-  },
   "dependencies": {
-    "fs-extra": "^10.1.0"
+    "fs-extra": "^10.1.0",
+    "klaw-sync": "^6.0.0",
+    "mustache": "^4.2.0"
   }
 }

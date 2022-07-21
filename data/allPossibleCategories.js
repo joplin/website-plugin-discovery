@@ -6,6 +6,5 @@ module.exports = function() {
       displayName: category
     };
   })
-
   return allPossibleCategories;
 };
