@@ -10,8 +10,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 function fetchPluginData() {
     return __awaiter(this, void 0, void 0, function* () {
-        // const plugins =  await fetch('https://raw.githubusercontent.com/joplin/plugins/master/manifests.json').then(res => res.json());
-        const plugins = yield fetch("https://raw.staticdn.net/joplin/plugins/master/manifests.json").then((res) => res.json());
+        let plugins = [];
+        const mirrors = [
+            'https://raw.githubusercontent.com/joplin/plugins/master/manifests.json',
+            'https://raw.staticdn.net/joplin/plugins/master/manifests.json',
+            'https://raw.fastgit.org/joplin/plugins/master/manifests.json'
+        ];
+        for (let index = 0; index < mirrors.length; index++) {
+            try {
+                plugins = yield fetch(mirrors[index]).then(res => res.json());
+            }
+            catch (error) {
+                continue;
+            }
+        }
         return Object.values(plugins);
     });
 }
