@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 function fetchPluginData() {
     return __awaiter(this, void 0, void 0, function* () {
         // const plugins =  await fetch('https://raw.githubusercontent.com/joplin/plugins/master/manifests.json').then(res => res.json());
-        const plugins = yield fetch('https://raw.staticdn.net/joplin/plugins/master/manifests.json').then(res => res.json());
+        const plugins = yield fetch("https://raw.staticdn.net/joplin/plugins/master/manifests.json").then((res) => res.json());
         return Object.values(plugins);
     });
 }
