@@ -8,14 +8,12 @@ async function fetchPluginData() {
 	for (let index = 0; index < mirrors.length; index++) {
 		try {
 			plugins = await (await fetch(mirrors[index])).json()
+			return Object.values(plugins)
 		} catch (error) {
-			if (index === mirrors.length - 1) {
-				throw new Error("Cannot find avalible Github mirror");
-			}
 			continue
 		}
 	}
-	return Object.values(plugins)
+	throw new Error("Cannot find avalible Github mirror");
 }
 
 module.exports = function () {
