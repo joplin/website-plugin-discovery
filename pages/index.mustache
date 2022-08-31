@@ -2,157 +2,150 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width">
-  <link rel="icon" type="image/x-icon" href="favicon.png" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-    crossorigin="anonymous"></script>
-  <title>Joplin Plugins</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<link rel="icon" type="image/x-icon" href="favicon.png" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+		integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+		crossorigin="anonymous"></script>
+	<title>Joplin Plugins</title>
 </head>
 
 <body>
 <nav class="navbar navbar-expand-lg bg-light sticky-top">
-  <div class="container">
-    <a class="navbar-brand" href=".">
-      <img src="joplin-logo.png" width="110">
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#trending-section" onclick="openTab()">Trending</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#recommended-section" onclick="openTab()">Recommended</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#all-plugins-section" onclick="openTab()">All Plugins</a>
-        </li>
-      </ul>
-      <div class="search-field col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-        <i class="fa-solid fa-magnifying-glass search-icon"></i>
-        <input type="search" class="form-control search-input" placeholder="Search..." aria-label="Search">
-      </div>
-    </div>
-  </div>
+	<div class="container">
+		<a class="navbar-brand" href=".">
+			<img src="joplin-logo.png" width="110">
+		</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="#trending-section" onclick="openTab()">Trending</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#recommended-section" onclick="openTab()">Recommended</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#all-plugins-section" onclick="openTab()">All Plugins</a>
+				</li>
+			</ul>
+			<div class="search-field col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+				<i class="fa-solid fa-magnifying-glass search-icon"></i>
+				<input type="search" class="form-control search-input" placeholder="Search..." aria-label="Search">
+			</div>
+		</div>
+	</div>
 </nav>
 <main>
-		<div class="container banner">
-			<div class="row justify-content-center pb-3">
-				<div class="col-12 text-center">
-					<h2 class="mb-3">Extend Your Joplin.</h2>
-				</div>
-				<div class="col-lg-5 text-center">
-					<p class="text-muted subtitle mb-3">Joplin has a plenty of plugins provided by community which can be helpful
-						in your workflow.</p>
-				</div>
+	<div class="container banner">
+		<div class="row justify-content-center pb-3">
+			<div class="col-12 text-center">
+				<h2 class="mb-3">Extend Your Joplin.</h2>
+			</div>
+			<div class="col-lg-5 text-center">
+				<p class="text-muted subtitle mb-3">Joplin has a plenty of plugins provided by community which can be helpful
+					in your workflow.</p>
 			</div>
 		</div>
+	</div>
 
-		<div class="container">
-			<div class="row gy-3">
-				<!-- Tab Selector -->
-				<div class="col-lg-2 d-none d-lg-block px-0">
-					<div class="nav-list py-3 px-3">
-						<nav class="nav nav-pills flex-column" id="nav-tab" role="tablist" aria-orientation="vertical">
-							<button class="nav-link active" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all"
-								type="button" role="tab" aria-controls="nav-all" aria-selected="false">All</button>
-              {{#allPossibleCategories}}
-                <button class="nav-link" id="nav-{{name}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{name}}"
-                  type="button" role="tab" aria-controls="nav-{{name}}" aria-selected="false">{{displayName}}</button>
-              {{/allPossibleCategories}}
-						</nav>
-					</div>
+	<div class="container">
+		<div class="row gy-3">
+			<!-- Tab Selector -->
+			<div class="col-lg-2 d-none d-lg-block px-0">
+				<div class="nav-list py-3 px-3">
+					<nav class="nav nav-pills flex-column" id="nav-tab" role="tablist" aria-orientation="vertical">
+						<button class="nav-link active" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all"
+							type="button" role="tab" aria-controls="nav-all" aria-selected="false">All</button>
+						{{#allPossibleCategories}}
+							<button class="nav-link" id="nav-{{name}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{name}}"
+								type="button" role="tab" aria-controls="nav-{{name}}" aria-selected="false">{{displayName}}</button>
+						{{/allPossibleCategories}}
+					</nav>
 				</div>
-				<!-- Tab Selector for Small Screens -->
-				<div class="col-12 d-lg-none">
-					<div class="nav-list py-3 px-3">
-						<nav class="nav nav-pills" id="nav-tab" role="tablist" aria-orientation="horizontal">
-							<button class="nav-link active" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all"
-								type="button" role="tab" aria-controls="nav-all" aria-selected="false">All</button>
-              {{#allPossibleCategories}}
-                <button class="nav-link" id="nav-{{name}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{name}}"
-                  type="button" role="tab" aria-controls="nav-{{name}}" aria-selected="false">{{displayName}}</button>
-              {{/allPossibleCategories}}
-						</nav>
-					</div>
-
+			</div>
+			<!-- Tab Selector for Small Screens -->
+			<div class="col-12 d-lg-none">
+				<div class="nav-list py-3 px-3">
+					<nav class="nav nav-pills" id="nav-tab" role="tablist" aria-orientation="horizontal">
+						<button class="nav-link active" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all"
+							type="button" role="tab" aria-controls="nav-all" aria-selected="false">All</button>
+						{{#allPossibleCategories}}
+							<button class="nav-link" id="nav-{{name}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{name}}"
+								type="button" role="tab" aria-controls="nav-{{name}}" aria-selected="false">{{displayName}}</button>
+						{{/allPossibleCategories}}
+					</nav>
 				</div>
+			</div>
 
-				<!-- Tab Content -->
-				<div class="col-lg-10 col-12">
-					<div class="tab-content" id="nav-tabContent">
-						<div class="tab-pane fade show active" id='nav-all' role="tabpanel" aria-labelledby='nav-all-tab'
-							tabindex={0}>
-							<!-- Trending Section -->
-							<div class="row mx-3 py-4">
-								<div class="anchor" id="trending-section"></div>
-								<h5 class="py-3">Trending Plugins</h5>
-
-							</div>
-							<!-- Recommended Section -->
-
-							<div class="row mx-3 py-4">
-								<div class="anchor" id="recommended-section"></div>
-								<h5 class="py-3">Recommended Plugins</h5>
-
-							</div>
-							<!-- All Plugins -->
-							<div class="row mx-3 py-4">
-								<div class="anchor" id="all-plugins-section"></div>
-								<h5 class="py-3">All Plugins</h5>
-
-							</div>
-
+			<!-- Tab Content -->
+			<div class="col-lg-10 col-12">
+				<div class="tab-content" id="nav-tabContent">
+					<div class="tab-pane fade show active" id='nav-all' role="tabpanel" aria-labelledby='nav-all-tab'
+						tabindex={0}>
+						<!-- Trending Section -->
+						<div class="row mx-3 py-4">
+							<div class="anchor" id="trending-section"></div>
+							<h5 class="py-3">Trending Plugins</h5>
 						</div>
-
-						<!-- Plugins in categories -->
-            {{#allPossibleCategories}}
-              <div class="tab-pane fade show" id="nav-{{name}}" role="tabpanel"
-              aria-labelledby="nav-{{name}}-tab" tabindex='0'>
-								<div class="row mx-3 py-4">
-								</div>
-							</div>
-            {{/allPossibleCategories}}
-
+						<!-- Recommended Section -->
+						<div class="row mx-3 py-4">
+							<div class="anchor" id="recommended-section"></div>
+							<h5 class="py-3">Recommended Plugins</h5>
+						</div>
+						<!-- All Plugins -->
+						<div class="row mx-3 py-4">
+							<div class="anchor" id="all-plugins-section"></div>
+							<h5 class="py-3">All Plugins</h5>
+						</div>
 					</div>
+
+					<!-- Plugins in categories -->
+					{{#allPossibleCategories}}
+						<div class="tab-pane fade show" id="nav-{{name}}" role="tabpanel"
+						aria-labelledby="nav-{{name}}-tab" tabindex='0'>
+							<div class="row mx-3 py-4">
+							</div>
+						</div>
+					{{/allPossibleCategories}}
+
 				</div>
 			</div>
 		</div>
-	</main>
+	</div>
+</main>
 </body>
 
 </html>
 
 <style>
-  :root {
-    --bs-body-bg: #ebebeb;
-  }
-  .navbar{
-    padding: 20px 40px 20px 40px;
-  }
-  .search-field {
-    position: relative;
-  }
-  
-  .search-icon {
-    position: absolute;
-    padding: 10px;
-    pointer-events: none;
-    left: 0px;
-  }
-  .search-input {
-    padding-left: 30px;
-  }
-  .banner {
+	:root {
+		--bs-body-bg: #ebebeb;
+	}
+	.navbar{
+		padding: 20px 40px 20px 40px;
+	}
+	.search-field {
+		position: relative;
+	}
+	.search-icon {
+		position: absolute;
+		padding: 10px;
+		pointer-events: none;
+		left: 0px;
+	}
+	.search-input {
+		padding-left: 30px;
+	}
+	.banner {
 		padding-top: 4rem;
 		padding-bottom: 4rem;
 	}
@@ -184,8 +177,8 @@
 	}
 </style>
 <script>
-  function openTab() {
-    const triggerFirstTabEl = document.querySelector('#nav-tab :first-child')
-    bootstrap.Tab.getInstance(triggerFirstTabEl).show() // Select All Tab
-  }
+	function openTab() {
+		const triggerFirstTabEl = document.querySelector('#nav-tab :first-child')
+		bootstrap.Tab.getInstance(triggerFirstTabEl).show() // Select All Tab
+	}
 </script>

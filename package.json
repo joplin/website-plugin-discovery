@@ -3,7 +3,8 @@
 	"version": "1.0.0",
 	"main": "build.js",
 	"scripts": {
-		"build": "tsc && node build.js"
+		"build": "tsc && node build.js",
+		"lint": "prettier --write ."
 	},
 	"license": "MIT",
 	"dependencies": {
@@ -16,6 +17,15 @@
 		"@types/fs-extra": "^9.0.13",
 		"@types/klaw-sync": "^6.0.1",
 		"@types/mustache": "^4.2.1",
-		"@types/node": "^14.0.14"
+		"@types/node": "^14.0.14",
+		"@typescript-eslint/eslint-plugin": "^5.0.0",
+		"eslint": "^8.0.1",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-config-standard-with-typescript": "^22.0.0",
+		"eslint-plugin-import": "^2.25.2",
+		"eslint-plugin-n": "^15.0.0",
+		"eslint-plugin-promise": "^6.0.0",
+		"prettier": "2.7.1",
+		"typescript": "*"
 	}
 }
