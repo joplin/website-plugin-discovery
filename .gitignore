@@ -22,4 +22,5 @@ pnpm-debug.log*
 .DS_Store
 
 # js artifact
-**/*.js
+data/*.js
+/*.js

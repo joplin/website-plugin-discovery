@@ -15,7 +15,7 @@ interface Data {
 	[key: string]: any
 }
 
-function clearBuildPath(buildPath: string) {
+function clearBuildPath(buildPath: string): void {
 	try {
 		fs.rmSync(buildPath, { recursive: true })
 	} catch (err) {
@@ -23,7 +23,7 @@ function clearBuildPath(buildPath: string) {
 	}
 }
 
-function copyStaticFiles(buildPath: string) {
+function copyStaticFiles(buildPath: string): void {
 	try {
 		fs.copySync('./assets', buildPath)
 	} catch (err) {
@@ -35,7 +35,7 @@ function loadData(): Data {
 	const dataFiles = klawSync('./data', { nodir: true })
 	const data: Data = {}
 	dataFiles.forEach((file) => {
-		let dataItem = require(file.path)
+		const dataItem = require(file.path)
 		data[path.basename(file.path, '.js')] = dataItem()
 	})
 	return data
@@ -52,7 +52,7 @@ function loadTemplate(): Template[] {
 	})
 }
 
-function renderTemplates(templates: Template[], data: Data) {
+function renderTemplates(templates: Template[], data: Data): void {
 	templates.forEach((template) => {
 		const distPath = path.join(
 			path.resolve(config.distDir),

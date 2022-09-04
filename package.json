@@ -8,6 +8,7 @@
 	},
 	"license": "MIT",
 	"dependencies": {
+		"@joplin/lib": "~2.9",
 		"chalk": "^4.1.0",
 		"fs-extra": "^10.1.0",
 		"klaw-sync": "^6.0.0",
