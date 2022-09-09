@@ -24,3 +24,4 @@ pnpm-debug.log*
 # js artifact
 data/*.js
 /*.js
+!jest.config.js

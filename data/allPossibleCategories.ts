@@ -1,11 +1,12 @@
-module.exports = function () {
-	// const allPossibleCategoriesRaw = require('@joplin/lib/pluginCategories.json');
+export interface Category {
+	name: string;
+	displayName: string;
+}
 
-	// interface Category {
-	// 	name: string
-	// }
-
+export default function getAllPossibleCategories(): Category[]{
 	// allPossibleCategories will be obtained from @joplin/lib in the next step
+	// "@joplin/lib": "~2.9",
+	// const allPossibleCategoriesRaw = require('@joplin/lib/pluginCategories.json');
 	const allPossibleCategoriesRaw = [
 		'Appearance',
 		'Developer Tools',
@@ -23,7 +24,7 @@ module.exports = function () {
 
 	const allPossibleCategories = allPossibleCategoriesRaw.map((category) => {
 		return {
-			name: category.toLowerCase().replace(/[ ]/g, '-'),
+			name: category.toLowerCase().replace(/[\s]/g, '-'),
 			displayName: category,
 		}
 	})

@@ -5,13 +5,13 @@ import fs from 'fs-extra'
 
 const config = require('./config.json')
 
-interface Template {
+export interface Template {
 	path: string
 	name: string
 	content: string
 }
 
-interface Data {
+export interface Data {
 	[key: string]: any
 }
 
@@ -31,17 +31,19 @@ function copyStaticFiles(buildPath: string): void {
 	}
 }
 
-function loadData(): Data {
+export async function loadData(): Promise<Data> {
 	const dataFiles = klawSync('./data', { nodir: true })
 	const data: Data = {}
-	dataFiles.forEach((file) => {
-		const dataItem = require(file.path)
-		data[path.basename(file.path, '.js')] = dataItem()
-	})
+	for (let i = 0; i < dataFiles.length; i++) {
+		const file = dataFiles[i];
+		if (!file.path.includes('.test') && file.path.endsWith('.js')) {
+			data[path.basename(file.path, '.js')] = await (await import(file.path)).default;
+		}
+	}
 	return data
 }
 
-function loadTemplate(): Template[] {
+export function loadTemplate(): Template[] {
 	const templateFiles = klawSync('./pages', { nodir: true })
 	return templateFiles.map((file) => {
 		return {
@@ -52,7 +54,7 @@ function loadTemplate(): Template[] {
 	})
 }
 
-function renderTemplates(templates: Template[], data: Data): void {
+export function renderTemplates(templates: Template[], data: Data): void {
 	templates.forEach((template) => {
 		const distPath = path.join(
 			path.resolve(config.distDir),
@@ -66,10 +68,10 @@ function renderTemplates(templates: Template[], data: Data): void {
 	})
 }
 
-;(function () {
+void (async function () {
 	clearBuildPath(config.distDir)
 	copyStaticFiles(config.distDir)
 	const template = loadTemplate()
-	const data = loadData()
+	const data = await loadData()
 	renderTemplates(template, data)
-})()
+})();

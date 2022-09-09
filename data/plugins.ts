@@ -1,4 +1,4 @@
-async function fetchPluginData() {
+async function fetchPluginData(): Promise<string[]> {
 	let plugins = []
 	const mirrors = [
 		'https://raw.githubusercontent.com/joplin/plugins/master/manifests.json',
@@ -16,7 +16,6 @@ async function fetchPluginData() {
 	throw new Error("Cannot find avalible Github mirror");
 }
 
-module.exports = function () {
-	const plugins = fetchPluginData()
-	return plugins
-}
+export default async function getPlugins(): Promise<string[]> {
+	return await fetchPluginData();
+};
