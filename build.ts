@@ -69,6 +69,7 @@ export function renderTemplates(templates: Template[], data: Data): void {
 }
 
 void (async function () {
+	fs.ensureDirSync(config.distDir);
 	clearBuildPath(config.distDir)
 	copyStaticFiles(config.distDir)
 	const template = loadTemplate()
