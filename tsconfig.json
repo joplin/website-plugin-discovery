@@ -1,0 +1,10 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"target": "es2015",
+
+		"strict": true,
+		"esModuleInterop": true
+	},
+	"exclude": ["site/**/*", "node_modules/**/*"]
+}

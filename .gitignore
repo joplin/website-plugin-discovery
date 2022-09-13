@@ -20,3 +20,8 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# js artifact
+data/*.js
+/*.js
+!jest.config.js
