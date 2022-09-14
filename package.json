@@ -5,7 +5,7 @@
 	"scripts": {
 		"build": "tsc && node build.js",
 		"lint": "prettier --write .",
-		"test": "jest"
+		"test": "tsc && jest"
 	},
 	"license": "MIT",
 	"dependencies": {

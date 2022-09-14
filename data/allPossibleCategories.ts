@@ -1,9 +1,12 @@
+import getPlugins from './plugins'
+
 export interface Category {
-	name: string;
-	displayName: string;
+	name: string
+	displayName: string
+	plugins: string[]
 }
 
-export default function getAllPossibleCategories(): Category[]{
+export default async function getAllPossibleCategories(): Promise<Category[]> {
 	// allPossibleCategories will be obtained from @joplin/lib in the next step
 	// "@joplin/lib": "~2.9",
 	// const allPossibleCategoriesRaw = require('@joplin/lib/pluginCategories.json');
@@ -21,11 +24,16 @@ export default function getAllPossibleCategories(): Category[]{
 		'Personal Knowledge Management',
 	]
 
-
+	const plugins = await getPlugins()
 	const allPossibleCategories = allPossibleCategoriesRaw.map((category) => {
 		return {
 			name: category.toLowerCase().replace(/[\s]/g, '-'),
 			displayName: category,
+			plugins: plugins.all.filter(
+				(plugin: any) =>
+					Boolean(plugin.categories) &&
+					plugin.categories.includes(category.toLowerCase())
+			),
 		}
 	})
 	// const allPossibleCategories = allPossibleCategoriesRaw.map((category: Category) => {
