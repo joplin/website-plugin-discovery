@@ -1,9 +1,9 @@
-import getPlugins from './plugins'
+import getPlugins, { JoplinPlugin } from './plugins'
 
 export interface Category {
 	name: string
 	displayName: string
-	plugins: string[]
+	plugins: JoplinPlugin[]
 }
 
 export default async function getAllPossibleCategories(): Promise<Category[]> {
@@ -30,7 +30,7 @@ export default async function getAllPossibleCategories(): Promise<Category[]> {
 			name: category.toLowerCase().replace(/[\s]/g, '-'),
 			displayName: category,
 			plugins: plugins.all.filter(
-				(plugin: any) =>
+				(plugin: JoplinPlugin) =>
 					Boolean(plugin.categories) &&
 					plugin.categories.includes(category.toLowerCase())
 			),

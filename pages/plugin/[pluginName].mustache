@@ -9,130 +9,130 @@
 	<link rel="stylesheet" href="../../fontawesome-6.2.0/css/all.min.css"  type="text/css"/>
 	<link rel="stylesheet" href="../../style.css"/>
 	<script src="../../bootstrap-5.2.0-dist/js/bootstrap.bundle.min.js"></script>
-  <title>Joplin Plugins - {{plugin.name}}</title>
+	<title>Joplin Plugins - {{plugin.name}}</title>
 </head>
 
 <body>
 <script type="module" src="../../search.js"></script>
 <nav class="navbar navbar-expand-lg bg-light sticky-top">
-  <div class="container">
-    <a class="navbar-brand" href="{{&config.site}}">
-      <img src="../../joplin-logo.png" width="110">
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{&config.site}}/#trending-section" onclick="openTab('all')">Trending</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{&config.site}}/#recommended-section" onclick="openTab('all')">Recommended</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{&config.site}}/#all-plugins-section" onclick="openTab('all')">All Plugins</a>
-        </li>
-      </ul>
-      <div class="search-field col-12 col-lg-3 mb-3 mb-lg-0 me-lg-3">
+	<div class="container">
+		<a class="navbar-brand" href="{{&config.site}}">
+			<img src="../../joplin-logo.png" width="110">
+		</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="{{&config.site}}/#trending-section" onclick="openTab('all')">Trending</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{&config.site}}/#recommended-section" onclick="openTab('all')">Recommended</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{&config.site}}/#all-plugins-section" onclick="openTab('all')">All Plugins</a>
+				</li>
+			</ul>
+			<div class="search-field col-12 col-lg-3 mb-3 mb-lg-0 me-lg-3">
 				<i class="fa-solid fa-magnifying-glass search-icon"></i>
-        <form action="{{&config.site}}/search.html" method="get">
-          <input type="search" id="search" name="search" class="form-control search-input" placeholder="Search..." aria-label="Search" autocomplete="off">
-        </form>
-      </div>
-    </div>
-  </div>
+				<form action="{{&config.site}}/search.html" method="get">
+					<input type="search" id="search" name="search" class="form-control search-input" placeholder="Search..." aria-label="Search" autocomplete="off">
+				</form>
+			</div>
+		</div>
+	</div>
 </nav>
 <main>
-  <div class="container my-5">
-    <div class="row">
-      <!-- Main Section -->
-      <div class="col-lg-8 col-12 py-2">
-        <div class="card px-4 py-4 shadow">
-          <div class="card-body">
-            <h5 class="pb-3">
-              {{#plugin._recommended}}
-                <span class="plugin-recommended me-2 badge text-black">Recommended</span>
-              {{/plugin._recommended}}
-              {{#plugin.categories}}
-                <span class="plugin-category me-2 badge bg-secondary">{{.}}</span>
-              {{/plugin.categories}}
-            </h5>
-            
-            <h3 class="card-title">{{plugin.name}}</h3>
-            <h3 class="card-title pb-4">By <div style="display: inline;" class="text-primary">{{plugin.author}}
-              </div>
-            </h3>
-            
-            <p class="card-text pb-4">{{plugin.description}}</p>
-            <div class="row">
-              <div class="col-lg-12 col-12">
-                <a href="{{plugin.downloadLink}}" class="btn btn-primary w-100">Download Plugin</a>
-              </div>
-              {{! <div class="col-lg-6 col-12">
-                <a href="#" class="btn btn-primary w-100">Get Plugin in Joplin</a>
-              </div> }}
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Info Section -->
-      <div class="col-lg-4 col-12 py-2">
-        <div class="card px-2 py-2 shadow">
-          <div class="card-body">
-            <ul class="list-group list-group-flush text-break">
-              <li class="list-group-item d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                  <div class="fw-bold">Author</div>
-                  {{plugin.author}}
-                </div>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                  <div class="fw-bold">Version</div>
-                  {{plugin.version}}
-                </div>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                  <div class="fw-bold">Minimal App Version</div>
-                  {{plugin.app_min_version}}
-                </div>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                  <div class="fw-bold">Downloads</div>
-                  {{plugin.downloadCount}}
-                </div>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                  <div class="fw-bold">Last Updated</div>
-                  {{plugin.timeModified}}
-                </div>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                  <div class="fw-bold">Links</div>
-                  {{#plugin.repository_url}}
-                    <a href={{.}} style="display: block;"><i class="fa-solid fa-link"></i> Repository</a>
-                  {{/plugin.repository_url}}
-                  {{#plugin.homepage_url}}
-                    <a href={{.}} style="display: block;"><i class="fa-solid fa-link"></i> Homepage</a>
-                  {{/plugin.homepage_url}}
-                  {{^plugin.repository_url}}
-                    {{^plugin.homepage_url}}
-                      No links
-                    {{/plugin.homepage_url}}
-                  {{/plugin.repository_url}}
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+	<div class="container my-5">
+		<div class="row">
+			<!-- Main Section -->
+			<div class="col-lg-8 col-12 py-2">
+				<div class="card px-4 py-4 shadow">
+					<div class="card-body">
+						<h5 class="pb-3">
+							{{#plugin._recommended}}
+								<span class="plugin-recommended me-2 badge text-black">Recommended</span>
+							{{/plugin._recommended}}
+							{{#plugin.categories}}
+								<span class="plugin-category me-2 badge bg-secondary">{{.}}</span>
+							{{/plugin.categories}}
+						</h5>
+						
+						<h3 class="card-title">{{plugin.name}}</h3>
+						<h3 class="card-title pb-4">By <div style="display: inline;" class="text-primary">{{plugin.author}}
+							</div>
+						</h3>
+						
+						<p class="card-text pb-4">{{plugin.description}}</p>
+						<div class="row">
+							<div class="col-lg-12 col-12">
+								<a href="{{plugin.downloadLink}}" class="btn btn-primary w-100">Download Plugin</a>
+							</div>
+							{{! <div class="col-lg-6 col-12">
+								<a href="#" class="btn btn-primary w-100">Get Plugin in Joplin</a>
+							</div> }}
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Info Section -->
+			<div class="col-lg-4 col-12 py-2">
+				<div class="card px-2 py-2 shadow">
+					<div class="card-body">
+						<ul class="list-group list-group-flush text-break">
+							<li class="list-group-item d-flex justify-content-between align-items-start">
+								<div class="ms-2 me-auto">
+									<div class="fw-bold">Author</div>
+									{{plugin.author}}
+								</div>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-start">
+								<div class="ms-2 me-auto">
+									<div class="fw-bold">Version</div>
+									{{plugin.version}}
+								</div>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-start">
+								<div class="ms-2 me-auto">
+									<div class="fw-bold">Minimal App Version</div>
+									{{plugin.app_min_version}}
+								</div>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-start">
+								<div class="ms-2 me-auto">
+									<div class="fw-bold">Downloads</div>
+									{{plugin.downloadCount}}
+								</div>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-start">
+								<div class="ms-2 me-auto">
+									<div class="fw-bold">Last Updated</div>
+									{{plugin.timeModified}}
+								</div>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-start">
+								<div class="ms-2 me-auto">
+									<div class="fw-bold">Links</div>
+									{{#plugin.repository_url}}
+										<a href={{.}} style="display: block;"><i class="fa-solid fa-link"></i> Repository</a>
+									{{/plugin.repository_url}}
+									{{#plugin.homepage_url}}
+										<a href={{.}} style="display: block;"><i class="fa-solid fa-link"></i> Homepage</a>
+									{{/plugin.homepage_url}}
+									{{^plugin.repository_url}}
+										{{^plugin.homepage_url}}
+											No links
+										{{/plugin.homepage_url}}
+									{{/plugin.repository_url}}
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </main>
 		
 </body>
@@ -140,17 +140,17 @@
 </html>
 
 <script>
-  function openTab(tab) {
+	function openTab(tab) {
 		if(tab === 'all'){
 			const triggerFirstTabEleList = document.querySelectorAll('#nav-tab :first-child')
 			for (let i = 0; i < triggerFirstTabEleList.length; i++) {
 				bootstrap.Tab.getInstance(triggerFirstTabEleList[i]).show() // Select All Tab
 			}
 		}
-  }
+	}
 </script>
-    
-    
-    
-    
-    
+		
+		
+		
+		
+		

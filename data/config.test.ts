@@ -1,8 +1,8 @@
-import getConfig from "./config";
+import getConfig, {Config} from "./config";
 
 jest.setTimeout(120000)
 
-let config: { mode: string, [key: string]: any };
+let config: Config;
 
 beforeAll(async () => {
 	config = await getConfig()

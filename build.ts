@@ -2,6 +2,7 @@ import Mustache from 'mustache'
 import path from 'node:path'
 import klawSync from 'klaw-sync'
 import fs from 'fs-extra'
+import { JoplinPlugin } from './data/plugins'
 
 const config = require('./config.js')
 
@@ -72,7 +73,7 @@ export function renderTemplates(
 	templates: Template[],
 	globalData: Data,
 	partials: Data,
-	routes: any
+	routes: Data
 ): void {
 	templates.forEach((template) => {
 		if (template.name === '[pluginName]') {
@@ -118,7 +119,7 @@ void (async function () {
 	const globalData = await loadData()
 	const partials = loadTemplatePartials()
 	const routes = {
-		pluginName: globalData.plugins.all.map((plugin: any) => plugin.id),
+		pluginName: globalData.plugins.all.map((plugin: JoplinPlugin) => plugin.id),
 	}
 	renderTemplates(template, globalData, partials, routes)
 })()

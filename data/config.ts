@@ -1,5 +1,11 @@
 const config = require('../config.js')
 
-export default async function (): Promise<any> {
+export interface Config {
+	rootDir: string
+	distDir: string
+	site: string
+}
+
+export default async function (): Promise<Config> {
 	return config
 }
