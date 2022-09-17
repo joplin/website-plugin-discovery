@@ -5,7 +5,7 @@
 	"scripts": {
 		"build": "tsc && node build.js",
 		"lint": "prettier --write .",
-		"test": "tsc && jest"
+		"test": "jest"
 	},
 	"license": "MIT",
 	"dependencies": {
@@ -29,6 +29,7 @@
 		"eslint-plugin-promise": "^6.0.0",
 		"jest": "^29.0.2",
 		"prettier": "2.7.1",
+		"ts-jest": "^29.0.1",
 		"typescript": "*"
 	}
 }
