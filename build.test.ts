@@ -27,7 +27,9 @@ describe('build', () => {
 		expect(partials).toBeTruthy()
 	})
 	test('should gernerate html', () => {
-		renderTemplates(templates, data, partials, {pluginName: ["com.whatever.quick-links"]})
+		renderTemplates(templates, data, partials, {
+			pluginName: ['com.whatever.quick-links'],
+		})
 		expect(fs.readFileSync('./site/index.html', 'utf8')).toBeTruthy()
 	})
 })

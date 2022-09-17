@@ -3,28 +3,28 @@ export interface Manifest {
 }
 
 export interface JoplinPlugin {
-	manifest_version: number,
-	id: string,
-	app_min_version: string,
-	version: string,
-	name: string,
-	description: string,
-	author: string,
-	homepage_url: string,
-	repository_url: string,
-	keywords: string[],
-	categories: string[],
-	_publish_hash: string,
-	_publish_commit: string,
-	_npm_package_name: string,
-	_recommended: boolean,
-	downloadCount: number,
-	timeModified: string,
-	domId?: string,
+	manifest_version: number
+	id: string
+	app_min_version: string
+	version: string
+	name: string
+	description: string
+	author: string
+	homepage_url: string
+	repository_url: string
+	keywords: string[]
+	categories: string[]
+	_publish_hash: string
+	_publish_commit: string
+	_npm_package_name: string
+	_recommended: boolean
+	downloadCount: number
+	timeModified: string
+	domId?: string
 }
 
 async function fetchPluginData(): Promise<Manifest> {
-	let plugins;
+	let plugins
 	const mirrors = [
 		'https://raw.githubusercontent.com/joplin/plugins/master/manifests.json',
 		'https://raw.staticdn.net/joplin/plugins/master/manifests.json',
@@ -45,7 +45,10 @@ function convertToDomId(id: string): string {
 	return id.toLowerCase().replace(/[.]/g, '-')
 }
 
-async function getTrendingPlugins(plugins: Manifest, topn: number): Promise<JoplinPlugin[]> {
+async function getTrendingPlugins(
+	plugins: Manifest,
+	topn: number
+): Promise<JoplinPlugin[]> {
 	const result = []
 	for (const pluginId in plugins) {
 		result.push({
