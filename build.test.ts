@@ -46,3 +46,7 @@ describe('build', () => {
 		expect(fs.readFileSync('./test/dist/index.html', 'utf8')).toBeTruthy()
 	})
 })
+
+afterAll(async () => {
+	await fs.remove('./test/dist')
+})
