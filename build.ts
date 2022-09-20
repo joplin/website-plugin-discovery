@@ -73,14 +73,15 @@ export function renderTemplates(
 	templates: Template[],
 	globalData: Data,
 	partials: Data,
-	routes: Data
+	routes: Data,
+	distRootPath: string
 ): void {
 	templates.forEach((template) => {
 		if (template.name === '[pluginName]') {
 			console.log(`Rendering dynamic route pluginName`)
 			routes.pluginName.forEach((key: string) => {
 				const distPath = path.join(
-					path.resolve(config.distDir),
+					path.resolve(distRootPath),
 					path.relative(config.rootDir, template.path).replace('pages', ''),
 					key,
 					'index.html'
@@ -99,7 +100,7 @@ export function renderTemplates(
 			})
 		} else {
 			const distPath = path.join(
-				path.resolve(config.distDir),
+				path.resolve(distRootPath),
 				path.relative(config.rootDir, template.path).replace('pages', ''),
 				template.name + '.html'
 			)
@@ -121,5 +122,5 @@ export async function build(): Promise<void> {
 	const routes = {
 		pluginName: globalData.plugins.all.map((plugin: JoplinPlugin) => plugin.id),
 	}
-	renderTemplates(template, globalData, partials, routes)
+	renderTemplates(template, globalData, partials, routes, config.distDir)
 }

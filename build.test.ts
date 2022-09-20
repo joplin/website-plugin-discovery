@@ -40,8 +40,9 @@ describe('build', () => {
 			{},
 			{
 				pluginName: ['com.whatever.quick-links'],
-			}
+			},
+			'./test/dist'
 		)
-		expect(fs.readFileSync('./site/index.html', 'utf8')).toBeTruthy()
+		expect(fs.readFileSync('./test/dist/index.html', 'utf8')).toBeTruthy()
 	})
 })
