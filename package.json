@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"main": "build.js",
 	"scripts": {
-		"build": "tsc && node build.js",
+		"build": "tsc && node -e \"require('./build.js').build()\"",
 		"lint": "prettier --write .",
 		"test": "jest"
 	},

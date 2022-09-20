@@ -7,6 +7,7 @@ import {
 	renderTemplates,
 } from './build'
 import fs from 'fs-extra'
+import path from 'path'
 
 jest.setTimeout(120000)
 
@@ -27,9 +28,20 @@ describe('build', () => {
 		expect(partials).toBeTruthy()
 	})
 	test('should gernerate html', () => {
-		renderTemplates(templates, data, partials, {
-			pluginName: ['com.whatever.quick-links'],
-		})
+		renderTemplates(
+			[
+				{
+					path: path.resolve('./pages'),
+					name: 'index',
+					content: 'hello, world!',
+				},
+			],
+			{},
+			{},
+			{
+				pluginName: ['com.whatever.quick-links'],
+			}
+		)
 		expect(fs.readFileSync('./site/index.html', 'utf8')).toBeTruthy()
 	})
 })

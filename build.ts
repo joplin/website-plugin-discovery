@@ -111,7 +111,7 @@ export function renderTemplates(
 	})
 }
 
-void (async function () {
+export async function build(): Promise<void> {
 	fs.ensureDirSync(config.distDir)
 	clearBuildPath(config.distDir)
 	copyStaticFiles(config.distDir)
@@ -122,4 +122,4 @@ void (async function () {
 		pluginName: globalData.plugins.all.map((plugin: JoplinPlugin) => plugin.id),
 	}
 	renderTemplates(template, globalData, partials, routes)
-})()
+}
