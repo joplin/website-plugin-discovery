@@ -2,6 +2,10 @@ export interface Manifest {
 	[id: string]: JoplinPlugin
 }
 
+export interface Stats {
+	[id: string]: any
+}
+
 export interface JoplinPlugin {
 	manifest_version: number
 	id: string
@@ -41,6 +45,24 @@ async function fetchPluginData(): Promise<Manifest> {
 	throw new Error('Cannot find avalible Github mirror')
 }
 
+async function fetchStatsData(): Promise<Stats> {
+	let stats
+	const mirrors = [
+		'https://raw.githubusercontent.com/joplin/plugins/master/stats.json',
+		'https://raw.staticdn.net/joplin/plugins/master/stats.json',
+		'https://raw.fastgit.org/joplin/plugins/master/stats.json',
+	]
+	for (let index = 0; index < mirrors.length; index++) {
+		try {
+			stats = await (await fetch(mirrors[index])).json()
+			return stats
+		} catch (error) {
+			continue
+		}
+	}
+	throw new Error('Cannot find avalible Github mirror')
+}
+
 function convertToDomId(id: string): string {
 	return id.toLowerCase().replace(/[.]/g, '-')
 }
@@ -54,11 +76,12 @@ async function getTrendingPlugins(
 		result.push({
 			id: pluginId,
 			downloadCount: plugins[pluginId].downloadCount,
+			popularity: plugins[pluginId].downloadCount / (Date.now() - new Date(plugins[pluginId].timeModified).getTime()),
 		})
 	}
 
 	return result
-		.sort((a, b) => b.downloadCount - a.downloadCount)
+		.sort((a, b) => b.popularity - a.popularity)
 		.slice(0, topn)
 		.map((item) => {
 			return {
@@ -69,22 +92,18 @@ async function getTrendingPlugins(
 }
 
 async function getPluginData(): Promise<Manifest> {
-	const period = 'last-week'
 
 	const rawPlugins = await fetchPluginData()
-	for (const pluginId in rawPlugins) {
-		const packageName: string = rawPlugins[pluginId]._npm_package_name
-		const downloadStat: { downloads: number } = await (
-			await fetch(
-				`https://api.npmjs.org/downloads/point/${period}/${packageName}`
-			)
-		).json()
-		const registry = await (
-			await fetch(`https://registry.npmjs.org/${packageName}`)
-		).json()
+	const rawStats = await fetchStatsData()
 
-		rawPlugins[pluginId].downloadCount = downloadStat.downloads
-		rawPlugins[pluginId].timeModified = registry.time.modified
+	for (const pluginId in rawPlugins) {
+		if (rawStats[pluginId][rawPlugins[pluginId].version] != null) {
+			rawPlugins[pluginId].downloadCount = rawStats[pluginId][rawPlugins[pluginId].version].downloadCount
+			rawPlugins[pluginId].timeModified = rawStats[pluginId][rawPlugins[pluginId].version].createdAt	
+		} else {
+			rawPlugins[pluginId].downloadCount = 0
+			rawPlugins[pluginId].timeModified = "N/A"
+		}
 	}
 
 	return rawPlugins
