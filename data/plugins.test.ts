@@ -1,14 +1,16 @@
-import getPlugins from './plugins';
+import getPlugins from './plugins'
 
-let plugins: string[] = [];
+jest.setTimeout(120000)
+
+let plugins: any
 
 beforeAll(async () => {
-	plugins = await getPlugins();
-	return plugins;
-});
+	plugins = await getPlugins()
+	return plugins
+})
 
 describe('plugin data', () => {
 	test('should not be empty', async () => {
-		expect(plugins.length).toBeGreaterThan(0);
-	});
-});
+		expect(plugins).toBeTruthy()
+	})
+})

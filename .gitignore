@@ -25,3 +25,7 @@ pnpm-debug.log*
 data/*.js
 /*.js
 !jest.config.js
+!/config.js
+
+# test
+test/dist/*

@@ -5,8 +5,9 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width">
 	<link rel="icon" type="image/x-icon" href="favicon.png" />
-	<link href="bootstrap-5.2.0-dist/css/bootstrap.min.css" rel="stylesheet"  type="text/css">
+	<link rel="stylesheet" href="bootstrap-5.2.0-dist/css/bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="fontawesome-6.2.0/css/all.min.css"  type="text/css"/>
+	<link rel="stylesheet" href="./style.css"/>
 	<script src="bootstrap-5.2.0-dist/js/bootstrap.bundle.min.js"></script>
 	<title>Joplin Plugins</title>
 </head>
@@ -90,27 +91,50 @@
 						<div class="row mx-3 py-4">
 							<div class="anchor" id="trending-section"></div>
 							<h5 class="py-3">Trending Plugins</h5>
+								{{#plugins}}
+									{{#trending}}
+										{{> pluginCard}}
+									{{/trending}}
+								{{/plugins}}
 						</div>
 						<!-- Recommended Section -->
 						<div class="row mx-3 py-4">
 							<div class="anchor" id="recommended-section"></div>
 							<h5 class="py-3">Recommended Plugins</h5>
+								{{#plugins}}
+									{{#recommended}}
+										{{> pluginCard}}
+									{{/recommended}}
+								{{/plugins}}
 						</div>
 						<!-- All Plugins -->
 						<div class="row mx-3 py-4">
 							<div class="anchor" id="all-plugins-section"></div>
 							<h5 class="py-3">All Plugins</h5>
+								{{#plugins}}
+									{{#all}}
+										{{> pluginCard}}
+									{{/all}}
+								{{/plugins}}
 						</div>
 					</div>
 
 					<!-- Plugins in categories -->
-					{{#allPossibleCategories}}
-						<div class="tab-pane fade show" id="nav-{{name}}" role="tabpanel"
-						aria-labelledby="nav-{{name}}-tab" tabindex='0'>
-							<div class="row mx-3 py-4">
+						{{#allPossibleCategories}}
+							<div class="tab-pane fade show" id="nav-{{name}}" role="tabpanel" aria-labelledby="nav-{{name}}-tab" tabindex='0'>
+								<div class="row mx-3 py-4">
+									{{#plugins}}
+										{{> pluginCard}}
+									{{/plugins}}
+									{{^plugins}}
+										<div class="py-5">
+											<p class="text-center mb-3"><span class="fa-solid fa-box-open fa-4x text-muted"></span></p>
+											<h5 class="text-muted text-center mb-2">Oops... There are no plugins under this category.</h5> 
+										</div>
+									{{/plugins}}
+								</div>
 							</div>
-						</div>
-					{{/allPossibleCategories}}
+						{{/allPossibleCategories}}
 
 				</div>
 			</div>
@@ -121,59 +145,6 @@
 
 </html>
 
-<style>
-	:root {
-		--bs-body-bg: #ebebeb;
-	}
-	.navbar{
-		padding: 20px 40px 20px 40px;
-	}
-	.search-field {
-		position: relative;
-	}
-	.search-icon {
-		position: absolute;
-		padding: 10px;
-		pointer-events: none;
-		left: 0px;
-	}
-	.search-input {
-		padding-left: 30px;
-	}
-	.banner {
-		padding-top: 4rem;
-		padding-bottom: 4rem;
-	}
-	.nav-pills {
-		--bs-nav-pills-border-radius: 0.375rem;
-		--bs-nav-pills-link-active-color: var(--bs-black);
-		--bs-nav-pills-link-active-bg: var(--bs-gray-300);
-	}
-	.nav {
-		--bs-nav-link-color: var(--bs-gray-700);
-		--bs-nav-link-hover-color: var(--bs-black);
-		--bs-nav-link-disabled-color: #6c757d;
-	}
-	.nav-list {
-		background-color: white;
-		border-radius: 0.375rem;
-	}
-	.tab-content {
-		min-height: auto;
-		background-color: white;
-		border-radius: 0.375rem;
-	}
-	.anchor {
-		position: relative;
-		top: -100px;
-		display: block;
-		height: 0;
-		overflow: hidden;
-	}
-	.capitalize{
-		text-transform: capitalize;
-	}
-</style>
 <script>
 	function openTab() {
 		const triggerFirstTabEl = document.querySelector('#nav-tab :first-child')

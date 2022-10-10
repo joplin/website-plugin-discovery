@@ -1,0 +1,35 @@
+<div class="col-md-12 col-lg-4 gx-3 mb-3">
+	<li class="link-card {{domId}}">
+			<h5 class="wrap pb-2">
+				<a href="plugin/{{id}}" class="plugin-title">
+					<span class="fa-regular fa-window-maximize"></span>
+					{{ name }}
+				</a>
+			</h5>
+			<div class="pb-2">
+			{{#_recommended}}
+				<span class="plugin-recommended me-2 badge text-black">Recommended</span>
+			{{/_recommended}}
+			{{#categories}}
+				<span class="plugin-category me-2 badge bg-secondary">{{.}}</span>
+			{{/categories}}
+			</div>
+
+			<p class="plugin-description">
+				{{ description }}
+			</p>
+			
+			<p class="plugin-action">
+				{{! See More <span class="plugin-link-arrow">&rarr;</span> }}
+				<a href="plugin/{{id}}" class="btn btn-sm btn-outline-dark">
+					See More
+				</a>
+				<a href="https://github.com/joplin/plugins/releases/download/plugins/{{id}}@{{version}}.jpl" target="_blank" class="btn btn-sm btn-outline-dark download-btn" onclick="download(event, '{{id}}')">
+					<i class="fa-solid fa-download"></i>
+				</a>
+				<button type="button" class="btn btn-sm btn-outline-dark toggle-cart-btn" onclick="togglePluginCart(event, '{{id}}')">
+					<i class="fa-solid fa-cart-plus "></i>
+				</button>
+			</p>
+	</li>
+</div>
