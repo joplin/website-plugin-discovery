@@ -28,7 +28,7 @@ jobs:
         node-version: '18'
         cache: 'yarn'
     - run: yarn install
-    - run: yarn build
+    - run: yarn build-production
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v1
       with:

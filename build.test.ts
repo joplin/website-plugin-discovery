@@ -8,6 +8,7 @@ import {
 } from './build'
 import fs from 'fs-extra'
 import path from 'path'
+import { devConfig } from './config'
 
 jest.setTimeout(120000)
 
@@ -29,6 +30,7 @@ describe('build', () => {
 	})
 	test('should gernerate html', () => {
 		renderTemplates(
+			devConfig,
 			[
 				{
 					path: path.resolve('./pages'),

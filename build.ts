@@ -3,8 +3,7 @@ import path from 'node:path'
 import klawSync from 'klaw-sync'
 import fs from 'fs-extra'
 import { JoplinPlugin } from './data/plugins'
-
-const config = require('./config.js')
+import { devConfig, productionConfig, BuildConfig } from './config'
 
 export interface Template {
 	path: string
@@ -70,6 +69,7 @@ export function loadTemplatePartials(): Data {
 }
 
 export function renderTemplates(
+	config: BuildConfig,
 	templates: Template[],
 	globalData: Data,
 	partials: Data,
@@ -112,15 +112,20 @@ export function renderTemplates(
 	})
 }
 
-export async function build(): Promise<void> {
+export async function build(mode: 'dev'|'production'): Promise<void> {
+	const config = mode === 'dev' ? devConfig : productionConfig
+
 	fs.ensureDirSync(config.distDir)
 	clearBuildPath(config.distDir)
 	copyStaticFiles(config.distDir)
 	const template = loadTemplate()
-	const globalData = await loadData()
+	const globalData: Data = {
+		...(await loadData()),
+		config
+	}
 	const partials = loadTemplatePartials()
 	const routes = {
 		pluginName: globalData.plugins.all.map((plugin: JoplinPlugin) => plugin.id),
 	}
-	renderTemplates(template, globalData, partials, routes, config.distDir)
+	renderTemplates(config, template, globalData, partials, routes, config.distDir)
 }
