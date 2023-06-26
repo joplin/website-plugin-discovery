@@ -5,7 +5,8 @@ on:
     branches: [ "main" ]
   schedule:
     # * is a special character in YAML so you have to quote this string
-    - cron:  '*/30 * * * *'
+    # Run on the 0th minute of hour 1 of every day
+    - cron:  '0 1 * * *'
   workflow_dispatch:
   
 # Allow this job to clone the repo and create a page deployment
