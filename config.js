@@ -13,7 +13,7 @@ const config = {
 	prod: {
 		rootDir: './',
 		distDir: './site',
-		site: '',
+		site: '/website-plugin-discovery',
 	},
 }
 module.exports = config[config.mode]
