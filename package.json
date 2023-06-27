@@ -5,7 +5,7 @@
 	"scripts": {
 		"build": "tsc && node -e \"require('./build.js').build('dev')\"",
 		"build-production": "tsc && node -e \"require('./build.js').build('production')\"",
-		"lint": "prettier --write .",
+		"lint": "eslint --fix . && prettier --ignore-path .eslintignore --write .",
 		"test": "jest"
 	},
 	"license": "MIT",

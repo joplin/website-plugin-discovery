@@ -2,13 +2,13 @@ name: Build and Deploy
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ['main']
   schedule:
     # * is a special character in YAML so you have to quote this string
     # Run on the 0th minute of hour 1 of every day
-    - cron:  '0 1 * * *'
+    - cron: '0 1 * * *'
   workflow_dispatch:
-  
+
 # Allow this job to clone the repo and create a page deployment
 permissions:
   contents: read
@@ -17,22 +17,21 @@ permissions:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js 18
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-        cache: 'yarn'
-    - run: yarn install
-    - run: yarn build-production
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v1
-      with:
-        path: ./site
+      - uses: actions/checkout@v3
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'yarn'
+      - run: yarn install
+      - run: yarn build-production
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: ./site
   deploy:
     environment:
       name: github-pages

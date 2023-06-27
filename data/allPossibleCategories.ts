@@ -1,9 +1,9 @@
-import getPlugins, { JoplinPlugin } from './plugins'
+import getPlugins, { type JoplinPlugin } from './plugins';
 
 export interface Category {
-	name: string
-	displayName: string
-	plugins: JoplinPlugin[]
+	name: string;
+	displayName: string;
+	plugins: JoplinPlugin[];
 }
 
 export default async function getAllPossibleCategories(): Promise<Category[]> {
@@ -22,25 +22,24 @@ export default async function getAllPossibleCategories(): Promise<Category[]> {
 		'Editor',
 		'Files',
 		'Personal Knowledge Management',
-	]
+	];
 
-	const plugins = await getPlugins()
+	const plugins = await getPlugins();
 	const allPossibleCategories = allPossibleCategoriesRaw.map((category) => {
 		return {
 			name: category.toLowerCase().replace(/[\s]/g, '-'),
 			displayName: category,
 			plugins: plugins.all.filter(
 				(plugin: JoplinPlugin) =>
-					Boolean(plugin.categories) &&
-					plugin.categories.includes(category.toLowerCase())
+					Boolean(plugin.categories) && plugin.categories.includes(category.toLowerCase())
 			),
-		}
-	})
+		};
+	});
 	// const allPossibleCategories = allPossibleCategoriesRaw.map((category: Category) => {
 	// 	return {
 	// 		name: category.name.replace(/[ ]/g, '-'),
 	// 		displayName: category,
 	// 	}
 	// })
-	return allPossibleCategories
+	return allPossibleCategories;
 }
