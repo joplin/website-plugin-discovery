@@ -10,6 +10,13 @@ import fs from 'fs-extra';
 import path from 'path';
 import { devConfig } from './config';
 
+const testOutputDir = path.join(__dirname, 'test');
+const testDistDir = path.join(testOutputDir, 'dist');
+const config = {
+	...devConfig,
+	distDir: testDistDir
+};
+
 jest.setTimeout(120000);
 
 let templates: Template[];
@@ -17,7 +24,7 @@ let data: Data;
 let partials: Data;
 describe('build', () => {
 	test('should load template', () => {
-		templates = loadTemplate();
+		templates = loadTemplate(config);
 		expect(templates.length).toBeGreaterThan(0);
 	});
 	test('should load data', async () => {
@@ -25,15 +32,15 @@ describe('build', () => {
 		expect(data).toBeTruthy();
 	});
 	test('should load partials', async () => {
-		partials = loadTemplatePartials();
+		partials = loadTemplatePartials(config);
 		expect(partials).toBeTruthy();
 	});
 	test('should gernerate html', () => {
 		renderTemplates(
-			devConfig,
+			{ ...devConfig, distDir: testDistDir },
 			[
 				{
-					path: path.resolve('./pages'),
+					path: path.resolve(path.join(devConfig.sourceDir, './pages')),
 					name: 'index',
 					content: 'hello, world!',
 				},
@@ -43,12 +50,13 @@ describe('build', () => {
 			{
 				pluginName: ['com.whatever.quick-links'],
 			},
-			'./test/dist'
+			testDistDir
 		);
-		expect(fs.readFileSync('./test/dist/index.html', 'utf8')).toBeTruthy();
+		expect(fs.readFileSync(path.join(testDistDir, 'index.html'), 'utf8')).toBeTruthy();
 	});
 });
 
 afterAll(async () => {
-	await fs.remove('./test/dist');
+	await fs.remove(testOutputDir);
+	await fs.remove(testDistDir);
 });

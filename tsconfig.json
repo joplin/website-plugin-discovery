@@ -6,5 +6,5 @@
 		"strict": true,
 		"esModuleInterop": true
 	},
-	"exclude": ["site/**/*", "node_modules/**/*", "**/*.test.ts"]
+	"exclude": ["site/**/*", "node_modules/**/*", "**/*.test.ts", "src/**"]
 }
