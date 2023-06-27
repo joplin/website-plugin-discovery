@@ -10,7 +10,6 @@
 	},
 	"license": "MIT",
 	"dependencies": {
-		"chalk": "4.1.0",
 		"fs-extra": "11.1.1",
 		"klaw-sync": "6.0.0",
 		"mustache": "4.2.0"
@@ -20,8 +19,8 @@
 		"@types/jest": "29.5.2",
 		"@types/klaw-sync": "6.0.1",
 		"@types/mustache": "4.2.2",
-		"@types/node": "20.3.1",
-		"@typescript-eslint/eslint-plugin": "5.60.0",
+		"@types/node": "20.3.2",
+		"@typescript-eslint/eslint-plugin": "5.60.1",
 		"eslint": "8.43.0",
 		"eslint-config-prettier": "8.8.0",
 		"eslint-config-standard-with-typescript": "35.0.0",
