@@ -24,9 +24,8 @@ export default async function getAllPossibleCategories(): Promise<Category[]> {
 		return {
 			name: category.toLowerCase().replace(/[\s]/g, '-'),
 			displayName: category,
-			plugins: plugins.all.filter(
-				(plugin: JoplinPlugin) =>
-					Boolean(plugin.categories) && plugin.categories.includes(category.toLowerCase())
+			plugins: plugins.all.filter((plugin: JoplinPlugin) =>
+				plugin.categories?.includes(category.toLowerCase())
 			),
 		};
 	});

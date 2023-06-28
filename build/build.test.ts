@@ -1,11 +1,11 @@
 import {
 	loadTemplate,
-	loadData,
 	loadTemplatePartials,
 	type Template,
 	type Data,
 	renderTemplates,
 } from './build';
+import testData from '../lib/testData';
 import fs from 'fs-extra';
 import path from 'path';
 import { devConfig } from './config';
@@ -20,16 +20,11 @@ const config = {
 jest.setTimeout(120000);
 
 let templates: Template[];
-let data: Data;
 let partials: Data;
 describe('build', () => {
 	test('should load template', () => {
 		templates = loadTemplate(config);
 		expect(templates.length).toBeGreaterThan(0);
-	});
-	test('should load data', async () => {
-		data = await loadData();
-		expect(data).toBeTruthy();
 	});
 	test('should load partials', async () => {
 		partials = loadTemplatePartials(config);
@@ -45,7 +40,7 @@ describe('build', () => {
 					content: 'hello, world!',
 				},
 			],
-			{},
+			testData,
 			{},
 			{
 				pluginName: ['com.whatever.quick-links'],

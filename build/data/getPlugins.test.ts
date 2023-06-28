@@ -1,4 +1,4 @@
-import getPlugins from './plugins';
+import getPlugins from './getPlugins';
 
 jest.setTimeout(120000);
 

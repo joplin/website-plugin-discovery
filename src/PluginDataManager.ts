@@ -93,6 +93,10 @@ class PluginDataManager {
 
 		return new PluginDataManager(dataJSON);
 	}
+
+	public static fromData(data: MarketplaceData) {
+		return new PluginDataManager(data);
+	}
 }
 
 export default PluginDataManager;
