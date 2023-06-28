@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand-lg bg-light sticky-top">
+	<div class="container">
+		<a class="navbar-brand" href="{{&config.site}}">
+			<img src="{{&config.site}}/joplin-logo.png" width="110">
+		</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="{{&config.site}}/#trending-section" onclick="openTab('all')">Trending</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{&config.site}}/#recommended-section" onclick="openTab('all')">Recommended</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{&config.site}}/#all-plugins-section" onclick="openTab('all')">All Plugins</a>
+				</li>
+			</ul>
+			<div class="search-field col-12 col-lg-3 mb-3 mb-lg-0 me-lg-3">
+				<i class="fa-solid fa-magnifying-glass search-icon" alt=""></i>
+				<input type="search" class="form-control search-input" placeholder="Search..." aria-label="Search">
+			</div>
+		</div>
+	</div>
+</nav>

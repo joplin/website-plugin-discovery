@@ -2,44 +2,12 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width">
-	<link rel="icon" type="image/x-icon" href="favicon.png" />
-	<link rel="stylesheet" href="bootstrap-5.2.0-dist/css/bootstrap.min.css" type="text/css">
-	<link rel="stylesheet" href="fontawesome-6.2.0/css/all.min.css"  type="text/css"/>
-	<link rel="stylesheet" href="./style.css"/>
-	<script src="bootstrap-5.2.0-dist/js/bootstrap.bundle.min.js"></script>
+	{{> head-config}}
 	<title>Joplin Plugins</title>
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg bg-light sticky-top">
-	<div class="container">
-		<a class="navbar-brand" href=".">
-			<img src="joplin-logo.png" width="110" alt="Home"/>
-		</a>
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="#trending-section" onclick="openTab()">Trending</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#recommended-section" onclick="openTab()">Recommended</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#all-plugins-section" onclick="openTab()">All Plugins</a>
-				</li>
-			</ul>
-			<div class="search-field col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-				<i class="fa-solid fa-magnifying-glass search-icon" alt=""></i>
-				<input type="search" class="form-control search-input" placeholder="Search..." aria-label="Search">
-			</div>
-		</div>
-	</div>
-</nav>
+{{> navabar}}
 <main>
 	<div class="container banner">
 		<div class="row justify-content-center pb-3">
@@ -151,3 +119,4 @@
 		bootstrap.Tab.getInstance(triggerFirstTabEl).show() // Select All Tab
 	}
 </script>
+<script src="{{&config.site}}/bundle.js"></script>
