@@ -14,7 +14,7 @@ const testOutputDir = path.join(__dirname, 'test');
 const testDistDir = path.join(testOutputDir, 'dist');
 const config = {
 	...devConfig,
-	distDir: testDistDir
+	distDir: testDistDir,
 };
 
 jest.setTimeout(120000);

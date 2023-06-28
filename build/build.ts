@@ -1,10 +1,15 @@
-import Mustache from 'mustache';
-import path from 'node:path';
+import * as Mustache from 'mustache';
+import * as path from 'node:path';
 import klawSync from 'klaw-sync';
-import fs from 'fs-extra';
-import { type JoplinPlugin } from './data/plugins';
-import { devConfig, productionConfig, type BuildConfig } from './config';
+import * as fs from 'fs-extra';
+import getGlobalMarketplaceData from './data/getGlobalMarketplaceData';
+import { devConfig, productionConfig } from './config';
 import bundleJs from './bundleJs';
+import {
+	type BuildConfig,
+	type JoplinPlugin,
+	type MarketplaceData as GlobalMarketplaceData,
+} from '../lib/types';
 
 export interface Template {
 	path: string;
@@ -30,19 +35,6 @@ function copyStaticFiles(config: BuildConfig): void {
 	}
 }
 
-export async function loadData(): Promise<Data> {
-	const dataDir = path.join(__dirname, 'data');
-	const dataFiles = klawSync(dataDir, { nodir: true });
-	const data: Data = {};
-	for (let i = 0; i < dataFiles.length; i++) {
-		const file = dataFiles[i];
-		if (!file.path.includes('.test') && file.path.endsWith('.js')) {
-			data[path.basename(file.path, '.js')] = await (await import(file.path)).default();
-		}
-	}
-	return data;
-}
-
 export function loadTemplate(config: BuildConfig): Template[] {
 	const templateFiles = klawSync(path.join(config.sourceDir, 'pages'), { nodir: true });
 	return templateFiles.map((file) => {
@@ -66,7 +58,7 @@ export function loadTemplatePartials(config: BuildConfig): Data {
 export function renderTemplates(
 	config: BuildConfig,
 	templates: Template[],
-	globalData: Data,
+	globalData: GlobalMarketplaceData,
 	partials: Data,
 	routes: Data,
 	distRootPath: string
@@ -74,17 +66,13 @@ export function renderTemplates(
 	templates.forEach((template) => {
 		const outputBasePath = path.join(
 			path.resolve(distRootPath),
-			path.relative(config.sourceDir, template.path).replace('pages', '')
+			path.relative(path.join(config.sourceDir, 'pages'), template.path)
 		);
-		
+
 		if (template.name === '[pluginName]') {
-			console.log(`Rendering dynamic route pluginName`);
+			console.log('Rendering dynamic route pluginName');
 			routes.pluginName.forEach((key: string) => {
-				const distPath = path.join(
-					outputBasePath,
-					key,
-					'index.html'
-				);
+				const distPath = path.join(outputBasePath, key, 'index.html');
 				console.log(`- Rendering ${distPath}`);
 				const data = {
 					...globalData,
@@ -98,15 +86,18 @@ export function renderTemplates(
 				fs.writeFileSync(distPath, output, 'utf8');
 			});
 		} else {
-			const distPath = path.join(
-				outputBasePath,
-				template.name + '.html'
-			);
+			const distPath = path.join(outputBasePath, template.name + '.html');
 			const output = Mustache.render(template.content, globalData, partials);
 			fs.mkdirsSync(path.dirname(distPath));
 			fs.writeFileSync(distPath, output, 'utf8');
 		}
 	});
+}
+
+function writePluginDataAsJSON(data: Data, config: BuildConfig): void {
+	console.log('writing plugin data as JSON');
+	const dataString = JSON.stringify(data);
+	fs.writeFileSync(path.join(config.distDir, 'pluginData.json'), dataString);
 }
 
 export async function build(mode: 'dev' | 'production'): Promise<void> {
@@ -116,14 +107,12 @@ export async function build(mode: 'dev' | 'production'): Promise<void> {
 	clearBuildPath(config.distDir);
 	copyStaticFiles(config);
 	const template = loadTemplate(config);
-	const globalData: Data = {
-		...(await loadData()),
-		config,
-	};
+	const globalData = await getGlobalMarketplaceData(config);
 	const partials = loadTemplatePartials(config);
 	const routes = {
 		pluginName: globalData.plugins.all.map((plugin: JoplinPlugin) => plugin.id),
 	};
 	renderTemplates(config, template, globalData, partials, routes, config.distDir);
 	await bundleJs(config);
+	writePluginDataAsJSON(globalData, config);
 }

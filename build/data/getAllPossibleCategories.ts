@@ -1,10 +1,5 @@
-import getPlugins, { type JoplinPlugin } from './plugins';
-
-export interface Category {
-	name: string;
-	displayName: string;
-	plugins: JoplinPlugin[];
-}
+import getPlugins from './getPlugins';
+import { type Category, type JoplinPlugin } from '../../lib/types';
 
 export default async function getAllPossibleCategories(): Promise<Category[]> {
 	// allPossibleCategories will be obtained from @joplin/lib in the next step

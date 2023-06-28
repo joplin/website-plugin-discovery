@@ -7,5 +7,9 @@ tsconfig.json
 package.json
 
 # Built js files
+lib/**/*.js
 src/**/*.js
 build/**/*.js
+
+*.min.js
+*.min.css

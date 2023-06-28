@@ -17,6 +17,8 @@
     "rules": {
         "indent": ["warn", "tab"],
         "no-mixed-spaces-and-tabs": 1,
-        "@typescript-eslint/no-var-requires": 0
+        "@typescript-eslint/no-var-requires": 0,
+		"@typescript-eslint/no-non-null-assertion": "off",
+		"@typescript-eslint/explicit-function-return-type": "off"
     }
 }

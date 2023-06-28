@@ -1,4 +1,5 @@
-import getAllPossibleCategories, { type Category } from './allPossibleCategories';
+import { type Category } from '../../lib/types';
+import getAllPossibleCategories from './getAllPossibleCategories';
 
 jest.setTimeout(120000);
 

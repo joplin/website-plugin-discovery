@@ -1,36 +1,38 @@
-import path from 'path';
-import rollup, { RollupOptions } from 'rollup';
+import * as path from 'path';
+import { rollup, type RollupOptions, type OutputOptions } from 'rollup';
 import pluginTypescript from '@rollup/plugin-typescript';
-import { BuildConfig } from './config';
+import { type BuildConfig } from '../lib/types';
 
-const bundleJs = async (config: BuildConfig) => {
+const bundleJs = async (config: BuildConfig): Promise<void> => {
 	// Rollup expects tsconfig to produce ES modules, while node (by default)
 	// expects CommonJS.
 	const tsconfigPath = path.join(path.dirname(__dirname), 'tsconfig.rollup.json');
 
-	const outputOptions: rollup.OutputOptions[] = [{
-		file: path.join(config.distDir, 'bundle.js'),
+	const outputOptions: OutputOptions[] = [
+		{
+			file: path.join(config.distDir, 'bundle.js'),
 
-		// self-executing script function.
-		format: 'iife'
-	}];
+			// self-executing script function.
+			format: 'iife',
+		},
+	];
 
 	const rollupConfig: RollupOptions = {
 		input: path.join(config.sourceDir, 'index.ts'),
 		output: outputOptions,
-		plugins: [pluginTypescript({ tsconfig: tsconfigPath })]
+		plugins: [pluginTypescript({ tsconfig: tsconfigPath })],
 	};
 
 	let bundle;
 	try {
-		bundle = await rollup.rollup(rollupConfig);
+		bundle = await rollup(rollupConfig);
 
 		for (const outputOption of outputOptions) {
 			await bundle.write(outputOption);
 		}
 	} finally {
-		bundle?.close();
+		await bundle?.close();
 	}
-}
+};
 
 export default bundleJs;

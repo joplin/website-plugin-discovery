@@ -21,6 +21,35 @@
 	padding-left: 30px;
 }
 
+.search-results {
+	position: absolute;
+	background-color: white;
+
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+	border-bottom-left-radius: 2px;
+	border-bottom-right-radius: 2px;
+}
+
+.search-field:not(:focus-within) .search-results {
+	display: none;
+}
+
+.search-results ul {
+	list-style: none;
+	padding-left: 0;
+}
+
+.search-results ul :nth-child(2n) {
+	background-color: rgba(100, 100, 100, 0.01);
+}
+
+.search-results li {
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 2px;
+	padding-bottom: 5px;
+}
+
 .banner {
 	padding-top: 4rem;
 	padding-bottom: 4rem;

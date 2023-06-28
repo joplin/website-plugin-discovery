@@ -23,6 +23,7 @@ pnpm-debug.log*
 
 # Built js files
 src/**/*.js
+lib/**/*.js
 build/**/*.js
 
 # test output
