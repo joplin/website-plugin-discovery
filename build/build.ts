@@ -31,7 +31,8 @@ function copyStaticFiles(config: BuildConfig): void {
 	try {
 		fs.copySync(path.join(config.sourceDir, 'assets'), config.distDir);
 	} catch (err) {
-		console.log(err);
+		console.log('Error copying static files:', err);
+		throw err;
 	}
 }
 
@@ -69,7 +70,7 @@ export function renderTemplates(
 			path.relative(path.join(config.sourceDir, 'pages'), template.path)
 		);
 
-		if (template.name === '[pluginName]') {
+		if (template.name.indexOf('[pluginName]') !== -1) {
 			console.log('Rendering dynamic route pluginName');
 			routes.pluginName.forEach((key: string) => {
 				const distPath = path.join(outputBasePath, key, 'index.html');
