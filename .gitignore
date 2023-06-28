@@ -26,5 +26,8 @@ src/**/*.js
 lib/**/*.js
 build/**/*.js
 
+# Keep pre-built files in assets
+!/src/assets/**/*.js
+
 # test output
 build/test
