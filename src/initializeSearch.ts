@@ -16,10 +16,19 @@ const initializeSearch = (
 		for (const result of results) {
 			const resultElement = document.createElement('li');
 
+			const iconElem = document.createElement('span');
+			// Add the plugin icon
+			iconElem.classList.add('fa-regular', 'fa-window-maximize');
+			iconElem.classList.add('icon');
+
 			const resultLink = document.createElement('a');
 			resultLink.href = pluginData.getLinkToPlugin(result);
-			resultLink.innerText = result.name;
 
+			const titleElem = document.createElement('span');
+			titleElem.classList.add('title');
+			titleElem.innerText = result.name;
+
+			resultLink.replaceChildren(iconElem, titleElem);
 			resultElement.appendChild(resultLink);
 			resultsListElement.appendChild(resultElement);
 		}

@@ -50,6 +50,20 @@
 	padding-bottom: 5px;
 }
 
+.search-results li .icon {
+	padding-right: 5px;
+}
+
+.search-results li a {
+	display: flex;
+	flex-direction: row;
+	text-decoration: none;
+}
+
+.search-results li a:hover {
+	text-decoration: underline;
+}
+
 .banner {
 	padding-top: 4rem;
 	padding-bottom: 4rem;
