@@ -1,8 +1,8 @@
 # Welcome to Website Plugin
 
 ## 🖼️ Screenshot
-![screenshot of the main page of the plugin discovery website. Lists of categories, trending, and recommended plugins are available.](https://github.com/joplin/website-plugin-discovery/assets/46334387/aeeca8d0-2801-4178-81ff-f06bde71a822)
 
+![screenshot of the main page of the plugin discovery website. Lists of categories, trending, and recommended plugins are available.](https://github.com/joplin/website-plugin-discovery/assets/46334387/aeeca8d0-2801-4178-81ff-f06bde71a822)
 
 ## 🚚 Project Structure
 
