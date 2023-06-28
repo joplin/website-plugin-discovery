@@ -80,7 +80,7 @@ class PluginDataManager {
 
 		matches.sort((a, b) => {
 			// Should be negative if b comes before a
-			return matchQuality(a) - matchQuality(b);
+			return matchQuality(b) - matchQuality(a);
 		});
 
 		return matches.slice(0, Math.min(maxResults, matches.length));
