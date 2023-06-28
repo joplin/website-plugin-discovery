@@ -13,6 +13,16 @@ class PluginDataManager {
 		return false;
 	}
 
+	public pluginFromId(pluginId: string): JoplinPlugin | null {
+		for (const plugin of this.data.plugins.all) {
+			if (plugin.id === pluginId) {
+				return plugin;
+			}
+		}
+
+		return null;
+	}
+
 	public getLinkToPlugin(plugin: JoplinPlugin): string {
 		return this.data.config.site + '/plugin/' + plugin.id;
 	}
@@ -79,7 +89,7 @@ class PluginDataManager {
 		const matches = this.data.plugins.all.filter((plugin) => matchQuality(plugin) > 0);
 
 		matches.sort((a, b) => {
-			// Should be negative if b comes before a
+			// Should be negative if a comes before b
 			return matchQuality(b) - matchQuality(a);
 		});
 

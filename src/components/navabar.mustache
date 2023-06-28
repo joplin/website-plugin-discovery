@@ -30,3 +30,13 @@
 		</div>
 	</div>
 </nav>
+<script>
+	function openTab(tab) {
+		if(tab === 'all'){
+			const triggerFirstTabEleList = document.querySelectorAll('#nav-tab :first-child')
+			for (let i = 0; i < triggerFirstTabEleList.length; i++) {
+				bootstrap.Tab.getInstance(triggerFirstTabEleList[i]).show() // Select All Tab
+			}
+		}
+	}
+</script>

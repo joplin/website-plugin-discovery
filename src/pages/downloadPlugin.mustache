@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	{{> head-config}}
+	<title>Joplin Plugins - Download Instructions</title>
+</head>
+
+<body>
+{{> navabar}}
+<main>
+	<div class="container my-5">
+		<div class="row">
+			<!-- Main Section -->
+			<div class="col-lg-8 col-12 py-2">
+				<div class="card px-4 py-4 shadow">
+					<div class="card-body">
+						<h5>Download Instructions for <span id='plugin-title'></span></h5>
+						<ol>
+							<li>Open Joplin</li>
+							<li>
+								Navigate to settings (&ldquo;Tools > Options&rdquo;
+								on Windows/Linux, &ldquo;Joplin > Settings&rdquo; on a Mac)
+							</li>
+							<li>Click on &ldquo;plugins&rdquo; in the sidebar.</li>
+							<li>Search for &ldquo;<span id='plugin-title'>...</span>&rdquo;.</li>
+							<li>Click <code>install</code>.</li>
+						</ol>
+
+						<p>
+							If you know what you're doing, you can alternatively
+							<a id='plugin-download-link'>
+								download this plugin's <code>.jpl</code> file
+							</a>. This method of installation, however, will <b>not</b>
+							auto-update the plugin.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+		
+</body>
+
+</html>
+
+<script src="{{&config.site}}/bundle.js"></script>
+<script>
+	window.initializeDownloadPage();
+</script>

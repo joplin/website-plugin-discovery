@@ -32,7 +32,7 @@
 						<p class="card-text pb-4">{{plugin.description}}</p>
 						<div class="row">
 							<div class="col-lg-12 col-12">
-								<a href="{{plugin.downloadLink}}" class="btn btn-primary w-100">Download Plugin</a>
+								<a href="{{&config.site}}/downloadPlugin.html?id={{plugin.id}}" class="btn btn-primary w-100">Download Plugin</a>
 							</div>
 							{{! <div class="col-lg-6 col-12">
 								<a href="#" class="btn btn-primary w-100">Get Plugin in Joplin</a>
@@ -99,19 +99,9 @@
 		</div>
 	</div>
 </main>
-		
+
 </body>
 
 </html>
 
-<script>
-	function openTab(tab) {
-		if(tab === 'all'){
-			const triggerFirstTabEleList = document.querySelectorAll('#nav-tab :first-child')
-			for (let i = 0; i < triggerFirstTabEleList.length; i++) {
-				bootstrap.Tab.getInstance(triggerFirstTabEleList[i]).show() // Select All Tab
-			}
-		}
-	}
-</script>
 <script src="{{&config.site}}/bundle.js"></script>
