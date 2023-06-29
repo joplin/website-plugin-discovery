@@ -24,14 +24,25 @@
 .search-results {
 	position: absolute;
 	background-color: white;
+	width: 100%;
 
 	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
 	border-bottom-left-radius: 2px;
 	border-bottom-right-radius: 2px;
+
+	/*
+	 Opening/closing animations (having a delay before the results are hidden may
+	 fix a link-activation issue on some platforms).
+	 */
+	opacity: 1;
+	transform: scale(1, 1);
+	transform-origin: top;
+	transition: 0.25s ease opacity, 0.25s ease transform;
 }
 
 .search-field:not(:focus-within) .search-results {
-	display: none;
+	transform: scale(1, 0);
+	opacity: 0;
 }
 
 .search-results ul {
