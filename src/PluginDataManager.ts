@@ -27,6 +27,15 @@ class PluginDataManager {
 		return this.data.config.site + '/plugin/' + plugin.id;
 	}
 
+	public getWeeksSinceUpdated(plugin: JoplinPlugin): number {
+		const nowTime = new Date().getTime();
+		const modifiedTime = new Date(plugin.timeModified).getTime();
+		const hoursSinceUpdated = (nowTime - modifiedTime) / 1000 / 60 / 60;
+		const weeksSinceUpdated = hoursSinceUpdated / 24 / 7;
+
+		return weeksSinceUpdated;
+	}
+
 	public search(query: string, maxResults: number): JoplinPlugin[] {
 		query = query.toLowerCase();
 
@@ -81,6 +90,16 @@ class PluginDataManager {
 
 			if (this.isRecommended(plugin.id)) {
 				score *= 2;
+			}
+
+			// Updated in the last 12 weeks?
+			const weeksSinceUpdated = this.getWeeksSinceUpdated(plugin);
+			const updatedRecently = weeksSinceUpdated <= 12;
+			if (updatedRecently) {
+				score *= 1.1;
+			} else {
+				// Otherwise, slightly adjust by how recently the plugin was updated.
+				score += 1 / weeksSinceUpdated;
 			}
 
 			return score;

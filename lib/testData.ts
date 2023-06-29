@@ -50,10 +50,26 @@ const testPlugin3: JoplinPlugin = {
 	author: 'No Author',
 	_publish_hash: 'sha256:0ff54037d73f160c02b6ebe7af2ee56a89ab8241707965eb60e8d1bb41c19489',
 	_publish_commit: 'git_compare_url:90103d135188995b08bff3c2c44006eae32e038d',
-	_npm_package_name: '@example/does-not-exist',
+	_npm_package_name: '@example/does-not-exist1',
 	_recommended: true,
 	downloadCount: 1234,
 	timeModified: '1900-06-01T08:31:07Z',
+};
+
+const testPlugin4: JoplinPlugin = {
+	manifest_version: 12,
+	id: 'com.example.thisdoesntexist',
+	app_min_version: '3.14159',
+	version: 'badversion',
+	name: 'Fake Plugin',
+	description: 'This plugin does not exist',
+	author: 'No Author',
+	_publish_hash: 'sha256:0ff54037d73f160c02b6ebe7af2ee56a89ab8241707965eb60e8d1bb41c19489',
+	_publish_commit: 'git_compare_url:90103d135188995b08bff3c2c44006eae32e038d',
+	_npm_package_name: '@example/does-not-exist2',
+	_recommended: true,
+	downloadCount: 1234,
+	timeModified: '1901-06-01T08:31:07Z',
 };
 
 const testData: MarketplaceData = {
@@ -69,8 +85,9 @@ const testData: MarketplaceData = {
 			[testPlugin1.id]: testPlugin1,
 			[testPlugin2.id]: testPlugin2,
 			[testPlugin3.id]: testPlugin3,
+			[testPlugin4.id]: testPlugin4,
 		},
-		all: [testPlugin1, testPlugin2, testPlugin3],
+		all: [testPlugin1, testPlugin2, testPlugin3, testPlugin4],
 		recommended: [testPlugin2],
 		trending: [testPlugin2],
 	},
@@ -81,5 +98,5 @@ const testData: MarketplaceData = {
 	},
 };
 
-export { testPlugin1, testPlugin2, testPlugin3 };
+export { testPlugin1, testPlugin2, testPlugin3, testPlugin4 };
 export default testData;
