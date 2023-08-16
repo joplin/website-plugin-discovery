@@ -4,6 +4,13 @@
 <head>
 	{{> head-config}}
 	<title>Joplin Plugins - {{plugin.name}}</title>
+
+	{{!
+		OpenGraph metadata. Note that double quotes should be used here -- Mustache escapes
+		"s, but not 's.
+	}}
+	<meta property="og:title" content="Joplin Plugin: {{plugin.name}}"/>
+	<meta property="og:description" content="{{plugin.description}}"/>
 </head>
 
 <body>
