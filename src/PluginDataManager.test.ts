@@ -9,7 +9,12 @@ describe('PluginDataManager', () => {
 		// testPlugin1 and testPlugin2 should contain an 's', but testPlugin2 is recommended and
 		// testPlugin1 is not.
 		// testPlugin3 is not recommended, so should be last.
-		expect(manager.search('s', maxResults)).toMatchObject([testPlugin2, testPlugin1, testPlugin4, testPlugin3]);
+		expect(manager.search('s', maxResults)).toMatchObject([
+			testPlugin2,
+			testPlugin1,
+			testPlugin4,
+			testPlugin3,
+		]);
 	});
 
 	it('should return no matchs when query matches nothing', () => {
@@ -31,8 +36,6 @@ describe('PluginDataManager', () => {
 		const maxResults = 2;
 
 		// testPlugin4 is the same as testPlugin3, but was updated more recently
-		expect(manager.search('Fake Plugin', maxResults)).toMatchObject([
-			testPlugin4, testPlugin3
-		]);
+		expect(manager.search('Fake Plugin', maxResults)).toMatchObject([testPlugin4, testPlugin3]);
 	});
 });
