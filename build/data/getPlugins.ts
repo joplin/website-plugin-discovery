@@ -73,6 +73,8 @@ async function getPluginData(): Promise<Manifest> {
 	const rawStats = await fetchStatsData();
 
 	for (const pluginId in rawPlugins) {
+		rawStats[pluginId] ??= {};
+
 		if (rawStats[pluginId][rawPlugins[pluginId].version] != null) {
 			rawPlugins[pluginId].downloadCount =
 				rawStats[pluginId][rawPlugins[pluginId].version].downloadCount;
