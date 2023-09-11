@@ -76,6 +76,10 @@ class PluginDataManager {
 				score += 10;
 			}
 
+			if (plugin.name.toLowerCase() === query) {
+				score += 5;
+			}
+
 			if (matchesAuthor) {
 				score++;
 
