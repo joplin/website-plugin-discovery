@@ -51,7 +51,7 @@ const testPlugin3: JoplinPlugin = {
 	_publish_hash: 'sha256:0ff54037d73f160c02b6ebe7af2ee56a89ab8241707965eb60e8d1bb41c19489',
 	_publish_commit: 'git_compare_url:90103d135188995b08bff3c2c44006eae32e038d',
 	_npm_package_name: '@example/does-not-exist1',
-	_recommended: true,
+	_recommended: false,
 	downloadCount: 1234,
 	timeModified: '1900-06-01T08:31:07Z',
 };
@@ -67,9 +67,25 @@ const testPlugin4: JoplinPlugin = {
 	_publish_hash: 'sha256:0ff54037d73f160c02b6ebe7af2ee56a89ab8241707965eb60e8d1bb41c19489',
 	_publish_commit: 'git_compare_url:90103d135188995b08bff3c2c44006eae32e038d',
 	_npm_package_name: '@example/does-not-exist2',
-	_recommended: true,
+	_recommended: false,
 	downloadCount: 1234,
 	timeModified: '1901-06-01T08:31:07Z',
+};
+
+export const testPlugin5: JoplinPlugin = {
+	manifest_version: 12,
+	id: 'com.example.thisalsodoesntexist',
+	app_min_version: '3.14159',
+	version: '0.1.2',
+	name: 'Plugin with N/A modified time',
+	description: 'This plugin has N/A for its modified time.',
+	author: 'No Author',
+	_publish_hash: 'sha256:0ff54037d73f160c02b6ebe7af2ee56a89ab8341707965eb60e8d1bb41c19489',
+	_publish_commit: 'git_compare_url:91103d135188995b08bff3c2c44006eae32e038d',
+	_npm_package_name: '@example/does-not-exist5',
+	_recommended: true,
+	downloadCount: 0,
+	timeModified: 'N/A',
 };
 
 const testData: MarketplaceData = {
@@ -86,8 +102,9 @@ const testData: MarketplaceData = {
 			[testPlugin2.id]: testPlugin2,
 			[testPlugin3.id]: testPlugin3,
 			[testPlugin4.id]: testPlugin4,
+			[testPlugin5.id]: testPlugin5,
 		},
-		all: [testPlugin1, testPlugin2, testPlugin3, testPlugin4],
+		all: [testPlugin1, testPlugin2, testPlugin3, testPlugin4, testPlugin5],
 		recommended: [testPlugin2],
 		trending: [testPlugin2],
 	},

@@ -1,5 +1,5 @@
 import PluginDataManager from './PluginDataManager';
-import testData, { testPlugin1, testPlugin2, testPlugin3, testPlugin4 } from '../lib/testData';
+import testData, { testPlugin1, testPlugin2, testPlugin3, testPlugin4, testPlugin5 } from '../lib/testData';
 
 describe('PluginDataManager', () => {
 	it('should sort search results (roughly) in order of relevance', () => {
@@ -37,5 +37,13 @@ describe('PluginDataManager', () => {
 
 		// testPlugin4 is the same as testPlugin3, but was updated more recently
 		expect(manager.search('Fake Plugin', maxResults)).toMatchObject([testPlugin4, testPlugin3]);
+	});
+
+	it('should show plugins with invalid update times in the search results', () => {
+		// Plugins can sometimes have N/A as the last updated time
+		// These plugins should still be able to appear in the search results.
+		const manager = PluginDataManager.fromData(testData);
+		const maxResults = 1;
+		expect(manager.search('Plugin with N/A modified time', maxResults)).toMatchObject([ testPlugin5 ]);
 	});
 });
