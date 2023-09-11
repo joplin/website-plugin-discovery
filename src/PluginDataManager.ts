@@ -97,7 +97,7 @@ class PluginDataManager {
 			const updatedRecently = weeksSinceUpdated <= 12;
 			if (updatedRecently) {
 				score *= 1.1;
-			} else {
+			} else if (!isNaN(weeksSinceUpdated)) {
 				// Otherwise, slightly adjust by how recently the plugin was updated.
 				score += 1 / weeksSinceUpdated;
 			}
