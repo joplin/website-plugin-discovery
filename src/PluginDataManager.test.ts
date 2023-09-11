@@ -1,5 +1,11 @@
 import PluginDataManager from './PluginDataManager';
-import testData, { testPlugin1, testPlugin2, testPlugin3, testPlugin4, testPlugin5 } from '../lib/testData';
+import testData, {
+	testPlugin1,
+	testPlugin2,
+	testPlugin3,
+	testPlugin4,
+	testPlugin5,
+} from '../lib/testData';
 
 describe('PluginDataManager', () => {
 	it('should sort search results (roughly) in order of relevance', () => {
@@ -44,6 +50,8 @@ describe('PluginDataManager', () => {
 		// These plugins should still be able to appear in the search results.
 		const manager = PluginDataManager.fromData(testData);
 		const maxResults = 1;
-		expect(manager.search('Plugin with N/A modified time', maxResults)).toMatchObject([ testPlugin5 ]);
+		expect(manager.search('Plugin with N/A modified time', maxResults)).toMatchObject([
+			testPlugin5,
+		]);
 	});
 });
