@@ -4,7 +4,8 @@ export interface BuildConfig {
 	site: string;
 }
 
-export type Manifest = Record<string, JoplinPlugin>;
+export type IdToManifestRecord = Record<string, JoplinPlugin>;
+export type IdToAssetsRecord = Record<string, PluginAssetData>;
 
 export type Stats = Record<string, any>;
 
@@ -30,9 +31,15 @@ export interface JoplinPlugin {
 	domId?: string;
 }
 
+// Larger assets
+export interface PluginAssetData {
+	// Full text content of the readme
+	readme?: string;
+}
+
 // Data about all plugins
 export interface GlobalPluginData {
-	raw: Manifest;
+	raw: IdToManifestRecord;
 	all: JoplinPlugin[];
 	trending: JoplinPlugin[];
 	recommended: JoplinPlugin[];

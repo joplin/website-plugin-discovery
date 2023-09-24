@@ -9,7 +9,9 @@ import {
 	type BuildConfig,
 	type JoplinPlugin,
 	type MarketplaceData as GlobalMarketplaceData,
+	IdToAssetsRecord,
 } from '../lib/types';
+import getPluginAssets from './data/getPluginAssets';
 
 export interface Template {
 	path: string;
@@ -60,6 +62,7 @@ export function renderTemplates(
 	config: BuildConfig,
 	templates: Template[],
 	globalData: GlobalMarketplaceData,
+	assets: IdToAssetsRecord,
 	partials: Data,
 	routes: Data,
 	distRootPath: string
@@ -80,6 +83,9 @@ export function renderTemplates(
 					path: key,
 					plugin: {
 						...globalData.plugins.raw[key],
+					},
+					assets: {
+						...assets[key],
 					},
 				};
 				const output = Mustache.render(template.content, data, partials);
@@ -109,11 +115,12 @@ export async function build(mode: 'dev' | 'production'): Promise<void> {
 	copyStaticFiles(config);
 	const template = loadTemplate(config);
 	const globalData = await getGlobalMarketplaceData(config);
+	const assets = await getPluginAssets(globalData.plugins.raw);
 	const partials = loadTemplatePartials(config);
 	const routes = {
 		pluginName: globalData.plugins.all.map((plugin: JoplinPlugin) => plugin.id),
 	};
-	renderTemplates(config, template, globalData, partials, routes, config.distDir);
+	renderTemplates(config, template, globalData, assets, partials, routes, config.distDir);
 	await bundleJs(config);
 	writePluginDataAsJSON(globalData, config);
 }

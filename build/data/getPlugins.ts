@@ -1,51 +1,24 @@
+import fetchFromGitHub from '../../lib/fetchFromGitHub';
 import {
 	type JoplinPlugin,
-	type Manifest,
+	type IdToManifestRecord,
 	type GlobalPluginData,
 	type Stats,
 } from '../../lib/types';
 
-async function fetchPluginData(): Promise<Manifest> {
-	let plugins;
-	const mirrors = [
-		'https://raw.githubusercontent.com/joplin/plugins/master/manifests.json',
-		'https://raw.staticdn.net/joplin/plugins/master/manifests.json',
-		'https://raw.fastgit.org/joplin/plugins/master/manifests.json',
-	];
-	for (let index = 0; index < mirrors.length; index++) {
-		try {
-			plugins = await (await fetch(mirrors[index])).json();
-			return plugins;
-		} catch (error) {
-			continue;
-		}
-	}
-	throw new Error('Cannot find avalible Github mirror');
+async function fetchPluginData(): Promise<IdToManifestRecord> {
+	return await JSON.parse(await fetchFromGitHub('joplin/plugins/master/manifests.json'));
 }
 
 async function fetchStatsData(): Promise<Stats> {
-	let stats;
-	const mirrors = [
-		'https://raw.githubusercontent.com/joplin/plugins/master/stats.json',
-		'https://raw.staticdn.net/joplin/plugins/master/stats.json',
-		'https://raw.fastgit.org/joplin/plugins/master/stats.json',
-	];
-	for (let index = 0; index < mirrors.length; index++) {
-		try {
-			stats = await (await fetch(mirrors[index])).json();
-			return stats;
-		} catch (error) {
-			continue;
-		}
-	}
-	throw new Error('Cannot find avalible Github mirror');
+	return await JSON.parse(await fetchFromGitHub('joplin/plugins/master/stats.json'));
 }
 
 function convertToDomId(id: string): string {
 	return id.toLowerCase().replace(/[.]/g, '-');
 }
 
-async function getTrendingPlugins(plugins: Manifest, topn: number): Promise<JoplinPlugin[]> {
+async function getTrendingPlugins(plugins: IdToManifestRecord, topn: number): Promise<JoplinPlugin[]> {
 	const result = [];
 	for (const pluginId in plugins) {
 		result.push({
@@ -68,7 +41,7 @@ async function getTrendingPlugins(plugins: Manifest, topn: number): Promise<Jopl
 		});
 }
 
-async function getPluginData(): Promise<Manifest> {
+async function getPluginData(): Promise<IdToManifestRecord> {
 	const rawPlugins = await fetchPluginData();
 	const rawStats = await fetchStatsData();
 
