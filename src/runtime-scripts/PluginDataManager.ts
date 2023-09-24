@@ -1,4 +1,4 @@
-import { type JoplinPlugin, type MarketplaceData } from '../lib/types';
+import { type JoplinPlugin, type MarketplaceData } from '../../lib/types';
 
 class PluginDataManager {
 	private constructor(private readonly data: MarketplaceData) {}

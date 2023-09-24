@@ -5,7 +5,7 @@ import testData, {
 	testPlugin3,
 	testPlugin4,
 	testPlugin5,
-} from '../lib/testData';
+} from '../../lib/testData';
 
 describe('PluginDataManager', () => {
 	it('should sort search results (roughly) in order of relevance', () => {

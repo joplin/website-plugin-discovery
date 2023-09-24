@@ -18,7 +18,7 @@ const bundleJs = async (config: BuildConfig): Promise<void> => {
 	];
 
 	const rollupConfig: RollupOptions = {
-		input: path.join(config.sourceDir, 'index.ts'),
+		input: path.join(config.sourceDir, 'runtime-scripts', 'index.ts'),
 		output: outputOptions,
 		plugins: [pluginTypescript({ tsconfig: tsconfigPath })],
 	};
