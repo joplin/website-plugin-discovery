@@ -107,7 +107,7 @@ function writePluginDataAsJSON(data: Data, config: BuildConfig): void {
 	fs.writeFileSync(path.join(config.distDir, 'pluginData.json'), dataString);
 }
 
-export async function build(mode: 'dev' | 'production'): Promise<void> {
+export async function build(mode: 'dev' | 'production', watchJs: boolean): Promise<void> {
 	const config = mode === 'dev' ? devConfig : productionConfig;
 
 	fs.ensureDirSync(config.distDir);
@@ -121,6 +121,7 @@ export async function build(mode: 'dev' | 'production'): Promise<void> {
 		pluginName: globalData.plugins.all.map((plugin: JoplinPlugin) => plugin.id),
 	};
 	renderTemplates(config, template, globalData, assets, partials, routes, config.distDir);
-	await bundleJs(config);
 	writePluginDataAsJSON(globalData, config);
+
+	await bundleJs(config, watchJs);
 }

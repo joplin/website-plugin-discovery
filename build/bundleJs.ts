@@ -4,7 +4,7 @@ import webpack from 'webpack';
 
 import { type BuildConfig } from '../lib/types';
 
-const bundleJs = (buildConfig: BuildConfig): Promise<void> => {
+const bundleJs = (buildConfig: BuildConfig, watch: boolean): Promise<void> => {
 	const webpackConfig: webpack.Configuration = {
 		mode: 'production',
 		entry: path.join(buildConfig.sourceDir, 'runtime', 'index.ts'),
@@ -47,35 +47,58 @@ const bundleJs = (buildConfig: BuildConfig): Promise<void> => {
 		}
 	};
 
-	return new Promise<void>((resolve, reject) => {
-		const compiler = webpack(webpackConfig);
-		compiler.run((error, stats) => {
-			let failed = false;
-			if (error) {
-				console.error('Error:', error.message, error.stack);
+	const handleCompilerResult = (error: Error|null|undefined, stats: webpack.Stats|undefined) => {
+		let failed = false;
+		if (error) {
+			console.error('Error:', error.message, error.stack);
+			failed = true;
+		}
+
+		const hasErrors = stats?.hasErrors();
+		const hasWarnings = stats?.hasWarnings();
+
+		if (stats && (hasErrors || hasWarnings)) {
+			if (hasErrors) {
+				console.error('Failed with errors.');
 				failed = true;
 			}
 
-			const hasErrors = stats?.hasErrors();
-			const hasWarnings = stats?.hasWarnings();
+			console.error('Errors and warnings:\n', stats.toString());
+		}
 
-			if (stats && (hasErrors || hasWarnings)) {
-				if (hasErrors) {
-					console.error('Failed with errors.');
-					failed = true;
-				}
+		return failed;
+	};
 
-				console.error('Errors and warnings:\n', stats.toString());
-			}
+	return new Promise<void>((resolve, reject) => {
+		const compiler = webpack(webpackConfig);
 
-			compiler.close(() => {
-				if (!failed) {
-					resolve();
+		if (watch) {
+			const watchOptions = {
+				ignored: [
+					'node_modules/',
+				],
+			};
+
+			compiler.watch(watchOptions, async (error, stats) => {
+				if (handleCompilerResult(error, stats)) {
+					console.error('⚠️ Build failed! ⚠️');
 				} else {
-					reject();
+					console.log('✅ Built!');
 				}
 			});
-		});
+		} else {
+			compiler.run((error, stats) => {
+				const failed = handleCompilerResult(error, stats);
+
+				compiler.close(() => {
+					if (!failed) {
+						resolve();
+					} else {
+						reject();
+					}
+				});
+			});
+		}
 	});
 };
 
