@@ -23,6 +23,41 @@
 		<div class="row">
 			<!-- Main Section -->
 			<div class="col-lg-8 col-12 py-2">
+				<div class="card px-4 py-4 shadow" id="screenshots-container">
+					<div class="card-body">
+						<h3 class="pb-3">
+							Screenshots
+						</h3>
+
+						<div id="raw-screenshots">
+							{{#assets.screenshots}}
+								<img src="{{uri}}" alt="{{label}}"/>
+							{{/assets.screenshots}}
+						</div>	
+
+						<!-- See https://getbootstrap.com/docs/5.3/components/carousel/ -->
+						<div id="screenshots-carousel" class="carousel slide">
+							<button
+								class="carousel-control-prev"
+								type="button"
+								data-bs-target="#screenshots-carousel"
+								data-bs-slide="prev"
+							>
+								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Previous</span>
+							</button>
+							<button
+								class="carousel-control-next"
+								type="button"
+								data-bs-target="#screenshots-carousel"
+								data-bs-slide="next"
+							>
+								<span class="carousel-control-next-icon" aria-hidden="true"></span>
+								<span class="visually-hidden">Next</span>
+							</button>							
+						</div>
+					</div>
+				</div>
 				<div class="card px-4 py-4 shadow">
 					<div class="card-body">
 						<h5 class="pb-3">
@@ -48,19 +83,6 @@
 								<a href="#" class="btn btn-primary w-100">Get Plugin in Joplin</a>
 							</div> }}
 						</div>
-					</div>
-				</div>
-				<div class="card px-4 py-4 shadow" id="screenshots-container">
-					<div class="card-body">
-						<h3 class="pb-3">
-							Screenshots
-						</h3>
-
-						<div id="raw-screenshots">
-							{{#assets.screenshots}}
-								<img src="{{uri}}" alt="{{label}}"/>
-							{{/assets.screenshots}}
-						</div>				
 					</div>
 				</div>
 				<div class="card px-4 py-4 shadow">

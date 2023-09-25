@@ -55,10 +55,16 @@ const getAllPluginAssets = async (plugins: IdToManifestRecord) => {
 					// TODO: For now, we assume that manifest.json is in the src/ directory.
 					//       **This assumption is invalid in many cases**.
 					for (const screenshot of manifest.screenshots) {
-						const screenshotURI = path.join('src', screenshot.src);
+						const screenshotURI =
+							screenshot.src.startsWith('.') ? path.join('src', screenshot.src) : screenshot.src;
 
 						// Avoid non-relative URLs
 						if (screenshotURI.startsWith('.')) {
+							continue;
+						}
+
+						// Avoid links
+						if (screenshotURI.match(/^\w+:\/\//)) {
 							continue;
 						}
 

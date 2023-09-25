@@ -1,7 +1,7 @@
 import PluginDataManager from './PluginDataManager';
 import initializeSearch from './search/initializeSearch';
 import initializeDownloadPage from './initializeDownloadPage';
-import initializePluginPage from './initializePluginPage';
+import initializePluginPage from './plugin/initializePluginPage';
 import 'bootstrap';
 
 import './style.scss';
@@ -18,7 +18,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 	if (page === 'download') {
 		initializeDownloadPage(pluginDataManager);
 	}
-	else if (page === 'plugin') {
+	else if (page === 'pluginDisplay') {
 		initializePluginPage();
 	}
 
