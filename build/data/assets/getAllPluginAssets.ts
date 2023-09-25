@@ -4,10 +4,11 @@
 //
 // Modeled on the approach used by https://www.npmjs.com/package/get-package-readme?activeTab=code
 
-import fetchFromGitHub from "../../lib/fetchFromGitHub";
-import { IdToManifestRecord, PluginAssetData } from "../../lib/types";
+import fetchFromGitHub from "../../../lib/fetchFromGitHub";
+import { IdToManifestRecord, PluginAssetData } from "../../../lib/types";
+import renderMarkdown from "./renderMarkdown";
 
-const getPluginAssets = async (plugins: IdToManifestRecord) => {
+const getAllPluginAssets = async (plugins: IdToManifestRecord) => {
 	// Capture groups:
 	// 1. The username/organization
 	// 2. The project name
@@ -33,7 +34,7 @@ const getPluginAssets = async (plugins: IdToManifestRecord) => {
 				for (const branchName of defaultBranchNames) {
 					const gitHubReadme = await fetchFromGitHub(`${organization}/${project}/${branchName}/README.md`);
 					if (!gitHubReadme.startsWith('404')) {
-						result[id].readme = gitHubReadme;
+						result[id].readme = await renderMarkdown(gitHubReadme);
 
 						break;
 					}
@@ -41,13 +42,14 @@ const getPluginAssets = async (plugins: IdToManifestRecord) => {
 			})());
 		} else {
 			result[id] = {
-				readme: '😕 README fetch from NPM not implemented 😕',
+				readme: await renderMarkdown('😕 README fetch from NPM not implemented 😕.'),
 			};
 		}
 	}
 
 	await Promise.all(fetchTasks);
+	
 
 	return result;
 };
-export default getPluginAssets;
+export default getAllPluginAssets;

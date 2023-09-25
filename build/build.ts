@@ -11,7 +11,7 @@ import {
 	type MarketplaceData as GlobalMarketplaceData,
 	IdToAssetsRecord,
 } from '../lib/types';
-import getPluginAssets from './data/getPluginAssets';
+import getAllPluginAssets from './data/assets/getAllPluginAssets';
 
 export interface Template {
 	path: string;
@@ -115,7 +115,7 @@ export async function build(mode: 'dev' | 'production'): Promise<void> {
 	copyStaticFiles(config);
 	const template = loadTemplate(config);
 	const globalData = await getGlobalMarketplaceData(config);
-	const assets = await getPluginAssets(globalData.plugins.raw);
+	const assets = await getAllPluginAssets(globalData.plugins.raw);
 	const partials = loadTemplatePartials(config);
 	const routes = {
 		pluginName: globalData.plugins.all.map((plugin: JoplinPlugin) => plugin.id),

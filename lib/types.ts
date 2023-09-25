@@ -33,7 +33,8 @@ export interface JoplinPlugin {
 
 // Larger assets
 export interface PluginAssetData {
-	// Full text content of the readme
+	// Full text content of the readme.
+	// The text stored in the `readme` property must be sanitized.
 	readme?: string;
 }
 

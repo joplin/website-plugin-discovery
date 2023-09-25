@@ -42,6 +42,7 @@ describe('build', () => {
 			],
 			testData,
 			{},
+			{},
 			{
 				pluginName: ['com.whatever.quick-links'],
 			},
