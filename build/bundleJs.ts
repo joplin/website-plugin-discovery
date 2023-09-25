@@ -1,38 +1,82 @@
 import * as path from 'path';
-import { rollup, type RollupOptions, type OutputOptions } from 'rollup';
-import pluginTypescript from '@rollup/plugin-typescript';
+
+import webpack from 'webpack';
+
 import { type BuildConfig } from '../lib/types';
 
-const bundleJs = async (config: BuildConfig): Promise<void> => {
-	// Rollup expects tsconfig to produce ES modules, while node (by default)
-	// expects CommonJS.
-	const tsconfigPath = path.join(path.dirname(__dirname), 'tsconfig.rollup.json');
-
-	const outputOptions: OutputOptions[] = [
-		{
-			file: path.join(config.distDir, 'bundle.js'),
+const bundleJs = (buildConfig: BuildConfig): Promise<void> => {
+	const webpackConfig: webpack.Configuration = {
+		mode: 'production',
+		entry: path.join(buildConfig.sourceDir, 'runtime', 'index.ts'),
+		output: {
+			path: buildConfig.distDir,
+			filename: 'bundle.js',
 
 			// self-executing script function.
-			format: 'iife',
+			iife: true,
 		},
-	];
+		module: {
+			rules: [
+				{
+					test: /\.scss$/i,
+					use: ['style-loader', 'css-loader', 'sass-loader'],
+				},
+				{
+					test: /\.css$/i,
+					use: ['style-loader', 'css-loader'],
+				},
 
-	const rollupConfig: RollupOptions = {
-		input: path.join(config.sourceDir, 'runtime-scripts', 'index.ts'),
-		output: outputOptions,
-		plugins: [pluginTypescript({ tsconfig: tsconfigPath })],
+				// See https://webpack.js.org/guides/typescript/
+				{
+					test: /\.ts$/i,
+					use: [{
+						loader: 'ts-loader',
+
+						// Specify a custom config file. See
+						// https://stackoverflow.com/a/55607159
+						options: {
+							configFile: 'tsconfig.webpack.json',
+						}
+					}],
+					exclude: /node_modules/,
+				},
+			],
+		},
+		resolve: {
+			extensions: ['.ts', '.js']
+		}
 	};
 
-	let bundle;
-	try {
-		bundle = await rollup(rollupConfig);
+	return new Promise<void>((resolve, reject) => {
+		const compiler = webpack(webpackConfig);
+		compiler.run((error, stats) => {
+			let failed = false;
+			if (error) {
+				console.error('Error:', error.message, error.stack);
+				failed = true;
+			}
 
-		for (const outputOption of outputOptions) {
-			await bundle.write(outputOption);
-		}
-	} finally {
-		await bundle?.close();
-	}
+			const hasErrors = stats?.hasErrors();
+			const hasWarnings = stats?.hasWarnings();
+
+			if (stats && (hasErrors || hasWarnings)) {
+				if (hasErrors) {
+					console.error('Failed with errors.');
+					failed = true;
+				}
+
+				console.error('Errors and warnings:\n', stats.toString());
+			}
+
+			compiler.close(() => {
+				if (!failed) {
+					resolve();
+				} else {
+					reject();
+				}
+			});
+		});
+	});
 };
 
 export default bundleJs;

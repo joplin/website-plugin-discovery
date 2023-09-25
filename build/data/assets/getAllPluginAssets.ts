@@ -5,8 +5,8 @@
 // Modeled on the approach used by https://www.npmjs.com/package/get-package-readme?activeTab=code
 
 import path from "path";
-import fetchFromGitHub from "../../../lib/fetchFromGitHub";
-import { IdToManifestRecord, PluginAssetData } from "../../../lib/types";
+import fetchFromGitHub from "../../fetchFromGitHub";
+import { BuildConfig, IdToManifestRecord, PluginAssetData } from "../../../lib/types";
 import renderMarkdown from "./renderMarkdown";
 
 const getAllPluginAssets = async (plugins: IdToManifestRecord) => {
