@@ -3,10 +3,10 @@ import { argv } from 'node:process';
 import { build } from './build';
 
 // Inerpret the last argument as the mode
-let mode: 'dev'|'production'|'watch'|string = argv[argv.length - 1];
+let mode: 'dev'|'production'|'watch-js'|string = argv[argv.length - 1];
 
 let watch = false;
-if (mode === 'watch') {
+if (mode === 'watch-js') {
 	watch = true;
 	mode = 'dev';
 }

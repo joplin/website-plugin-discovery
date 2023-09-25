@@ -5,7 +5,7 @@
 	"type": "commonjs",
 	"scripts": {
 		"build": "tsc && ts-node ./build/main.ts dev",
-		"watch": "ts-node ./build/main.ts watch",
+		"watch-js": "ts-node ./build/main.ts watch-js",
 		"build-production": "tsc && ts-node ./build/main.ts production",
 		"lint": "eslint --fix . && prettier --ignore-path .eslintignore --write .",
 		"test": "jest"
