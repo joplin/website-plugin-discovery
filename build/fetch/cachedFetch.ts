@@ -1,20 +1,20 @@
-import { existsSync } from "fs";
-import { mkdir, readFile, writeFile } from "fs/promises";
+import { createHash } from "node:crypto";
+import { existsSync } from "node:fs";
+import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { dirname, join } from "path";
 
+const cachedFetch = async (mirrors: string[], resourcePath: string) => {
+	// Convert the request into a unique ID.
+	const cacheIdHash = createHash('sha256');
+	cacheIdHash.update(mirrors[0]);
+	cacheIdHash.update(resourcePath);
+	const cacheId = cacheIdHash.digest('hex');
 
-const fetchFromGitHub = async (resourcePath: string) => {
-	const cacheId = resourcePath.replace(/[^a-zA-Z0-9_]/g, '-');
-	const cachePath = join(__dirname, 'responseCaches', cacheId);
+	const cachePath = join(dirname(__dirname), 'responseCaches', cacheId);
 	if (existsSync(cachePath)) {
 		return await readFile(cachePath, 'utf-8');
 	}
 
-	const mirrors = [
-		'https://raw.githubusercontent.com/',
-		'https://raw.staticdn.net/',
-		'https://raw.fastgit.org/',
-	];
 	let result: string|null = null;
 	for (let index = 0; index < mirrors.length; index++) {
 		try {
@@ -37,4 +37,4 @@ const fetchFromGitHub = async (resourcePath: string) => {
 	return result;
 };
 
-export default fetchFromGitHub;
+export default cachedFetch;

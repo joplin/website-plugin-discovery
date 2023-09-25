@@ -1,4 +1,4 @@
-import fetchFromGitHub from '../fetchFromGitHub';
+import fetchFromGitHub from '../fetch/fetchFromGitHub';
 import {
 	type JoplinPlugin,
 	type IdToManifestRecord,

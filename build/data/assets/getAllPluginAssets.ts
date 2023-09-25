@@ -5,9 +5,10 @@
 // Modeled on the approach used by https://www.npmjs.com/package/get-package-readme?activeTab=code
 
 import path from "path";
-import fetchFromGitHub from "../../fetchFromGitHub";
-import { BuildConfig, IdToManifestRecord, PluginAssetData } from "../../../lib/types";
+import fetchFromGitHub from "../../fetch/fetchFromGitHub";
+import { IdToManifestRecord, PluginAssetData } from "../../../lib/types";
 import renderMarkdown from "./renderMarkdown";
+import cachedFetch from "../../fetch/cachedFetch";
 
 const getAllPluginAssets = async (plugins: IdToManifestRecord) => {
 	// Capture groups:
@@ -20,7 +21,11 @@ const getAllPluginAssets = async (plugins: IdToManifestRecord) => {
 
 	for (const id in plugins) {
 		const manifest = plugins[id];
-		const githubRepositoryMatch = githubURLRegex.exec(manifest.repository_url ?? '');
+
+		let githubRepositoryMatch = githubURLRegex.exec(manifest.repository_url ?? '');
+		if (!githubRepositoryMatch) {
+			githubRepositoryMatch = githubURLRegex.exec(manifest.homepage_url ?? '');
+		}
 
 		result[id] = {
 			readme: 'ERROR',
@@ -76,7 +81,12 @@ const getAllPluginAssets = async (plugins: IdToManifestRecord) => {
 				}
 			})());
 		} else {
-			result[id].readme = '😕 README fetch from NPM not implemented 😕.';
+			fetchTasks.push((async () => {
+				const packageData = JSON.parse(
+					await cachedFetch(['https://registry.npmjs.org/'], manifest._npm_package_name)
+				);
+				result[id].readme = await renderMarkdown(packageData.readme ?? 'No README');
+			})());
 		}
 	}
 
