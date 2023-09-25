@@ -8,6 +8,7 @@ const initializeScreenshotCarousel = (screenshotsCard: HTMLElement) => {
 	// No screenshots?
 	if (images.length === 0) {
 		screenshotsCard.remove();
+		return;
 	}
 
 	const screenshotsCarousel = screenshotsCard.querySelector('#screenshots-carousel')!;
