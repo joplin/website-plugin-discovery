@@ -13,6 +13,7 @@
 		margin-bottom: auto;
 	}
 }
+
 .screenshot-carousel-item {
 	height: 460px;
 
@@ -25,5 +26,11 @@
 		margin-right: auto;
 		margin-top: auto;
 		margin-bottom: auto;
+	}
+}
+
+#readme {
+	img {
+		max-width: 100%;
 	}
 }
