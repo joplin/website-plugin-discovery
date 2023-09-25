@@ -17,8 +17,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 	// If initializeDownloadPage was already called
 	if (page === 'download') {
 		initializeDownloadPage(pluginDataManager);
-	}
-	else if (page === 'pluginDisplay') {
+	} else if (page === 'pluginDisplay') {
 		initializePluginPage();
 	}
 

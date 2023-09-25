@@ -18,7 +18,10 @@ function convertToDomId(id: string): string {
 	return id.toLowerCase().replace(/[.]/g, '-');
 }
 
-async function getTrendingPlugins(plugins: IdToManifestRecord, topn: number): Promise<JoplinPlugin[]> {
+async function getTrendingPlugins(
+	plugins: IdToManifestRecord,
+	topn: number
+): Promise<JoplinPlugin[]> {
 	const result = [];
 	for (const pluginId in plugins) {
 		result.push({

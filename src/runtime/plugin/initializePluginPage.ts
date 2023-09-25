@@ -1,4 +1,3 @@
-
 import { Carousel } from 'bootstrap';
 
 const initializeScreenshotCarousel = (screenshotsCard: HTMLElement) => {
@@ -18,7 +17,7 @@ const initializeScreenshotCarousel = (screenshotsCard: HTMLElement) => {
 	let isFirstSlide = true;
 	for (const image of images) {
 		image.remove();
-		
+
 		const slide = document.createElement('div');
 		slide.classList.add('carousel-item', 'screenshot-carousel-item');
 		if (isFirstSlide) {
@@ -34,7 +33,7 @@ const initializeScreenshotCarousel = (screenshotsCard: HTMLElement) => {
 	rawScreenshotContainer.remove();
 
 	new Carousel('#' + screenshotsCarousel.id);
-}
+};
 
 const initializePluginPage = () => {
 	const screenshotsCards = document.querySelectorAll('#screenshots-container');

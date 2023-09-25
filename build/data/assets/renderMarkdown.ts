@@ -1,6 +1,4 @@
-
-
-let micromarkRenderer: ((markdown: string)=>string)|null = null;
+let micromarkRenderer: ((markdown: string) => string) | null = null;
 
 const renderMarkdown = async (markdown: string) => {
 	// Load micromark

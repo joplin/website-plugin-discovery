@@ -25,7 +25,7 @@ export interface JoplinPlugin {
 	_publish_commit: string;
 	_npm_package_name: string;
 	_recommended?: boolean;
-	screenshots?: { src: string, label?: string }[];
+	screenshots?: { src: string; label?: string }[];
 	downloadCount: number;
 	timeModified: string;
 	domId?: string;
@@ -36,7 +36,7 @@ export interface PluginAssetData {
 	// Full text content of the readme.
 	// The text stored in the `readme` property must be sanitized.
 	readme: string;
-	screenshots: { uri: string, label: string }[];
+	screenshots: { uri: string; label: string }[];
 }
 
 // Data about all plugins

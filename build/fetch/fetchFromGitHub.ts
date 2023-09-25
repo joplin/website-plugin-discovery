@@ -1,5 +1,4 @@
-import cachedFetch from "./cachedFetch";
-
+import cachedFetch from './cachedFetch';
 
 const fetchFromGitHub = (resourcePath: string) => {
 	const mirrors = [
@@ -7,7 +6,7 @@ const fetchFromGitHub = (resourcePath: string) => {
 		'https://raw.staticdn.net/',
 		'https://raw.fastgit.org/',
 	];
-	
+
 	return cachedFetch(mirrors, resourcePath);
 };
 

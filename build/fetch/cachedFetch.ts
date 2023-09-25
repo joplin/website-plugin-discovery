@@ -1,7 +1,7 @@
-import { createHash } from "node:crypto";
-import { existsSync } from "node:fs";
-import { readFile, writeFile, mkdir } from "node:fs/promises";
-import { dirname, join } from "path";
+import { createHash } from 'node:crypto';
+import { existsSync } from 'node:fs';
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { dirname, join } from 'path';
 
 const cachedFetch = async (mirrors: string[], resourcePath: string) => {
 	// Convert the request into a unique ID.
@@ -15,7 +15,7 @@ const cachedFetch = async (mirrors: string[], resourcePath: string) => {
 		return await readFile(cachePath, 'utf-8');
 	}
 
-	let result: string|null = null;
+	let result: string | null = null;
 	for (let index = 0; index < mirrors.length; index++) {
 		try {
 			const url = mirrors[index] + resourcePath;

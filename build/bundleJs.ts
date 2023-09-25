@@ -29,25 +29,30 @@ const bundleJs = (buildConfig: BuildConfig, watch: boolean): Promise<void> => {
 				// See https://webpack.js.org/guides/typescript/
 				{
 					test: /\.ts$/i,
-					use: [{
-						loader: 'ts-loader',
+					use: [
+						{
+							loader: 'ts-loader',
 
-						// Specify a custom config file. See
-						// https://stackoverflow.com/a/55607159
-						options: {
-							configFile: 'tsconfig.webpack.json',
-						}
-					}],
+							// Specify a custom config file. See
+							// https://stackoverflow.com/a/55607159
+							options: {
+								configFile: 'tsconfig.webpack.json',
+							},
+						},
+					],
 					exclude: /node_modules/,
 				},
 			],
 		},
 		resolve: {
-			extensions: ['.ts', '.js']
-		}
+			extensions: ['.ts', '.js'],
+		},
 	};
 
-	const handleCompilerResult = (error: Error|null|undefined, stats: webpack.Stats|undefined) => {
+	const handleCompilerResult = (
+		error: Error | null | undefined,
+		stats: webpack.Stats | undefined
+	) => {
 		let failed = false;
 		if (error) {
 			console.error('Error:', error.message, error.stack);
@@ -74,9 +79,7 @@ const bundleJs = (buildConfig: BuildConfig, watch: boolean): Promise<void> => {
 
 		if (watch) {
 			const watchOptions = {
-				ignored: [
-					'node_modules/',
-				],
+				ignored: ['node_modules/'],
 			};
 
 			compiler.watch(watchOptions, async (error, stats) => {

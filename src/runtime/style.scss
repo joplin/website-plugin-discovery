@@ -1,11 +1,9 @@
-
 // Automatically switch between light and dark mode:
 $color-mode-type: media-query;
 
 @import 'bootstrap/scss/bootstrap';
 @import './search/style.scss';
 @import './plugin/style.scss';
-
 
 .navbar {
 	padding: 20px 40px 20px 40px;
