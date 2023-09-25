@@ -1,6 +1,7 @@
 import PluginDataManager from './PluginDataManager';
 import initializeSearch from './initializeSearch';
 import initializeDownloadPage from './initializeDownloadPage';
+import initializePluginPage from './initializePluginPage';
 
 // E.g. /site/ or /pluginWebsite/
 const siteRoot: string = (window as any).siteRoot;
@@ -15,7 +16,7 @@ void (async () => {
 		initializeDownloadPage(pluginDataManager);
 	}
 	else if (page === 'plugin') {
-		
+		initializePluginPage();
 	}
 
 	initializeSearch(

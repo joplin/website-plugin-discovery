@@ -178,3 +178,9 @@
 	display: inline-block;
 	margin: 0.5em 0.5em 0.5em 0;
 }
+
+#screenshots-container {
+	#raw-screenshots > img {
+		max-width: 100%;
+	}
+}

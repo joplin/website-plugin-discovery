@@ -47,6 +47,19 @@
 						</div>
 					</div>
 				</div>
+				<div class="card px-4 py-4 shadow" id="screenshots-container">
+					<div class="card-body">
+						<h3 class="pb-3">
+							Screenshots
+						</h3>
+
+						<div id="raw-screenshots">
+							{{#assets.screenshots}}
+								<img src="{{uri}}" alt="{{label}}"/>
+							{{/assets.screenshots}}
+						</div>				
+					</div>
+				</div>
 				<div class="card px-4 py-4 shadow">
 					<div class="card-body">
 						<h3 class="pb-3">
