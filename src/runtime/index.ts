@@ -1,5 +1,5 @@
 import PluginDataManager from './PluginDataManager';
-import initializeSearch from './initializeSearch';
+import initializeSearch from './search/initializeSearch';
 import initializeDownloadPage from './initializeDownloadPage';
 import initializePluginPage from './initializePluginPage';
 import 'bootstrap';

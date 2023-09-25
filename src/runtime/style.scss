@@ -1,1 +1,112 @@
+
+// Automatically switch between light and dark mode:
+$color-mode-type: media-query;
+
 @import 'bootstrap/scss/bootstrap';
+@import './search/style.scss';
+
+
+.navbar {
+	padding: 20px 40px 20px 40px;
+}
+
+.banner {
+	padding-top: 4rem;
+	padding-bottom: 4rem;
+}
+
+.nav-pills {
+	--bs-nav-pills-border-radius: 0.375rem;
+	--bs-nav-pills-link-active-color: var(--bs-black);
+	--bs-nav-pills-link-active-bg: var(--bs-gray-300);
+}
+
+.nav {
+	--bs-nav-link-color: var(--bs-gray-700);
+	--bs-nav-link-hover-color: var(--bs-black);
+	--bs-nav-link-disabled-color: #6c757d;
+}
+
+.nav-list {
+	border-radius: 0.375rem;
+}
+
+.tab-content {
+	min-height: auto;
+	border-radius: 0.375rem;
+}
+
+.anchor {
+	position: relative;
+	top: -100px;
+	display: block;
+	height: 0;
+	overflow: hidden;
+}
+
+.link-card {
+	list-style: none;
+	display: flex;
+	border: 1px solid hsla(240, 6%, 83%, 0.63);
+	border-radius: 0.5rem;
+	min-height: 200px;
+	position: relative;
+	line-height: 1.4;
+	padding: 1em 1.3em;
+	border-radius: 0.35rem;
+	color: var(--text-color);
+	background-image: linear-gradient(120deg, #fff 45%, #f5f5f5);
+	display: block;
+}
+
+.link-card:is(:hover, :focus-within) {
+	filter: drop-shadow(0 10px 10px rgba(76, 76, 109, 0.07059));
+}
+
+.plugin-description {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+}
+
+.plugin-title {
+	text-decoration: none;
+	color: black;
+}
+
+.plugin-category {
+	text-transform: capitalize;
+	margin-top: -4px;
+}
+
+.plugin-recommended {
+	text-transform: capitalize;
+	margin-top: -4px;
+	background-color: rgb(255, 217, 47);
+}
+
+.plugin-action {
+	position: absolute;
+	bottom: 1em;
+	left: 1.425em;
+	right: 0;
+	margin: 0;
+}
+
+.wrap {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.horizontal-scroll-wrapper {
+	white-space: nowrap;
+	overflow-x: scroll;
+}
+
+#screenshots-container {
+	#raw-screenshots > img {
+		max-width: 100%;
+	}
+}

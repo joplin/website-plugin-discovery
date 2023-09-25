@@ -1,4 +1,4 @@
-import type PluginDataManager from './PluginDataManager';
+import type PluginDataManager from '../PluginDataManager';
 
 const initializeSearch = (
 	pluginData: PluginDataManager,
