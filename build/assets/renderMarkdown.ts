@@ -8,7 +8,6 @@ type MapRelativeLinksCallback = (linkUri: string) => string;
 const renderMarkdown = (markdown: string, mapRelativeLink: MapRelativeLinksCallback) => {
 	if (!markdownRenderer) {
 		const markdownItOptions = {
-			linkify: true,
 			html: true,
 		};
 		markdownRenderer = new MarkdownIt(markdownItOptions);
