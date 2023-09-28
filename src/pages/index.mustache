@@ -29,12 +29,11 @@
 			<!-- Tab Content -->
 			<div class="col-lg-10 col-12">
 				<div class="tab-content" id="nav-tabContent">
-					<div class="tab-pane fade show active" id='nav-all' role="tabpanel" aria-labelledby='nav-all-tab'
-						tabindex={0}>
+					<div class="tab-pane fade show active" id='nav-all' role="tabpanel" aria-labelledby='nav-all-tab' tabindex={0}>
 						<!-- Trending Section -->
-						<div class="row mx-3 py-4">
+						<div class="row plugin-list">
 							<div class="anchor" id="trending-section"></div>
-							<div class="highlighted-heading">
+							<div class="highlighted-heading heading">
 								<h3>Most popular</h3>
 								<div class="subhead">Top downloaded plugins</div>
 							</div>
@@ -45,44 +44,47 @@
 								{{/plugins}}
 						</div>
 						<!-- Recommended Section -->
-						<div class="row mx-3 py-4">
+						<div class="row plugin-list">
 							<div class="anchor" id="recommended-section"></div>
-							<h5 class="py-3">Recommended Plugins</h5>
-								{{#plugins}}
-									{{#recommended}}
-										{{> pluginCard}}
-									{{/recommended}}
-								{{/plugins}}
+							<div class="highlighted-heading heading">
+								<h3>Recommended plugins</h3>
+							</div>
+							{{#plugins}}
+								{{#recommended}}
+									{{> pluginCard}}
+								{{/recommended}}
+							{{/plugins}}
 						</div>
 						<!-- All Plugins -->
-						<div class="row mx-3 py-4">
+						<div class="row plugin-list">
 							<div class="anchor" id="all-plugins-section"></div>
-							<h5 class="py-3">All Plugins</h5>
-								{{#plugins}}
-									{{#all}}
-										{{> pluginCard}}
-									{{/all}}
-								{{/plugins}}
+							<div class="highlighted-heading heading">
+								<h3>All plugins</h3>
+							</div>
+							{{#plugins}}
+								{{#all}}
+									{{> pluginCard}}
+								{{/all}}
+							{{/plugins}}
 						</div>
 					</div>
 
 					<!-- Plugins in categories -->
-						{{#allPossibleCategories}}
-							<div class="tab-pane fade show" id="nav-{{name}}" role="tabpanel" aria-labelledby="nav-{{name}}-tab" tabindex='0'>
-								<div class="row mx-3 py-4">
-									{{#plugins}}
-										{{> pluginCard}}
-									{{/plugins}}
-									{{^plugins}}
-										<div class="py-5">
-											<p class="text-center mb-3"><span class="fa-solid fa-box-open fa-4x text-muted"></span></p>
-											<h5 class="text-muted text-center mb-2">Oops... There are no plugins under this category.</h5> 
-										</div>
-									{{/plugins}}
-								</div>
+					{{#allPossibleCategories}}
+						<div class="tab-pane fade show" id="nav-{{name}}" role="tabpanel" aria-labelledby="nav-{{name}}-tab" tabindex='0'>
+							<div class="row plugin-list">
+								{{#plugins}}
+									{{> pluginCard}}
+								{{/plugins}}
+								{{^plugins}}
+									<div class="py-5">
+										<p class="text-center mb-3"><span class="fa-solid fa-box-open fa-4x text-muted"></span></p>
+										<h5 class="text-muted text-center mb-2">Oops... There are no plugins under this category.</h5> 
+									</div>
+								{{/plugins}}
 							</div>
-						{{/allPossibleCategories}}
-
+						</div>
+					{{/allPossibleCategories}}
 				</div>
 			</div>
 		</div>
