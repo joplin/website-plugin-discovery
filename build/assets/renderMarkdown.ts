@@ -77,8 +77,9 @@ const renderMarkdown = (markdown: string, mapRelativeLink: MapRelativeLinksCallb
 			'img',
 		],
 		allowedAttributes: {
-			img: ['src', 'width'],
+			img: ['src', 'alt', 'width', 'height'],
 			a: ['href'],
+			'*': ['align', 'alt', 'aria-label'],
 		},
 		transformTags: {
 			// The TypeScript definitions aren't correct (or are outdated
