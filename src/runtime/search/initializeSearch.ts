@@ -38,6 +38,15 @@ const initializeSearch = (
 
 	searchInput.oninput = updateResults;
 	searchInput.onclick = updateResults;
+
+	// Extract a search query from the URL and update the search input/results:
+	const searchQueryMatch = /\?search=([^;#]+).*$/.exec(location.href);
+	if (searchQueryMatch) {
+		const searchFor = searchQueryMatch[1];
+		searchInput.value = decodeURIComponent(searchFor);
+		searchInput.focus();
+		updateResults();
+	}
 };
 
 export default initializeSearch;
