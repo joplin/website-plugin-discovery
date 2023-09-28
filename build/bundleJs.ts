@@ -44,6 +44,12 @@ const bundleJs = (buildConfig: BuildConfig, watch: boolean): Promise<void> => {
 				},
 			],
 		},
+		// Increase the maximum entrypoint size to hide warnings.
+		// TODO: Separate CSS from JS to decrease this.
+		performance: {
+			maxAssetSize: 1 * 1024 * 1024,
+			maxEntrypointSize: 1 * 1024 * 1024, // 1 MiB
+		},
 		resolve: {
 			extensions: ['.ts', '.js'],
 		},
