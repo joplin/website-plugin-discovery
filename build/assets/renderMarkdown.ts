@@ -3,7 +3,9 @@ import sanitizeHtml from 'sanitize-html';
 
 let markdownRenderer: MarkdownIt | null = null;
 
-const renderMarkdown = (markdown: string) => {
+type MapRelativeLinksCallback = (linkUri: string) => string;
+
+const renderMarkdown = (markdown: string, mapRelativeLink: MapRelativeLinksCallback) => {
 	if (!markdownRenderer) {
 		const markdownItOptions = {
 			linkify: true,
@@ -11,6 +13,32 @@ const renderMarkdown = (markdown: string) => {
 		};
 		markdownRenderer = new MarkdownIt(markdownItOptions);
 	}
+
+	const mapLink = (link: string) => {
+		if (link.startsWith('http://') || link.startsWith('https://') || link.startsWith('mailto:')) {
+			return link;
+		}
+
+		return mapRelativeLink(link);
+	};
+
+	const transformImageOrAnchor = (tagName: string, attribs: Record<string, string>) => {
+		attribs = {
+			...attribs,
+		};
+
+		if (attribs.href) {
+			attribs.href = mapLink(attribs.href);
+		}
+		if (attribs.src) {
+			attribs.src = mapLink(attribs.src);
+		}
+
+		return {
+			tagName,
+			attribs,
+		};
+	};
 
 	const sanitizeOptions = {
 		allowedTags: [
@@ -52,6 +80,12 @@ const renderMarkdown = (markdown: string) => {
 		allowedAttributes: {
 			img: ['src', 'width'],
 			a: ['href'],
+		},
+		transformTags: {
+			// The TypeScript definitions aren't correct (or are outdated
+			// here).
+			img: transformImageOrAnchor as any,
+			a: transformImageOrAnchor as any,
 		},
 	};
 

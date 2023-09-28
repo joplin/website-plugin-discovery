@@ -12,11 +12,11 @@ class GitHubReference {
 		this.gitHubBaseUri = `${organization}/${project}/HEAD`;
 	}
 
-	public convertManifsetURIToGitHubURI(uri: string) {
-		uri = uri.startsWith('.') ? path.join('src', uri) : uri;
+	public convertURIToGitHubURI(uri: string, baseDirectory: string) {
+		uri = uri.startsWith('.') ? path.join(baseDirectory, uri) : uri;
 
-		// Avoid relative URLs
-		if (uri.startsWith('.')) {
+		// Avoid relative URLs that still aren't resolved
+		if (uri.startsWith('..')) {
 			return null;
 		}
 
@@ -26,6 +26,10 @@ class GitHubReference {
 		}
 
 		return `https://raw.githubusercontent.com/${this.gitHubBaseUri}/${uri}`;
+	}
+
+	public convertManifsetURIToGitHubURI(uri: string) {
+		return this.convertURIToGitHubURI(uri, 'src/');
 	}
 
 	public async fetchFile(filePath: string) {
@@ -126,7 +130,11 @@ export default class PluginAssetLoader {
 	}
 
 	public async getRenderedReadme() {
-		return renderMarkdown(await this.getReadme());
+		const transformRelativeLinks = (link: string) => {
+			return this.gitHubReference?.convertURIToGitHubURI(link, '') ?? '#';
+		};
+
+		return renderMarkdown(await this.getReadme(), transformRelativeLinks);
 	}
 
 	public async getScreenshots() {
