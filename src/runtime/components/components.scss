@@ -1,0 +1,138 @@
+
+// Styling for general components
+
+.navbar {
+	padding: 20px 40px 20px 40px;
+}
+
+.banner {
+	padding-top: 4rem;
+	padding-bottom: 4rem;
+}
+
+.btn {
+	border-radius: 4rem;
+
+	@include color-mode(dark) {
+		--bs-btn-color: #99ccff;
+		--bs-btn-border-color: var(--bs-btn-color);
+	}
+}
+
+.nav-pills {
+	--bs-nav-pills-border-radius: 0.375rem;
+	--bs-nav-pills-link-active-color: var(--bs-secondary-color);
+	--bs-nav-pills-link-active-bg: var(--bs-secondary-bg);
+	--bs-nav-tabs-link-active-border-color: var(--bs-primary-border-subtle);
+}
+
+.nav {
+	--bs-nav-link-color: var(--bs-secondary-color);
+}
+
+.nav-list {
+	border-radius: 0.375rem;
+	background-color: var(--bs-secondary-bg);
+	color: var(--bs-secondary-color);
+
+	$padding-item-x: 1rem;
+	$padding-item-y: 1rem;
+	padding-top: $padding-item-y;
+
+	@include media-breakpoint-up(lg) {
+		& > nav {
+			flex-direction: column;
+		}
+	}
+
+	@include media-breakpoint-down(lg) {
+		$padding-item-y: 0.5rem;
+		$padding-item-x: 1rem;
+	}
+
+	& > h2 {
+		margin-left: $padding-item-x;
+		margin-right: $padding-item-x;
+		padding-bottom: 15px;
+
+		border-bottom: 1px solid var(--bs-secondary-color);
+		font-size: 1.3em;
+	}
+
+	.nav > .nav-link {
+		text-align: left;
+		padding: $padding-item-y $padding-item-x;
+
+		&.active {
+			border: 2px solid var(--bs-nav-tabs-link-active-border-color);
+			font-weight: bold;
+		}
+	}
+}
+
+// Adds a highlighter-like mark to the background of an element
+@mixin highlight-background($color) {
+	// See https://stackoverflow.com/a/25478589
+	background-image: url("data:image/svg+xml;utf8,<svg viewBox='-278 182 941 118' width='941' height='118' version='1.1' baseProfile='full' xmlns='http://www.w3.org/2000/svg'>\
+		<path \
+			d='M663,285l-10-76q-96,14 -121,7q-135-29 -183-32q-21-2 -468,16q-72,2 -151-5l-8,76q85,8 161,5q447-17 460-16q42,3 173,32q42,8 147-7' \
+			fill='#{$color}'/>\
+		</svg>");
+
+	background-repeat: no-repeat;
+	background-position-y: 10px;
+	padding-bottom: 5px;
+}
+
+.highlighted-heading {
+	h1,
+	h2,
+	h3,
+	h4 {
+		display: inline-block;
+		font-size: 2em;
+
+		@include highlight-background(#ffe492f0);
+
+		@include color-mode(dark) {
+			@include highlight-background(#90900080);
+		}
+	}
+
+	.subhead {
+		font-size: 1.5em;
+		opacity: 0.9;
+		display: inline;
+		margin-left: 1em;
+	}
+}
+
+.tab-content {
+	min-height: auto;
+	border-radius: 0.375rem;
+}
+
+.main-section {
+	border-radius: 0.5rem;
+	background-color: var(--bs-secondary-bg);
+
+	margin-bottom: 30px;
+	padding: 10px 20px;
+
+	.heading {
+		padding-left: 0;
+	}
+
+	@include media-breakpoint-up(lg) {
+		padding: 15px 30px;
+		margin-left: 15px;
+	}
+}
+
+.anchor {
+	position: relative;
+	top: -100px;
+	display: block;
+	height: 0;
+	overflow: hidden;
+}
