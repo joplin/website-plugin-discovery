@@ -10,15 +10,17 @@ import './style.scss';
 const siteRoot: string = (window as any).siteRoot;
 
 window.addEventListener('DOMContentLoaded', async () => {
-	const pluginDataManager = await PluginDataManager.fromURL(`${siteRoot}/pluginData.json`);
-
+	// Initialize components that don't depend on plugin data
 	const page = (window as any).pageId ?? 'default';
+	if (page === 'pluginDisplay') {
+		initializePluginPage();
+	}
+
+	const pluginDataManager = await PluginDataManager.fromURL(`${siteRoot}/pluginData.json`);
 
 	// If initializeDownloadPage was already called
 	if (page === 'download') {
 		initializeDownloadPage(pluginDataManager);
-	} else if (page === 'pluginDisplay') {
-		initializePluginPage();
 	}
 
 	initializeSearch(

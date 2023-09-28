@@ -44,22 +44,21 @@ $color-mode-type: media-query;
 }
 
 .link-card {
-	list-style: none;
-	display: flex;
-	border: 1px solid hsla(240, 6%, 83%, 0.63);
-	border-radius: 0.5rem;
-	min-height: 200px;
-	position: relative;
-	line-height: 1.4;
-	padding: 1em 1.3em;
-	border-radius: 0.35rem;
-	color: var(--text-color);
-	background-image: linear-gradient(120deg, #fff 45%, #f5f5f5);
 	display: block;
-}
 
-.link-card:is(:hover, :focus-within) {
-	filter: drop-shadow(0 10px 10px rgba(76, 76, 109, 0.07059));
+	text-decoration: none;
+	padding-left: 0;
+	padding-right: 0;
+	cursor: pointer;
+
+	label {
+		cursor: pointer;
+	}
+
+	.card-img-top {
+		max-height: 200px;
+		object-fit: cover;
+	}
 }
 
 .plugin-description {
@@ -67,11 +66,6 @@ $color-mode-type: media-query;
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 2;
 	overflow: hidden;
-}
-
-.plugin-title {
-	text-decoration: none;
-	color: black;
 }
 
 .plugin-category {

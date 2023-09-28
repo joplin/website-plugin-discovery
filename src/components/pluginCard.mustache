@@ -1,34 +1,22 @@
-<div class="col-md-12 col-lg-4 gx-3 mb-3">
-	<li class="link-card {{domId}}">
-			<h5 class="wrap pb-2">
-				<a href="plugin/{{id}}" class="plugin-title">
-					<span class="fa-regular fa-window-maximize"></span>
-					{{ name }}
-				</a>
-			</h5>
-			<div class="pb-2">
-			{{#_recommended}}
-				<span class="plugin-recommended me-2 badge text-black">Recommended</span>
-			{{/_recommended}}
-			{{#categories}}
-				<span class="plugin-category me-2 badge bg-secondary">{{.}}</span>
-			{{/categories}}
-			</div>
+<a href="plugin/{{id}}" id="plugin-card-{{id}}" class="col-md-12 col-lg-4 gx-3 mb-3 card link-card">
+	<img src="{{&config.site}}/plugin-icon-placeholder.svg" class="card-img-top" alt=""/>
+	<div class="card-body {{domId}}">
+		<h5 class="wrap pb-2">
+			<label for="plugin-card-{{id}}" class="plugin-title">
+				{{ name }}
+			</label>
+		</h5>
+		<div class="pb-2">
+		{{#_recommended}}
+			<span class="plugin-recommended me-2 badge text-black">Recommended</span>
+		{{/_recommended}}
+		{{#categories}}
+			<span class="plugin-category me-2 badge bg-secondary">{{.}}</span>
+		{{/categories}}
+		</div>
 
-			<p class="plugin-description">
-				{{ description }}
-			</p>
-			
-			<p class="plugin-action">
-				{{! See More <span class="plugin-link-arrow">&rarr;</span> }}
-				<a href="plugin/{{id}}" class="btn btn-sm btn-outline-dark">
-					See More
-				</a>
-				<a
-					href="{{&config.site}}/downloadPlugin.html?id={{id}}"
-					class="btn btn-sm btn-outline-dark download-btn">
-					<i class="fa-solid fa-download"></i>
-				</a>
-			</p>
-	</li>
-</div>
+		<p class="plugin-description">
+			{{ description }}
+		</p>
+	</div>
+</a>
