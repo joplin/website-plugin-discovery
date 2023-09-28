@@ -7,7 +7,6 @@ class PluginDataManager {
 		private readonly siteRoot: string
 	) {
 		this.allPlugins = Object.values(rawPlugins);
-		console.log(this.allPlugins);
 	}
 
 	private isRecommended(pluginId: string): boolean {

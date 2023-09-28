@@ -42,7 +42,7 @@ const testPlugin2: JoplinPlugin = {
 
 const testPlugin3: JoplinPlugin = {
 	manifest_version: 12,
-	id: 'com.example.thisdoesntexist',
+	id: 'com.example.thisdoesntexist3',
 	app_min_version: '3.14159',
 	version: 'badversion',
 	name: 'Fake Plugin',
@@ -58,7 +58,7 @@ const testPlugin3: JoplinPlugin = {
 
 const testPlugin4: JoplinPlugin = {
 	manifest_version: 12,
-	id: 'com.example.thisdoesntexist',
+	id: 'com.example.thisdoesntexist5',
 	app_min_version: '3.14159',
 	version: 'badversion',
 	name: 'Fake Plugin',
@@ -74,7 +74,7 @@ const testPlugin4: JoplinPlugin = {
 
 export const testPlugin5: JoplinPlugin = {
 	manifest_version: 12,
-	id: 'com.example.thisalsodoesntexist',
+	id: 'com.example.thisalsodoesntexist4',
 	app_min_version: '3.14159',
 	version: '0.1.2',
 	name: 'Plugin with N/A modified time',
@@ -83,7 +83,7 @@ export const testPlugin5: JoplinPlugin = {
 	_publish_hash: 'sha256:0ff54037d73f160c02b6ebe7af2ee56a89ab8341707965eb60e8d1bb41c19489',
 	_publish_commit: 'git_compare_url:91103d135188995b08bff3c2c44006eae32e038d',
 	_npm_package_name: '@example/does-not-exist5',
-	_recommended: true,
+	_recommended: false,
 	downloadCount: 0,
 	timeModified: 'N/A',
 };

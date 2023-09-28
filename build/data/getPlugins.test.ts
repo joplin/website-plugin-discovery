@@ -7,7 +7,6 @@ let plugins: any;
 
 beforeAll(async () => {
 	plugins = await getPlugins(testConfig);
-	return plugins;
 });
 
 describe('plugin data', () => {
