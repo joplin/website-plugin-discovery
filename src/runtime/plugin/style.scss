@@ -1,3 +1,9 @@
+#screenshots-container {
+	#raw-screenshots > img {
+		max-width: 100%;
+	}
+}
+
 #screenshots-carousel {
 	.carousel-control-next,
 	.carousel-control-prev {

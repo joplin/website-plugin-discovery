@@ -26,6 +26,12 @@ $color-mode-type: media-query;
 	background-color: rgb(255, 217, 47);
 }
 
+main {
+	@include media-breakpoint-up(md) {
+		padding-top: 20px;
+	}
+}
+
 .wrap {
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -35,10 +41,4 @@ $color-mode-type: media-query;
 .horizontal-scroll-wrapper {
 	white-space: nowrap;
 	overflow-x: scroll;
-}
-
-#screenshots-container {
-	#raw-screenshots > img {
-		max-width: 100%;
-	}
 }
