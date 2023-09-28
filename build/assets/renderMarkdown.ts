@@ -1,7 +1,6 @@
-
 import MarkdownIt from 'markdown-it';
 
-let markdownRenderer: MarkdownIt|null = null;
+let markdownRenderer: MarkdownIt | null = null;
 
 const renderMarkdown = async (markdown: string) => {
 	if (!markdownRenderer) {

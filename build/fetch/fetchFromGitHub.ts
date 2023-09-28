@@ -5,8 +5,8 @@ const fetchFromGitHub = (resourcePath: string) => {
 		'https://raw.githubusercontent.com/',
 
 		// Uncomment if developing in a region that can't use the default GitHub mirror
-//		'https://raw.staticdn.net/',
-//		'https://raw.fastgit.org/',
+		//		'https://raw.staticdn.net/',
+		//		'https://raw.fastgit.org/',
 	];
 
 	return cachedFetch(mirrors, resourcePath);
