@@ -68,21 +68,23 @@ $color-mode-type: media-query;
 
 // Adds a highlighter-like mark to the background of an element
 @mixin highlight-background($color) {
-
 	// See https://stackoverflow.com/a/25478589
 	background-image: url("data:image/svg+xml;utf8,<svg viewBox='-278 182 941 118' width='941' height='118' version='1.1' baseProfile='full' xmlns='http://www.w3.org/2000/svg'>\
 		<path \
 			d='M663,285l-10-76q-96,14 -121,7q-135-29 -183-32q-21-2 -468,16q-72,2 -151-5l-8,76q85,8 161,5q447-17 460-16q42,3 173,32q42,8 147-7' \
 			fill='#{$color}'/>\
 		</svg>");
-	
+
 	background-repeat: no-repeat;
 	background-position-y: 10px;
 	padding-bottom: 5px;
 }
 
 .highlighted-heading {
-	h1, h2, h3, h4 {
+	h1,
+	h2,
+	h3,
+	h4 {
 		display: inline-block;
 		font-size: 2em;
 
@@ -91,7 +93,6 @@ $color-mode-type: media-query;
 		@include color-mode(dark) {
 			@include highlight-background(#90900080);
 		}
-
 	}
 
 	.subhead {
