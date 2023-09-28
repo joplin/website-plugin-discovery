@@ -126,7 +126,7 @@ export default class PluginAssetLoader {
 	}
 
 	public async getRenderedReadme() {
-		return await renderMarkdown(await this.getReadme());
+		return renderMarkdown(await this.getReadme());
 	}
 
 	public async getScreenshots() {
