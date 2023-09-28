@@ -1,3 +1,4 @@
 module.exports = {
-	'**/*.{js,ts,scss,css}': ['eslint --fix', 'prettier --ignore-path .eslintignore --write'],
+	'**/*.{js,ts}': ['eslint --fix', 'prettier --ignore-path .eslintignore --write'],
+	'**/*.{md,scss,css}': ['prettier --ignore-path .eslintignore --write'],
 };
