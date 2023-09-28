@@ -1,4 +1,4 @@
-import renderMarkdown from "./renderMarkdown";
+import renderMarkdown from './renderMarkdown';
 
 describe('renderMarkdown', () => {
 	it('should sanitize markdown', () => {
@@ -12,15 +12,9 @@ describe('renderMarkdown', () => {
 	});
 
 	it('should convert markdown to HTML', () => {
-		expect(
-			renderMarkdown('# Test!\n\nThis *is* a test.')
-		).toBe(
+		expect(renderMarkdown('# Test!\n\nThis *is* a test.')).toBe(
 			'<h1>Test!</h1>\n<p>This <em>is</em> a test.</p>\n'
 		);
-		expect(
-			renderMarkdown('`code`')
-		).toBe(
-			'<p><code>code</code></p>\n'
-		);
-	})
+		expect(renderMarkdown('`code`')).toBe('<p><code>code</code></p>\n');
+	});
 });
