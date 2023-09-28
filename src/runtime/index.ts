@@ -16,7 +16,10 @@ window.addEventListener('DOMContentLoaded', async () => {
 		initializePluginPage();
 	}
 
-	const pluginDataManager = await PluginDataManager.fromURL(`${siteRoot}/pluginData.json`);
+	const pluginDataManager = await PluginDataManager.fromURL(
+		`${siteRoot}/pluginData.json`,
+		siteRoot
+	);
 
 	// If initializeDownloadPage was already called
 	if (page === 'download') {

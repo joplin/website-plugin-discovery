@@ -8,14 +8,11 @@ import {
 import testData from '../lib/testData';
 import fs from 'fs-extra';
 import path from 'path';
-import { devConfig } from './config';
+import { testConfig } from './config';
 
 const testOutputDir = path.join(__dirname, 'test');
-const testDistDir = path.join(testOutputDir, 'dist');
-const config = {
-	...devConfig,
-	distDir: testDistDir,
-};
+const config = testConfig;
+const testDistDir = config.distDir;
 
 jest.setTimeout(120000);
 
@@ -32,16 +29,15 @@ describe('build', () => {
 	});
 	test('should gernerate html', () => {
 		renderTemplates(
-			{ ...devConfig, distDir: testDistDir },
+			{ ...testConfig, distDir: testDistDir },
 			[
 				{
-					path: path.resolve(path.join(devConfig.sourceDir, './pages')),
+					path: path.resolve(path.join(testConfig.sourceDir, './pages')),
 					name: 'index',
 					content: 'hello, world!',
 				},
 			],
 			testData,
-			{},
 			{},
 			{
 				pluginName: ['com.whatever.quick-links'],

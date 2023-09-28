@@ -9,7 +9,15 @@ export type IdToAssetsRecord = Record<string, PluginAssetData>;
 
 export type Stats = Record<string, any>;
 
+export interface PluginIconSet {
+	'16'?: string;
+	'32'?: string;
+	'48'?: string;
+	'128'?: string;
+}
+
 export interface JoplinPlugin {
+	// Directly from the manifest
 	manifest_version: number;
 	id: string;
 	app_min_version: string;
@@ -26,9 +34,13 @@ export interface JoplinPlugin {
 	_npm_package_name: string;
 	_recommended?: boolean;
 	screenshots?: { src: string; label?: string }[];
+	icons?: PluginIconSet;
 	downloadCount: number;
 	timeModified: string;
 	domId?: string;
+
+	// Loaded separately
+	assets?: PluginAssetData;
 }
 
 // Larger assets
@@ -37,6 +49,7 @@ export interface PluginAssetData {
 	// The text stored in the `readme` property must be sanitized.
 	readme: string;
 	screenshots: { uri: string; label: string }[];
+	iconUri: string | null;
 }
 
 // Data about all plugins

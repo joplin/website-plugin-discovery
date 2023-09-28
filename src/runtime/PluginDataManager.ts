@@ -1,30 +1,32 @@
-import { type JoplinPlugin, type MarketplaceData } from '../../lib/types';
+import { IdToManifestRecord, type JoplinPlugin, MarketplaceData } from '../../lib/types';
 
 class PluginDataManager {
-	private constructor(private readonly data: MarketplaceData) {}
+	private allPlugins: JoplinPlugin[];
+	private constructor(
+		private readonly rawPlugins: IdToManifestRecord,
+		private readonly siteRoot: string
+	) {
+		this.allPlugins = Object.values(rawPlugins);
+		console.log(this.allPlugins);
+	}
 
 	private isRecommended(pluginId: string): boolean {
-		for (const plugin of this.data.plugins.recommended) {
-			if (plugin.id === pluginId) {
-				return true;
-			}
+		if (!(pluginId in this.rawPlugins)) {
+			return false;
 		}
-
-		return false;
+		return this.rawPlugins[pluginId]._recommended ?? false;
 	}
 
 	public pluginFromId(pluginId: string): JoplinPlugin | null {
-		for (const plugin of this.data.plugins.all) {
-			if (plugin.id === pluginId) {
-				return plugin;
-			}
+		if (pluginId in this.rawPlugins) {
+			return this.rawPlugins[pluginId];
 		}
 
 		return null;
 	}
 
 	public getLinkToPlugin(plugin: JoplinPlugin): string {
-		return this.data.config.site + '/plugin/' + plugin.id;
+		return this.siteRoot + '/plugin/' + plugin.id;
 	}
 
 	public getWeeksSinceUpdated(plugin: JoplinPlugin): number {
@@ -109,7 +111,7 @@ class PluginDataManager {
 			return score;
 		};
 
-		const matches = this.data.plugins.all.filter((plugin) => matchQuality(plugin) > 0);
+		const matches = this.allPlugins.filter((plugin) => matchQuality(plugin) > 0);
 
 		matches.sort((a, b) => {
 			// Should be negative if a comes before b
@@ -120,15 +122,15 @@ class PluginDataManager {
 	}
 
 	// Loads plugin data from a URL that points to a JSON file.
-	public static async fromURL(url: string) {
+	public static async fromURL(url: string, siteRoot: string) {
 		const response = await fetch(url);
 		const dataJSON = await response.json();
 
-		return new PluginDataManager(dataJSON);
+		return new PluginDataManager(dataJSON, siteRoot);
 	}
 
 	public static fromData(data: MarketplaceData) {
-		return new PluginDataManager(data);
+		return new PluginDataManager(data.plugins.raw, data.config.site);
 	}
 }
 

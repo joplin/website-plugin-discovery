@@ -9,9 +9,8 @@ import {
 	type BuildConfig,
 	type JoplinPlugin,
 	type MarketplaceData as GlobalMarketplaceData,
-	IdToAssetsRecord,
+	IdToManifestRecord,
 } from '../lib/types';
-import getAllPluginAssets from './data/assets/getAllPluginAssets';
 
 export interface Template {
 	path: string;
@@ -62,7 +61,6 @@ export function renderTemplates(
 	config: BuildConfig,
 	templates: Template[],
 	globalData: GlobalMarketplaceData,
-	assets: IdToAssetsRecord,
 	partials: Data,
 	routes: Data,
 	distRootPath: string
@@ -84,9 +82,6 @@ export function renderTemplates(
 					plugin: {
 						...globalData.plugins.raw[key],
 					},
-					assets: {
-						...assets[key],
-					},
 				};
 				const output = Mustache.render(template.content, data, partials);
 				fs.mkdirsSync(path.dirname(distPath));
@@ -101,9 +96,20 @@ export function renderTemplates(
 	});
 }
 
-function writePluginDataAsJSON(data: Data, config: BuildConfig): void {
+function writePluginDataAsJSON(rawPluginData: IdToManifestRecord, config: BuildConfig): void {
 	console.log('writing plugin data as JSON');
-	const dataString = JSON.stringify(data);
+
+	const dataToWrite: IdToManifestRecord = Object.create(null);
+
+	// Remove possibly large objects from the data
+	for (const key in rawPluginData) {
+		dataToWrite[key] = {
+			...rawPluginData[key],
+			assets: undefined,
+		};
+	}
+
+	const dataString = JSON.stringify(dataToWrite);
 	fs.writeFileSync(path.join(config.distDir, 'pluginData.json'), dataString);
 }
 
@@ -115,13 +121,12 @@ export async function build(mode: 'dev' | 'production', watchJs: boolean): Promi
 	copyStaticFiles(config);
 	const template = loadTemplate(config);
 	const globalData = await getGlobalMarketplaceData(config);
-	const assets = await getAllPluginAssets(globalData.plugins.raw);
 	const partials = loadTemplatePartials(config);
 	const routes = {
 		pluginName: globalData.plugins.all.map((plugin: JoplinPlugin) => plugin.id),
 	};
-	renderTemplates(config, template, globalData, assets, partials, routes, config.distDir);
-	writePluginDataAsJSON(globalData, config);
+	renderTemplates(config, template, globalData, partials, routes, config.distDir);
+	writePluginDataAsJSON(globalData.plugins.raw, config);
 
 	await bundleJs(config, watchJs);
 }
