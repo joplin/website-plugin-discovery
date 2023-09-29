@@ -72,7 +72,11 @@
 						<h3 class="card-title">{{plugin.name}}</h3>
 						<h3 class="card-title pb-4">
 							By
-							<a href="./?search={{plugin.author}}" style="display: inline;" class="text-primary">
+							<a
+								href="./?search=author%3D%22{{plugin.author}}%22%20max-results%3D20"
+								style="display: inline;"
+								class="text-primary"
+							>
 								{{plugin.author}}
 							</a>
 						</h3>

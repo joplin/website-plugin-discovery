@@ -39,7 +39,7 @@ class GitHubReference {
 			return fetchResponseData;
 		}
 
-		console.warn(
+		console.log(
 			'Error fetching file. Status: ',
 			fetchResponseData.status,
 			fetchResponseData.result
@@ -78,7 +78,7 @@ class NPMReference {
 
 		// If unsuccessful, return null and warn
 		if (data.status !== 200) {
-			console.warn('Error fetching package data', data.status, data.result);
+			console.log('Error fetching package data', data.status, data.result);
 			return null;
 		}
 

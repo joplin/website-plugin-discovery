@@ -37,8 +37,43 @@ class PluginDataManager {
 		return weeksSinceUpdated;
 	}
 
-	public search(query: string, maxResults: number): JoplinPlugin[] {
-		query = query.toLowerCase();
+	public search(query: string, defaultMaxResults: number): JoplinPlugin[] {
+		const optionsFromQuery = () => {
+			let maxResults = defaultMaxResults;
+			let newQuery = query;
+
+			// Allow overriding the maximum results option using
+			//   max-results=numberHere
+			// syntax.
+			const maxResultsOptionMatch = newQuery.match(/^(.*\s+)max-results[=:]\s*(\d+)(.*)$/);
+			if (maxResultsOptionMatch) {
+				const beforeMatch = maxResultsOptionMatch[1];
+				maxResults = parseInt(maxResultsOptionMatch[2]);
+				const afterMatch = maxResultsOptionMatch[3];
+
+				newQuery = beforeMatch + afterMatch;
+			}
+
+			let onlyShowFromAuthor: string | null = null;
+			const authorOptionMatch = newQuery.match(/^(.*\s+|)author[=:]"([^"]+)"(.*)$/);
+			if (authorOptionMatch) {
+				const beforeMatch = authorOptionMatch[1];
+				onlyShowFromAuthor = authorOptionMatch[2].replace(/[&]quo;/g, '"');
+				const afterMatch = authorOptionMatch[3];
+
+				newQuery = beforeMatch + afterMatch;
+			}
+
+			return {
+				onlyShowFromAuthor,
+				maxResults,
+				newQuery,
+			};
+		};
+
+		const options = optionsFromQuery();
+		const maxResults = options.maxResults;
+		query = options.newQuery.toLowerCase().trim();
 
 		// Returns true if all of query is in text.
 		const hasFullTextMatch = (query: string, text: string) => {
@@ -64,10 +99,10 @@ class PluginDataManager {
 		const matchQuality = (plugin: JoplinPlugin): number => {
 			const matchesTitle = hasMatch(plugin.name.toLowerCase());
 			const matchesBody = hasMatch(plugin.description.toLowerCase());
-			const matchesAuthor = hasMatch(plugin.author.toLowerCase());
+			const hasAuthorMatch = hasMatch(plugin.author.toLowerCase());
 			const matchesId = query === plugin.id;
 
-			if (!matchesTitle && !matchesBody && !matchesId && !matchesAuthor) {
+			if (!matchesTitle && !matchesBody && !matchesId && !hasAuthorMatch) {
 				return 0;
 			}
 
@@ -81,7 +116,7 @@ class PluginDataManager {
 				score += 5;
 			}
 
-			if (matchesAuthor) {
+			if (hasAuthorMatch) {
 				score++;
 
 				if (plugin.author.toLowerCase() === query) {
@@ -110,7 +145,11 @@ class PluginDataManager {
 			return score;
 		};
 
-		const matches = this.allPlugins.filter((plugin) => matchQuality(plugin) > 0);
+		const matches = this.allPlugins
+			.filter((plugin) => {
+				return !options.onlyShowFromAuthor || plugin.author === options.onlyShowFromAuthor;
+			})
+			.filter((plugin) => matchQuality(plugin) > 0);
 
 		matches.sort((a, b) => {
 			// Should be negative if a comes before b

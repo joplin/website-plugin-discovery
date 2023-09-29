@@ -8,8 +8,8 @@ const initializeSearch = (
 	const updateResults = () => {
 		const query = searchInput.value;
 
-		const maxResults = 5;
-		const results = pluginData.search(query, maxResults);
+		const defaultMaxResults = 5;
+		const results = pluginData.search(query, defaultMaxResults);
 
 		const resultsListElement = document.createElement('ul');
 
