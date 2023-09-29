@@ -18,6 +18,13 @@
 	}
 }
 
+code {
+	border: 1px solid var(--bs-border-color-translucent);
+	border-radius: 4px;
+	padding: 3px;
+	color: inherit;
+}
+
 .nav-pills {
 	--bs-nav-pills-border-radius: 0.375rem;
 	--bs-nav-pills-link-active-color: var(--bs-secondary-color);
