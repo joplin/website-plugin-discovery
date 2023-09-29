@@ -16,7 +16,9 @@
 	}
 }
 
-:not(main) > .plugin-documentation-section {
+body > .plugin-documentation-section {
 	margin-right: 0;
 	margin-left: 0;
+
+	border-radius: 0;
 }
