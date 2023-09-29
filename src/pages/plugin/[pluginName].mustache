@@ -90,54 +90,34 @@
 		</div>
 		<div class="section">
 			<h3>Additional Information</h3>
-			<ul class="list-group list-group-flush text-break">
-				<li class="list-group-item d-flex justify-content-between align-items-start">
-					<div class="ms-2 me-auto">
-						<div class="fw-bold">Author</div>
-						{{plugin.author}}
-					</div>
-				</li>
-				<li class="list-group-item d-flex justify-content-between align-items-start">
-					<div class="ms-2 me-auto">
-						<div class="fw-bold">Version</div>
-						{{plugin.version}}
-					</div>
-				</li>
-				<li class="list-group-item d-flex justify-content-between align-items-start">
-					<div class="ms-2 me-auto">
-						<div class="fw-bold">Minimal App Version</div>
-						{{plugin.app_min_version}}
-					</div>
-				</li>
-				<li class="list-group-item d-flex justify-content-between align-items-start">
-					<div class="ms-2 me-auto">
-						<div class="fw-bold">Downloads: This version</div>
-						{{plugin.downloadCount}}
-					</div>
-				</li>
-				<li class="list-group-item d-flex justify-content-between align-items-start">
-					<div class="ms-2 me-auto">
-						<div class="fw-bold">Last Updated</div>
-						{{plugin.timeModified}}
-					</div>
-				</li>
-				<li class="list-group-item d-flex justify-content-between align-items-start">
-					<div class="ms-2 me-auto">
-						<div class="fw-bold">Links</div>
-						{{#plugin.repository_url}}
-							<a href={{.}} style="display: block;"><i class="fa-solid fa-link"></i> Repository</a>
-						{{/plugin.repository_url}}
-						{{#plugin.homepage_url}}
-							<a href={{.}} style="display: block;"><i class="fa-solid fa-link"></i> Homepage</a>
-						{{/plugin.homepage_url}}
-						{{^plugin.repository_url}}
-							{{^plugin.homepage_url}}
-								No links
-							{{/plugin.homepage_url}}
-						{{/plugin.repository_url}}
-					</div>
-				</li>
-			</ul>
+			<table class="additional-information-table">
+				<tbody>
+					<tr><th>Author</th><td>{{plugin.author}}</td></tr>
+					<tr><th>Version</th><td>{{plugin.version}}</td></tr>
+					<tr><th>Minimum app version</th><td>{{plugin.app_min_version}}</td></tr>
+					<tr><th>Downloads: This version</th><td>{{plugin.downloadCount}}</td></tr>
+					<tr><th>Last updated</th><td>{{plugin.timeModified}}</td></tr>
+					<tr>
+						<th>Links</th>
+						<td>
+							<ul class="list-group list-group-flush text-break">
+								{{#plugin.repository_url}}
+									<li><a href={{.}} style="display: block;"><i class="fa-solid fa-link"></i> Repository</a></li>
+								{{/plugin.repository_url}}
+								{{#plugin.homepage_url}}
+									<li><a href={{.}} style="display: block;"><i class="fa-solid fa-link"></i> Homepage</a></li>
+								{{/plugin.homepage_url}}
+							</ul>
+
+							{{^plugin.repository_url}}
+								{{^plugin.homepage_url}}
+									No links
+								{{/plugin.homepage_url}}
+							{{/plugin.repository_url}}
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 		<div class="section">
 			<h3 class="pb-3">

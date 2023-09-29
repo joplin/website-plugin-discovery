@@ -26,6 +26,20 @@ $color-mode-type: media-query;
 	background-color: rgb(255, 217, 47);
 }
 
+.additional-information-table {
+	margin-left: auto;
+	margin-right: auto;
+
+	th {
+		padding-right: 40px;
+		vertical-align: top;
+	}
+
+	ul {
+		list-style-type: none;
+	}
+}
+
 main {
 	padding-top: 20px;
 }
