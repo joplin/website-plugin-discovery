@@ -8,7 +8,10 @@ import renderMarkdown from './renderMarkdown';
 
 class GitHubReference {
 	private gitHubBaseUri: string;
-	public constructor(public readonly organization: string, public readonly project: string) {
+	public constructor(
+		public readonly organization: string,
+		public readonly project: string,
+	) {
 		this.gitHubBaseUri = `${organization}/${project}/HEAD`;
 	}
 
@@ -42,7 +45,7 @@ class GitHubReference {
 		console.log(
 			'Error fetching file. Status: ',
 			fetchResponseData.status,
-			fetchResponseData.result
+			fetchResponseData.result,
 		);
 
 		// Some error fetching
@@ -93,7 +96,10 @@ export default class PluginAssetLoader {
 	private gitHubReference?: GitHubReference;
 	private npmReference: NPMReference;
 
-	public constructor(private manifest: JoplinPlugin, private buildConfig: BuildConfig) {
+	public constructor(
+		private manifest: JoplinPlugin,
+		private buildConfig: BuildConfig,
+	) {
 		// Capture groups:
 		// 1. The username/organization
 		// 2. The project name
@@ -107,7 +113,7 @@ export default class PluginAssetLoader {
 		if (githubRepositoryMatch) {
 			this.gitHubReference = new GitHubReference(
 				githubRepositoryMatch[1],
-				githubRepositoryMatch[2]
+				githubRepositoryMatch[2],
 			);
 		}
 
@@ -165,7 +171,7 @@ export default class PluginAssetLoader {
 			return null;
 		}
 
-		const targetIconSizes: (keyof PluginIconSet)[] = ['128', '48', '32'];
+		const targetIconSizes: (keyof PluginIconSet)[] = ['256', '128', '48', '32'];
 
 		// Select the largest icon by default
 		for (const iconSize of targetIconSizes) {

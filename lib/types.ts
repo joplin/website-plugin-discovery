@@ -14,6 +14,7 @@ export interface PluginIconSet {
 	'32'?: string;
 	'48'?: string;
 	'128'?: string;
+	'256'?: string;
 }
 
 export interface JoplinPlugin {
