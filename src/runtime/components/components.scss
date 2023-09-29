@@ -25,6 +25,12 @@ code {
 	color: inherit;
 }
 
+pre code {
+	border: none;
+	padding: 0;
+	white-space: pre-wrap;
+}
+
 .nav-pills {
 	--bs-nav-pills-border-radius: 0.375rem;
 	--bs-nav-pills-link-active-color: var(--bs-secondary-color);
