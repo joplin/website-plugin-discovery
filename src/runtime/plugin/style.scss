@@ -1,3 +1,5 @@
+$main-content-max-width: 670px;
+
 .plugin-overview {
 	display: flex;
 	flex-direction: row;
@@ -6,6 +8,15 @@
 
 	@include media-breakpoint-down(md) {
 		flex-direction: column;
+
+		.plugin-page-header {
+			text-align: center;
+			width: unset;
+		}
+
+		.download-link-container a {
+			display: block;
+		}
 	}
 
 	$spacing: 25px;
@@ -14,22 +25,35 @@
 	padding-left: $spacing;
 	padding-right: $spacing;
 
-	& > .plugin-icon {
-		border-radius: 20px;
+	.plugin-icon-container {
 		width: 180px;
-		flex-shrink: 1;
+		flex-grow: 1;
+		display: flex;
+		justify-content: flex-end;
+
+		.plugin-icon {
+			border-radius: 20px;
+			width: 180px;
+		}
 	}
 
-	& > .plugin-page-header {
+	.plugin-page-header {
+		width: $main-content-max-width;
+		max-width: 75vw;
 		margin-left: $spacing;
 		margin-right: $spacing;
+	}
+
+	.download-link-container {
+		flex-grow: 1;
+		width: 180px;
 	}
 }
 
 .plugin-content {
 	& > .section,
 	& > .secondary-section > .content {
-		max-width: 670px;
+		max-width: $main-content-max-width;
 		margin-left: auto;
 		margin-right: auto;
 	}

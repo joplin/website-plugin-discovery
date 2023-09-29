@@ -17,11 +17,24 @@
 	}
 
 	$margin-x: 10px;
-	--width-percent: 50%;
+	--width-percent: 100%;
 	margin-right: $margin-x;
 
 	@include media-breakpoint-down(sm) {
-		--width-percent: 100%;
+		display: flex;
+		flex-direction: row;
+
+		.card-img-top {
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+			width: 80px;
+			height: 100%;
+			max-height: 100%;
+		}
+	}
+
+	@include media-breakpoint-up(sm) {
+		--width-percent: 50%;
 	}
 
 	@include media-breakpoint-up(lg) {

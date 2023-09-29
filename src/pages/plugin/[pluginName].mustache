@@ -20,8 +20,9 @@
 {{> navabar}}
 <main>
 	<div class="plugin-overview">
-		<div class="flex-grow-1"></div>
-		<img class="plugin-icon" src="{{plugin.assets.iconUri}}" alt="Plugin icon"/>
+		<div class="plugin-icon-container">
+			<img class="plugin-icon" src="{{plugin.assets.iconUri}}" alt="Plugin icon"/>
+		</div>
 		<div class="plugin-page-header">
 			<div class="pb-3">
 				{{#plugin._recommended}}
@@ -47,8 +48,7 @@
 				{{/plugin.categories}}
 			</div>
 		</div>
-		<div class="flex-grow-2"></div>
-		<div class="download-link">
+		<div class="download-link-container">
 			<a href="{{&config.site}}/downloadPlugin.html?id={{plugin.id}}" class="btn btn-primary">Install Plugin</a>
 		</div>
 	</div>
