@@ -27,9 +27,7 @@ $color-mode-type: media-query;
 }
 
 main {
-	@include media-breakpoint-up(md) {
-		padding-top: 20px;
-	}
+	padding-top: 20px;
 }
 
 .wrap {
