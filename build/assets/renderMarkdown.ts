@@ -14,7 +14,12 @@ const renderMarkdown = (markdown: string, mapRelativeLink: MapRelativeLinksCallb
 	}
 
 	const mapLink = (link: string) => {
-		if (link.startsWith('http://') || link.startsWith('https://') || link.startsWith('mailto:')) {
+		if (
+			link.startsWith('http://') ||
+			link.startsWith('https://') ||
+			link.startsWith('mailto:') ||
+			link.startsWith('#')
+		) {
 			return link;
 		}
 
