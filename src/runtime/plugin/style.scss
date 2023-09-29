@@ -1,3 +1,51 @@
+.plugin-overview {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+
+	@include media-breakpoint-down(md) {
+		flex-direction: column;
+	}
+
+	$spacing: 25px;
+
+	padding-bottom: 20px;
+	padding-left: $spacing;
+	padding-right: $spacing;
+
+	& > .plugin-icon {
+		border-radius: 20px;
+		width: 180px;
+		flex-shrink: 1;
+	}
+
+	& > .plugin-page-header {
+		margin-left: $spacing;
+		margin-right: $spacing;
+	}
+}
+
+.plugin-content {
+	& > .section,
+	& > .secondary-section > .content {
+		max-width: 600px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	& > .secondary-section {
+		background-color: var(--bs-secondary-bg);
+	}
+
+	& > .section {
+		padding-top: 20px;
+		padding-bottom: 20px;
+
+		border-bottom: 3px solid var(--bs-secondary-border-subtle);
+	}
+}
+
 #screenshots-container {
 	#raw-screenshots > img {
 		max-width: 100%;
@@ -39,5 +87,14 @@
 #readme {
 	img {
 		max-width: 100%;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		margin-top: 15px;
 	}
 }

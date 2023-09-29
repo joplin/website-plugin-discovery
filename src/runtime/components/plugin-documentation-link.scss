@@ -15,3 +15,8 @@
 		width: fit-content;
 	}
 }
+
+:not(main) > .plugin-documentation-section {
+	margin-right: 0;
+	margin-left: 0;
+}
