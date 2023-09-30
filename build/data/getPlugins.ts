@@ -22,7 +22,7 @@ function convertToDomId(id: string): string {
 
 async function getTrendingPlugins(
 	plugins: IdToManifestRecord,
-	topn: number
+	topn: number,
 ): Promise<JoplinPlugin[]> {
 	const result = [];
 	for (const pluginId in plugins) {
@@ -58,7 +58,7 @@ async function getPluginData(config: BuildConfig): Promise<IdToManifestRecord> {
 		loadAssetTasks.push(
 			(async () => {
 				rawPlugins[pluginId].assets = await assetLoader.loadAssets();
-			})()
+			})(),
 		);
 	}
 	await Promise.all(loadAssetTasks);

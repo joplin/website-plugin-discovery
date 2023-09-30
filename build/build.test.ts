@@ -42,7 +42,7 @@ describe('build', () => {
 			{
 				pluginName: ['com.whatever.quick-links'],
 			},
-			testDistDir
+			testDistDir,
 		);
 		expect(fs.readFileSync(path.join(testDistDir, 'index.html'), 'utf8')).toBeTruthy();
 	});

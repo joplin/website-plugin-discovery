@@ -57,7 +57,7 @@ const bundleJs = (buildConfig: BuildConfig, watch: boolean): Promise<void> => {
 
 	const handleCompilerResult = (
 		error: Error | null | undefined,
-		stats: webpack.Stats | undefined
+		stats: webpack.Stats | undefined,
 	) => {
 		let failed = false;
 		if (error) {

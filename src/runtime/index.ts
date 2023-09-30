@@ -18,7 +18,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 	const pluginDataManager = await PluginDataManager.fromURL(
 		`${siteRoot}/pluginData.json`,
-		siteRoot
+		siteRoot,
 	);
 
 	// If initializeDownloadPage was already called
@@ -29,6 +29,6 @@ window.addEventListener('DOMContentLoaded', async () => {
 	initializeSearch(
 		pluginDataManager,
 		document.querySelector('#search-input')!,
-		document.querySelector('#search-results-container')!
+		document.querySelector('#search-results-container')!,
 	);
 });

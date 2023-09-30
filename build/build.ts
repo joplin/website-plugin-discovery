@@ -63,12 +63,12 @@ export function renderTemplates(
 	globalData: GlobalMarketplaceData,
 	partials: Data,
 	routes: Data,
-	distRootPath: string
+	distRootPath: string,
 ): void {
 	templates.forEach((template) => {
 		const outputBasePath = path.join(
 			path.resolve(distRootPath),
-			path.relative(path.join(config.sourceDir, 'pages'), template.path)
+			path.relative(path.join(config.sourceDir, 'pages'), template.path),
 		);
 
 		if (template.name.indexOf('[pluginName]') !== -1) {

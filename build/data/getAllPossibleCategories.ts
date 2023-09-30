@@ -1,7 +1,7 @@
 import { GlobalPluginData, type Category, type JoplinPlugin } from '../../lib/types';
 
 export default async function getAllPossibleCategories(
-	plugins: GlobalPluginData
+	plugins: GlobalPluginData,
 ): Promise<Category[]> {
 	// allPossibleCategories will be obtained from @joplin/lib in the next step
 	// "@joplin/lib": "~2.9",
@@ -24,8 +24,8 @@ export default async function getAllPossibleCategories(
 		return {
 			name: category.toLowerCase().replace(/[\s]/g, '-'),
 			displayName: category,
-			plugins: plugins.all.filter((plugin: JoplinPlugin) =>
-				plugin.categories?.includes(category.toLowerCase())
+			plugins: plugins.all.filter(
+				(plugin: JoplinPlugin) => plugin.categories?.includes(category.toLowerCase()),
 			),
 		};
 	});

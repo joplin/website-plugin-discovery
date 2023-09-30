@@ -4,7 +4,7 @@ class PluginDataManager {
 	private allPlugins: JoplinPlugin[];
 	private constructor(
 		private readonly rawPlugins: IdToManifestRecord,
-		private readonly siteRoot: string
+		private readonly siteRoot: string,
 	) {
 		this.allPlugins = Object.values(rawPlugins);
 	}
