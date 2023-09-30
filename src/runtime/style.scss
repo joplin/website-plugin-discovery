@@ -63,3 +63,10 @@ main {
 	height: 35px;
 	max-width: 80vw;
 }
+
+:target {
+	// Prevents headers from being shown below the navabar
+	// when scrolled to.
+	// See comment below https://stackoverflow.com/q/10732690
+	scroll-margin-top: 100px;
+}

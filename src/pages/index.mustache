@@ -32,9 +32,8 @@
 					<div class="tab-pane fade show active" id='nav-all' role="tabpanel" aria-labelledby='nav-all-tab' tabindex={0}>
 						<!-- Trending Section -->
 						<div class="row main-section">
-							<div class="anchor" id="popular"></div>
 							<div class="highlighted-heading heading">
-								<h3>Most popular</h3>
+								<h3 id="popular">Most popular</h3>
 								<div class="subhead">Top downloaded plugins</div>
 							</div>
 							{{#plugins}}
@@ -45,9 +44,8 @@
 						</div>
 						<!-- Recommended Section -->
 						<div class="row main-section">
-							<div class="anchor" id="recommended-section"></div>
 							<div class="highlighted-heading heading">
-								<h3>Recommended plugins</h3>
+								<h3 id="recommended-section">Recommended plugins</h3>
 							</div>
 							{{#plugins}}
 								{{#recommended}}
@@ -57,9 +55,8 @@
 						</div>
 						<!-- All Plugins -->
 						<div class="row main-section">
-							<div class="anchor" id="all-plugins-section"></div>
 							<div class="highlighted-heading heading">
-								<h3>All plugins</h3>
+								<h3 id="all-plugins-section">All plugins</h3>
 							</div>
 							{{#plugins}}
 								{{#all}}

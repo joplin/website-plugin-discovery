@@ -5,12 +5,16 @@ import webpack from 'webpack';
 import { type BuildConfig } from '../lib/types';
 
 const bundleJs = (buildConfig: BuildConfig, watch: boolean): Promise<void> => {
+	const runtimeDirectory = path.join(buildConfig.sourceDir, 'runtime');
 	const webpackConfig: webpack.Configuration = {
 		mode: 'production',
-		entry: path.join(buildConfig.sourceDir, 'runtime', 'index.ts'),
+		entry: {
+			main: path.join(runtimeDirectory, 'index.ts'),
+			'plugin-page': path.join(runtimeDirectory, 'plugin', 'pluginPage.ts'),
+		},
 		output: {
 			path: buildConfig.distDir,
-			filename: 'bundle.js',
+			filename: 'bundle-[name].js',
 
 			// self-executing script function.
 			iife: true,
