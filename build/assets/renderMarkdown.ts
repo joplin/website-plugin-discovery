@@ -1,9 +1,9 @@
 import MarkdownIt from 'markdown-it';
 import sanitizeHtml from 'sanitize-html';
+import { MapRelativeLinksCallback } from './types';
+import makeTransformImageOrAnchorCallback from './makeTransformImageOrAnchorCallback';
 
 let markdownRenderer: MarkdownIt | null = null;
-
-type MapRelativeLinksCallback = (linkUri: string) => string;
 
 const renderMarkdown = (markdown: string, mapRelativeLink: MapRelativeLinksCallback) => {
 	if (!markdownRenderer) {
@@ -13,36 +13,7 @@ const renderMarkdown = (markdown: string, mapRelativeLink: MapRelativeLinksCallb
 		markdownRenderer = new MarkdownIt(markdownItOptions);
 	}
 
-	const mapLink = (link: string) => {
-		if (
-			link.startsWith('http://') ||
-			link.startsWith('https://') ||
-			link.startsWith('mailto:') ||
-			link.startsWith('#')
-		) {
-			return link;
-		}
-
-		return mapRelativeLink(link);
-	};
-
-	const transformImageOrAnchor = (tagName: string, attribs: Record<string, string>) => {
-		attribs = {
-			...attribs,
-		};
-
-		if (attribs.href) {
-			attribs.href = mapLink(attribs.href);
-		}
-		if (attribs.src) {
-			attribs.src = mapLink(attribs.src);
-		}
-
-		return {
-			tagName,
-			attribs,
-		};
-	};
+	const transformImageOrAnchor = makeTransformImageOrAnchorCallback(mapRelativeLink);
 
 	const sanitizeOptions = {
 		allowedTags: [
