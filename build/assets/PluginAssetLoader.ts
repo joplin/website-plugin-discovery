@@ -111,13 +111,24 @@ export default class PluginAssetLoader {
 		}
 
 		if (githubRepositoryMatch) {
-			this.gitHubReference = new GitHubReference(
-				githubRepositoryMatch[1],
-				githubRepositoryMatch[2],
-			);
+			const organization = githubRepositoryMatch[1];
+			const project = githubRepositoryMatch[2].replace(/\.git$/, '');
+
+			this.gitHubReference = new GitHubReference(organization, project);
 		}
 
 		this.npmReference = new NPMReference(manifest._npm_package_name);
+	}
+
+	// For testing only.
+	// @internal
+	public getReadmeFetchUri() {
+		if (this.gitHubReference) {
+			return this.gitHubReference.convertURIToGitHubURI('README.md', '');
+		}
+
+		// No direct README URI for NPM packages.
+		return null;
 	}
 
 	private async getReadme() {
