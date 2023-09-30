@@ -48,8 +48,7 @@ const postprocessReadme = (readmeContainer: HTMLElement) => {
 	const showExternalImagesOptions = () => {
 		const alertMessage =
 			'This document contains external images, which can potentially ' +
-			'load <a href="https://en.wikipedia.org/wiki/HTTP_cookie">tracking cookies</a> ' +
-			'into your browser.';
+			'load <a href="https://en.wikipedia.org/wiki/HTTP_cookie">tracking cookies</a>.';
 
 		const alertDialog = makeAlert({
 			content: {
