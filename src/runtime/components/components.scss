@@ -2,11 +2,16 @@
 
 // Code: highlight.js
 @include color-mode(dark) {
-	@import 'highlight.js/scss/atom-one-dark.scss';
+	@import 'highlight.js/scss/a11y-dark.scss';
 }
 
 @include color-mode(light) {
-	@import 'highlight.js/scss/atom-one-light.scss';
+	@import 'highlight.js/scss/a11y-light.scss';
+}
+
+pre {
+	padding: 3px;
+	border-radius: 4px;
 }
 
 .navbar {
