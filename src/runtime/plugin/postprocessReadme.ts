@@ -23,7 +23,9 @@ const postprocessReadme = (readmeContainer: HTMLElement) => {
 	const headers = readmeContainer.querySelectorAll('h1, h2, h3, h4, h5, h6');
 	for (const header of headers) {
 		if (header.textContent) {
-			header.setAttribute('id', encodeURIComponent(header.textContent.toLocaleLowerCase()));
+			// Convert the header into a valid ID:
+			const id = encodeURIComponent(header.textContent.toLocaleLowerCase());
+			header.setAttribute('id', id.replace(/%20/g, '-'));
 		}
 	}
 
