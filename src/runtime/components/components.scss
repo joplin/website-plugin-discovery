@@ -26,8 +26,13 @@ pre {
 .btn {
 	border-radius: 4rem;
 
-	@include color-mode(dark) {
-		--bs-btn-color: #99ccff;
+	&.btn-outline-primary {
+		--bs-btn-color: #306497;
+
+		@include color-mode(dark) {
+			--bs-btn-color: #99ccff;
+		}
+
 		--bs-btn-border-color: var(--bs-btn-color);
 	}
 }
@@ -152,5 +157,12 @@ pre code {
 	@include media-breakpoint-up(lg) {
 		padding: 15px 30px;
 		margin-left: 15px;
+	}
+}
+
+.alert-info {
+	a {
+		color: var(--bs-alert-link-color);
+		font-weight: bold;
 	}
 }
