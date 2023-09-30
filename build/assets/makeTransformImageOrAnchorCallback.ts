@@ -30,8 +30,8 @@ const makeTransformImageOrAnchorCallback =
 
 			// Disable some external images
 			if (imageCouldStoreExternalCookies(attribs.src)) {
-				attribs.src = '';
-				attribs['data-unloaded-src'] = attribs.src;
+				attribs['data-original-src'] = attribs.src;
+				attribs.src = '#';
 			}
 		}
 

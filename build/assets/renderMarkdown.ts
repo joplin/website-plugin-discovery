@@ -53,7 +53,7 @@ const renderMarkdown = (markdown: string, mapRelativeLink: MapRelativeLinksCallb
 			'img',
 		],
 		allowedAttributes: {
-			img: ['src', 'alt', 'width', 'height'],
+			img: ['src', 'alt', 'width', 'height', 'data-original-src'],
 			a: ['href'],
 			'*': ['align', 'alt', 'aria-label'],
 		},
