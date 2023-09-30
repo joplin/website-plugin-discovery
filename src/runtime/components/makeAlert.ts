@@ -6,6 +6,7 @@ interface Props {
 const makeAlert = (props: Props) => {
 	const alertElement = document.createElement('div');
 	const alertContent = document.createElement('div');
+	const alertActionsContainer = document.createElement('div');
 	const alertActions = document.createElement('div');
 	const alertCloseButton = document.createElement('button');
 
@@ -23,7 +24,9 @@ const makeAlert = (props: Props) => {
 
 	alertContent.innerHTML = props.content.html;
 
-	alertActions.classList.add('btn-group', 'mb-0');
+	alertActions.classList.add('btn-group');
+	alertActionsContainer.appendChild(alertActions);
+
 	alertElement.replaceChildren(alertContent, alertCloseButton);
 
 	let actionAdded = false;
@@ -39,9 +42,11 @@ const makeAlert = (props: Props) => {
 
 			// The first action button? Add the container
 			if (!actionAdded) {
-				// Also add a divider
+				// Add a divider
 				alertElement.appendChild(document.createElement('hr'));
-				alertElement.appendChild(alertActions);
+
+				// And the action container
+				alertElement.appendChild(alertActionsContainer);
 
 				actionAdded = true;
 			}
