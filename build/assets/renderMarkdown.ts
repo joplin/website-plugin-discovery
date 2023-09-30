@@ -2,6 +2,7 @@ import MarkdownIt from 'markdown-it';
 import sanitizeHtml from 'sanitize-html';
 import { MapRelativeLinksCallback } from './types';
 import makeTransformImageOrAnchorCallback from './makeTransformImageOrAnchorCallback';
+import hljs from 'highlight.js';
 
 let markdownRenderer: MarkdownIt | null = null;
 
@@ -9,6 +10,17 @@ const renderMarkdown = (markdown: string, mapRelativeLink: MapRelativeLinksCallb
 	if (!markdownRenderer) {
 		const markdownItOptions = {
 			html: true,
+			highlight: (code: string, language: string) => {
+				const beforeHtml = '<pre class="hljs"><code>';
+				const afterHtml = '</code></pre>';
+
+				if (language && hljs.getLanguage(language)) {
+					return beforeHtml + hljs.highlight(code, { language }).value + afterHtml;
+				}
+
+				// See https://github.com/markdown-it/markdown-it#syntax-highlighting
+				return beforeHtml + markdownRenderer?.utils.escapeHtml(code) + afterHtml;
+			},
 		};
 		markdownRenderer = new MarkdownIt(markdownItOptions);
 	}
@@ -55,7 +67,7 @@ const renderMarkdown = (markdown: string, mapRelativeLink: MapRelativeLinksCallb
 		allowedAttributes: {
 			img: ['src', 'alt', 'width', 'height', 'data-original-src'],
 			a: ['href'],
-			'*': ['align', 'alt', 'aria-label'],
+			'*': ['align', 'alt', 'aria-label', 'class'],
 		},
 		transformTags: {
 			// The TypeScript definitions aren't correct (or are outdated

@@ -1,5 +1,14 @@
 // Styling for general components
 
+// Code: highlight.js
+@include color-mode(dark) {
+	@import 'highlight.js/scss/atom-one-dark.scss';
+}
+
+@include color-mode(light) {
+	@import 'highlight.js/scss/atom-one-light.scss';
+}
+
 .navbar {
 	padding: 20px 40px 20px 40px;
 }

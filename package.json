@@ -15,6 +15,7 @@
 	"license": "MIT",
 	"dependencies": {
 		"fs-extra": "11.1.1",
+		"highlight.js": "11.8.0",
 		"klaw-sync": "6.0.0",
 		"markdown-it": "13.0.2",
 		"mustache": "4.2.0",
