@@ -3,7 +3,7 @@ import type PluginDataManager from '../PluginDataManager';
 const initializeSearch = (
 	pluginData: PluginDataManager,
 	searchInput: HTMLInputElement,
-	searchResultsContainer: HTMLElement
+	searchResultsContainer: HTMLElement,
 ): void => {
 	const updateResults = () => {
 		const query = searchInput.value;
@@ -38,6 +38,16 @@ const initializeSearch = (
 
 	searchInput.oninput = updateResults;
 	searchInput.onclick = updateResults;
+
+	// Hide search results when defocused
+	searchInput.onfocus = () => {
+		searchResultsContainer.style.display = 'block';
+	};
+	searchInput.onblur = () => {
+		setTimeout(() => {
+			searchResultsContainer.style.display = 'none';
+		}, 250);
+	};
 
 	// Extract a search query from the URL and update the search input/results:
 	const searchQueryMatch = /\?search=([^;#]+).*$/.exec(location.href);
