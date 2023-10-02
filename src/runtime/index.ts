@@ -26,9 +26,5 @@ window.addEventListener('DOMContentLoaded', async () => {
 		initializeDownloadPage(pluginDataManager);
 	}
 
-	initializeSearch(
-		pluginDataManager,
-		document.querySelector('#search-input')!,
-		document.querySelector('#search-results-container')!,
-	);
+	initializeSearch(pluginDataManager);
 });

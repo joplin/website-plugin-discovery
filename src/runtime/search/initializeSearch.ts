@@ -1,10 +1,10 @@
 import type PluginDataManager from '../PluginDataManager';
 
-const initializeSearch = (
-	pluginData: PluginDataManager,
-	searchInput: HTMLInputElement,
-	searchResultsContainer: HTMLElement,
-): void => {
+const initializeSearch = (pluginData: PluginDataManager): void => {
+	const searchInput = document.querySelector<HTMLInputElement>('#search-input')!;
+	const searchResultsContainer = document.querySelector<HTMLElement>('#search-results-container')!;
+	const searchContainer = searchInput.parentElement!;
+
 	const updateResults = () => {
 		const query = searchInput.value;
 
@@ -40,14 +40,22 @@ const initializeSearch = (
 	searchInput.onclick = updateResults;
 
 	// Hide search results when defocused
-	searchInput.onfocus = () => {
+	searchContainer.addEventListener('focusin', () => {
 		searchResultsContainer.style.display = 'block';
-	};
-	searchInput.onblur = () => {
-		setTimeout(() => {
-			searchResultsContainer.style.display = 'none';
+	});
+
+	let focusoutTimeout: ReturnType<typeof setTimeout> | null = null;
+	searchContainer.addEventListener('focusout', () => {
+		if (focusoutTimeout) clearTimeout(focusoutTimeout);
+
+		focusoutTimeout = setTimeout(() => {
+			// focusout can be fired either for the searchContainer itself or one of
+			// its children. Ensure that focus actually left the container.
+			if (!searchContainer.contains(document.activeElement)) {
+				searchResultsContainer.style.display = 'none';
+			}
 		}, 250);
-	};
+	});
 
 	// Extract a search query from the URL and update the search input/results:
 	const searchQueryMatch = /\?search=([^;#]+).*$/.exec(location.href);
