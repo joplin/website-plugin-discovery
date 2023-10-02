@@ -21,4 +21,4 @@ const initializePluginPage = () => {
 	}
 };
 
-initializePluginPage();
+export default initializePluginPage;

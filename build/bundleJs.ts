@@ -10,7 +10,6 @@ const bundleJs = (buildConfig: BuildConfig, watch: boolean): Promise<void> => {
 		mode: 'production',
 		entry: {
 			main: path.join(runtimeDirectory, 'index.ts'),
-			'plugin-page': path.join(runtimeDirectory, 'plugin', 'pluginPage.ts'),
 		},
 		output: {
 			path: buildConfig.distDir,
