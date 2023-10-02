@@ -62,6 +62,16 @@ const initializeSearch = (pluginData: PluginDataManager): void => {
 	if (searchQueryMatch) {
 		const searchFor = searchQueryMatch[1];
 		searchInput.value = decodeURIComponent(searchFor);
+
+		// Show the navbar if on a small screen
+		const navbarContent = document.querySelector('#navbarSupportedContent');
+
+		if (!navbarContent) {
+			console.warn('Unable to find the content of the navbar!');
+		} else {
+			navbarContent.classList.add('show');
+		}
+
 		searchInput.focus();
 		updateResults();
 	}
