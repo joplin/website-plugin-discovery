@@ -118,6 +118,11 @@ $main-content-max-width: 670px;
 	float: right;
 }
 
+.table-wrapper {
+	max-width: 100%;
+	overflow-x: auto;
+}
+
 #readme {
 	img {
 		max-width: 100%;
