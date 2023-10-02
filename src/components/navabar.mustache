@@ -1,7 +1,11 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top shadow">
 	<div class="container">
 		<a class="navbar-brand" href="{{&config.site}}">
-			<img src="{{&config.site}}/joplin-logo-large.png" alt="Home"/>
+			{{! A wide logo, for large screens }}
+			<img src="{{&config.site}}/joplin-logo-large.png" class="d-none d-sm-block" alt="Home"/>
+
+			{{! A smaller logo, for smaller screens }}
+			<img src="{{&config.site}}/joplin-logo.png" class="d-block d-sm-none" alt="Home"/>
 		</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
