@@ -9,6 +9,7 @@ import {
 	type BuildConfig,
 	type JoplinPlugin,
 	type MarketplaceData as GlobalMarketplaceData,
+	IdToManifestRecord,
 } from '../lib/types';
 
 export interface Template {
@@ -62,12 +63,12 @@ export function renderTemplates(
 	globalData: GlobalMarketplaceData,
 	partials: Data,
 	routes: Data,
-	distRootPath: string
+	distRootPath: string,
 ): void {
 	templates.forEach((template) => {
 		const outputBasePath = path.join(
 			path.resolve(distRootPath),
-			path.relative(path.join(config.sourceDir, 'pages'), template.path)
+			path.relative(path.join(config.sourceDir, 'pages'), template.path),
 		);
 
 		if (template.name.indexOf('[pluginName]') !== -1) {
@@ -95,13 +96,24 @@ export function renderTemplates(
 	});
 }
 
-function writePluginDataAsJSON(data: Data, config: BuildConfig): void {
+function writePluginDataAsJSON(rawPluginData: IdToManifestRecord, config: BuildConfig): void {
 	console.log('writing plugin data as JSON');
-	const dataString = JSON.stringify(data);
+
+	const dataToWrite: IdToManifestRecord = Object.create(null);
+
+	// Remove possibly large objects from the data
+	for (const key in rawPluginData) {
+		dataToWrite[key] = {
+			...rawPluginData[key],
+			assets: undefined,
+		};
+	}
+
+	const dataString = JSON.stringify(dataToWrite);
 	fs.writeFileSync(path.join(config.distDir, 'pluginData.json'), dataString);
 }
 
-export async function build(mode: 'dev' | 'production'): Promise<void> {
+export async function build(mode: 'dev' | 'production', watchJs: boolean): Promise<void> {
 	const config = mode === 'dev' ? devConfig : productionConfig;
 
 	fs.ensureDirSync(config.distDir);
@@ -114,6 +126,7 @@ export async function build(mode: 'dev' | 'production'): Promise<void> {
 		pluginName: globalData.plugins.all.map((plugin: JoplinPlugin) => plugin.id),
 	};
 	renderTemplates(config, template, globalData, partials, routes, config.distDir);
-	await bundleJs(config);
-	writePluginDataAsJSON(globalData, config);
+	writePluginDataAsJSON(globalData.plugins.raw, config);
+
+	await bundleJs(config, watchJs);
 }

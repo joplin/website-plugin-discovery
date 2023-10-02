@@ -1,51 +1,29 @@
+import fetchFromGitHub from '../fetch/fetchFromGitHub';
 import {
 	type JoplinPlugin,
-	type Manifest,
+	type IdToManifestRecord,
 	type GlobalPluginData,
 	type Stats,
+	BuildConfig,
 } from '../../lib/types';
+import PluginAssetLoader from '../assets/PluginAssetLoader';
 
-async function fetchPluginData(): Promise<Manifest> {
-	let plugins;
-	const mirrors = [
-		'https://raw.githubusercontent.com/joplin/plugins/master/manifests.json',
-		'https://raw.staticdn.net/joplin/plugins/master/manifests.json',
-		'https://raw.fastgit.org/joplin/plugins/master/manifests.json',
-	];
-	for (let index = 0; index < mirrors.length; index++) {
-		try {
-			plugins = await (await fetch(mirrors[index])).json();
-			return plugins;
-		} catch (error) {
-			continue;
-		}
-	}
-	throw new Error('Cannot find avalible Github mirror');
+async function fetchPluginData(): Promise<IdToManifestRecord> {
+	return await JSON.parse((await fetchFromGitHub('joplin/plugins/master/manifests.json')).result);
 }
 
 async function fetchStatsData(): Promise<Stats> {
-	let stats;
-	const mirrors = [
-		'https://raw.githubusercontent.com/joplin/plugins/master/stats.json',
-		'https://raw.staticdn.net/joplin/plugins/master/stats.json',
-		'https://raw.fastgit.org/joplin/plugins/master/stats.json',
-	];
-	for (let index = 0; index < mirrors.length; index++) {
-		try {
-			stats = await (await fetch(mirrors[index])).json();
-			return stats;
-		} catch (error) {
-			continue;
-		}
-	}
-	throw new Error('Cannot find avalible Github mirror');
+	return await JSON.parse((await fetchFromGitHub('joplin/plugins/master/stats.json')).result);
 }
 
 function convertToDomId(id: string): string {
 	return id.toLowerCase().replace(/[.]/g, '-');
 }
 
-async function getTrendingPlugins(plugins: Manifest, topn: number): Promise<JoplinPlugin[]> {
+async function getTrendingPlugins(
+	plugins: IdToManifestRecord,
+	topn: number,
+): Promise<JoplinPlugin[]> {
 	const result = [];
 	for (const pluginId in plugins) {
 		result.push({
@@ -68,9 +46,22 @@ async function getTrendingPlugins(plugins: Manifest, topn: number): Promise<Jopl
 		});
 }
 
-async function getPluginData(): Promise<Manifest> {
+async function getPluginData(config: BuildConfig): Promise<IdToManifestRecord> {
 	const rawPlugins = await fetchPluginData();
 	const rawStats = await fetchStatsData();
+
+	// Load assets
+	const loadAssetTasks: Array<Promise<void>> = [];
+	for (const pluginId in rawPlugins) {
+		const assetLoader = new PluginAssetLoader(rawPlugins[pluginId], config);
+
+		loadAssetTasks.push(
+			(async () => {
+				rawPlugins[pluginId].assets = await assetLoader.loadAssets();
+			})(),
+		);
+	}
+	await Promise.all(loadAssetTasks);
 
 	for (const pluginId in rawPlugins) {
 		rawStats[pluginId] ??= {};
@@ -89,8 +80,8 @@ async function getPluginData(): Promise<Manifest> {
 	return rawPlugins;
 }
 
-export default async function getPlugins(): Promise<GlobalPluginData> {
-	const plugins = await getPluginData();
+export default async function getPlugins(config: BuildConfig): Promise<GlobalPluginData> {
+	const plugins = await getPluginData(config);
 
 	return {
 		raw: plugins,

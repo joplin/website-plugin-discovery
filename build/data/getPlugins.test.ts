@@ -1,3 +1,4 @@
+import { testConfig } from '../config';
 import getPlugins from './getPlugins';
 
 jest.setTimeout(120000);
@@ -5,8 +6,7 @@ jest.setTimeout(120000);
 let plugins: any;
 
 beforeAll(async () => {
-	plugins = await getPlugins();
-	return plugins;
+	plugins = await getPlugins(testConfig);
 });
 
 describe('plugin data', () => {

@@ -1,30 +1,31 @@
-import { type JoplinPlugin, type MarketplaceData } from '../lib/types';
+import { IdToManifestRecord, type JoplinPlugin, MarketplaceData } from '../../lib/types';
 
 class PluginDataManager {
-	private constructor(private readonly data: MarketplaceData) {}
+	private allPlugins: JoplinPlugin[];
+	private constructor(
+		private readonly rawPlugins: IdToManifestRecord,
+		private readonly siteRoot: string,
+	) {
+		this.allPlugins = Object.values(rawPlugins);
+	}
 
 	private isRecommended(pluginId: string): boolean {
-		for (const plugin of this.data.plugins.recommended) {
-			if (plugin.id === pluginId) {
-				return true;
-			}
+		if (!(pluginId in this.rawPlugins)) {
+			return false;
 		}
-
-		return false;
+		return this.rawPlugins[pluginId]._recommended ?? false;
 	}
 
 	public pluginFromId(pluginId: string): JoplinPlugin | null {
-		for (const plugin of this.data.plugins.all) {
-			if (plugin.id === pluginId) {
-				return plugin;
-			}
+		if (pluginId in this.rawPlugins) {
+			return this.rawPlugins[pluginId];
 		}
 
 		return null;
 	}
 
 	public getLinkToPlugin(plugin: JoplinPlugin): string {
-		return this.data.config.site + '/plugin/' + plugin.id;
+		return this.siteRoot + '/plugin/' + plugin.id;
 	}
 
 	public getWeeksSinceUpdated(plugin: JoplinPlugin): number {
@@ -36,8 +37,43 @@ class PluginDataManager {
 		return weeksSinceUpdated;
 	}
 
-	public search(query: string, maxResults: number): JoplinPlugin[] {
-		query = query.toLowerCase();
+	public search(query: string, defaultMaxResults: number): JoplinPlugin[] {
+		const optionsFromQuery = () => {
+			let maxResults = defaultMaxResults;
+			let newQuery = query;
+
+			// Allow overriding the maximum results option using
+			//   max-results=numberHere
+			// syntax.
+			const maxResultsOptionMatch = newQuery.match(/^(.*\s+)max-results[=:]\s*(\d+)(.*)$/);
+			if (maxResultsOptionMatch) {
+				const beforeMatch = maxResultsOptionMatch[1];
+				maxResults = parseInt(maxResultsOptionMatch[2]);
+				const afterMatch = maxResultsOptionMatch[3];
+
+				newQuery = beforeMatch + afterMatch;
+			}
+
+			let onlyShowFromAuthor: string | null = null;
+			const authorOptionMatch = newQuery.match(/^(.*\s+|)author[=:]"([^"]+)"(.*)$/);
+			if (authorOptionMatch) {
+				const beforeMatch = authorOptionMatch[1];
+				onlyShowFromAuthor = authorOptionMatch[2].replace(/[&]quo;/g, '"');
+				const afterMatch = authorOptionMatch[3];
+
+				newQuery = beforeMatch + afterMatch;
+			}
+
+			return {
+				onlyShowFromAuthor,
+				maxResults,
+				newQuery,
+			};
+		};
+
+		const options = optionsFromQuery();
+		const maxResults = options.maxResults;
+		query = options.newQuery.toLowerCase().trim();
 
 		// Returns true if all of query is in text.
 		const hasFullTextMatch = (query: string, text: string) => {
@@ -63,10 +99,10 @@ class PluginDataManager {
 		const matchQuality = (plugin: JoplinPlugin): number => {
 			const matchesTitle = hasMatch(plugin.name.toLowerCase());
 			const matchesBody = hasMatch(plugin.description.toLowerCase());
-			const matchesAuthor = hasMatch(plugin.author.toLowerCase());
+			const hasAuthorMatch = hasMatch(plugin.author.toLowerCase());
 			const matchesId = query === plugin.id;
 
-			if (!matchesTitle && !matchesBody && !matchesId && !matchesAuthor) {
+			if (!matchesTitle && !matchesBody && !matchesId && !hasAuthorMatch) {
 				return 0;
 			}
 
@@ -80,7 +116,7 @@ class PluginDataManager {
 				score += 5;
 			}
 
-			if (matchesAuthor) {
+			if (hasAuthorMatch) {
 				score++;
 
 				if (plugin.author.toLowerCase() === query) {
@@ -109,7 +145,11 @@ class PluginDataManager {
 			return score;
 		};
 
-		const matches = this.data.plugins.all.filter((plugin) => matchQuality(plugin) > 0);
+		const matches = this.allPlugins
+			.filter((plugin) => {
+				return !options.onlyShowFromAuthor || plugin.author === options.onlyShowFromAuthor;
+			})
+			.filter((plugin) => matchQuality(plugin) > 0);
 
 		matches.sort((a, b) => {
 			// Should be negative if a comes before b
@@ -120,15 +160,15 @@ class PluginDataManager {
 	}
 
 	// Loads plugin data from a URL that points to a JSON file.
-	public static async fromURL(url: string) {
+	public static async fromURL(url: string, siteRoot: string) {
 		const response = await fetch(url);
 		const dataJSON = await response.json();
 
-		return new PluginDataManager(dataJSON);
+		return new PluginDataManager(dataJSON, siteRoot);
 	}
 
 	public static fromData(data: MarketplaceData) {
-		return new PluginDataManager(data);
+		return new PluginDataManager(data.plugins.raw, data.config.site);
 	}
 }
 

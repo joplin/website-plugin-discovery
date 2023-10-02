@@ -1,10 +1,11 @@
 {
 	"compilerOptions": {
-		"module": "commonjs",
-		"target": "es2015",
+		"module": "CommonJS",
+		"target": "ESNext",
 
 		"strict": true,
-		"esModuleInterop": true
+		"esModuleInterop": true,
+		"noEmit": true
 	},
-	"exclude": ["site/**/*", "node_modules/**/*", "**/*.test.ts", "src/**"]
+	"exclude": ["node_modules/**/*"]
 }

@@ -1,0 +1,72 @@
+// Automatically switch between light and dark mode:
+$color-mode-type: media-query;
+
+@import 'bootstrap/scss/bootstrap';
+@import './search/style.scss';
+@import './plugin/style.scss';
+@import './components/components.scss';
+@import './components/plugin-card.scss';
+@import './components/plugin-documentation-link.scss';
+
+.plugin-description {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+}
+
+.plugin-category {
+	text-transform: capitalize;
+	margin-top: -4px;
+}
+
+.plugin-recommended {
+	text-transform: capitalize;
+	margin-top: -4px;
+	background-color: rgb(255, 217, 47);
+}
+
+.additional-information-table {
+	margin-left: auto;
+	margin-right: auto;
+
+	th {
+		padding-right: 40px;
+		vertical-align: top;
+	}
+
+	ul {
+		list-style-type: none;
+	}
+}
+
+main {
+	padding-top: 20px;
+}
+
+.wrap {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.horizontal-scroll-wrapper {
+	white-space: nowrap;
+	overflow-x: scroll;
+}
+
+.flex-grow-2 {
+	flex-grow: 2;
+}
+
+.navbar-brand img {
+	height: 35px;
+	max-width: 80vw;
+}
+
+:target {
+	// Prevents headers from being shown below the navabar
+	// when scrolled to.
+	// See comment below https://stackoverflow.com/q/10732690
+	scroll-margin-top: 100px;
+}

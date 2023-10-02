@@ -29,5 +29,8 @@ build/**/*.js
 # Keep pre-built files in assets
 !/src/assets/**/*.js
 
+# fetch caches
+build/responseCaches
+
 # test output
 build/test

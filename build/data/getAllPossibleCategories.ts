@@ -1,7 +1,8 @@
-import getPlugins from './getPlugins';
-import { type Category, type JoplinPlugin } from '../../lib/types';
+import { GlobalPluginData, type Category, type JoplinPlugin } from '../../lib/types';
 
-export default async function getAllPossibleCategories(): Promise<Category[]> {
+export default async function getAllPossibleCategories(
+	plugins: GlobalPluginData,
+): Promise<Category[]> {
 	// allPossibleCategories will be obtained from @joplin/lib in the next step
 	// "@joplin/lib": "~2.9",
 	// const allPossibleCategoriesRaw = require('@joplin/lib/pluginCategories.json');
@@ -19,13 +20,12 @@ export default async function getAllPossibleCategories(): Promise<Category[]> {
 		'Personal Knowledge Management',
 	];
 
-	const plugins = await getPlugins();
 	const allPossibleCategories = allPossibleCategoriesRaw.map((category) => {
 		return {
 			name: category.toLowerCase().replace(/[\s]/g, '-'),
 			displayName: category,
-			plugins: plugins.all.filter((plugin: JoplinPlugin) =>
-				plugin.categories?.includes(category.toLowerCase())
+			plugins: plugins.all.filter(
+				(plugin: JoplinPlugin) => plugin.categories?.includes(category.toLowerCase()),
 			),
 		};
 	});

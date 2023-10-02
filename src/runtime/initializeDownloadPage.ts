@@ -1,4 +1,4 @@
-import { JoplinPlugin } from '../lib/types';
+import { JoplinPlugin } from '../../lib/types';
 import PluginDataManager from './PluginDataManager';
 
 // Client-side JavaScript for the downloadPlugin.html page.

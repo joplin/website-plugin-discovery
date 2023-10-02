@@ -1,0 +1,134 @@
+$main-content-max-width: 670px;
+
+.plugin-overview {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+
+	@include media-breakpoint-down(md) {
+		flex-direction: column;
+
+		.plugin-page-header {
+			text-align: center;
+			width: unset;
+		}
+
+		.download-link-container a {
+			display: block;
+		}
+	}
+
+	$spacing: 25px;
+
+	padding-bottom: 20px;
+	padding-left: $spacing;
+	padding-right: $spacing;
+
+	.plugin-icon-container {
+		width: 180px;
+		flex-grow: 1;
+		display: flex;
+		justify-content: flex-end;
+
+		.plugin-icon {
+			border-radius: 20px;
+			width: 180px;
+		}
+	}
+
+	.plugin-page-header {
+		width: $main-content-max-width;
+		max-width: 75vw;
+		margin-left: $spacing;
+		margin-right: $spacing;
+	}
+
+	.download-link-container {
+		flex-grow: 1;
+		width: 180px;
+	}
+}
+
+.plugin-content {
+	& > .section,
+	& > .secondary-section > .content {
+		max-width: $main-content-max-width;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	& > .secondary-section {
+		background-color: var(--bs-secondary-bg);
+	}
+
+	& > .section {
+		padding-top: 20px;
+		padding-bottom: 20px;
+		padding-left: 10px;
+		padding-right: 10px;
+
+		border-bottom: 3px solid var(--bs-secondary-border-subtle);
+	}
+}
+
+#screenshots-container {
+	#raw-screenshots > img {
+		max-width: 100%;
+	}
+}
+
+#screenshots-carousel {
+	.carousel-control-next,
+	.carousel-control-prev {
+		background-color: var(--bs-blue);
+
+		$size: 50px;
+		height: $size;
+		width: $size;
+		border-radius: $size;
+
+		// Center vertically
+		margin-top: auto;
+		margin-bottom: auto;
+	}
+}
+
+.screenshot-carousel-item {
+	height: 460px;
+
+	& > img {
+		height: 100%;
+		width: 90%;
+		object-fit: contain;
+
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: auto;
+		margin-bottom: auto;
+	}
+}
+
+.categories {
+	margin-bottom: 15px;
+}
+
+.external-images-config-button {
+	float: right;
+}
+
+#readme {
+	img {
+		max-width: 100%;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		margin-top: 15px;
+	}
+}

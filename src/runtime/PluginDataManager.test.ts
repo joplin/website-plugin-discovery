@@ -5,7 +5,7 @@ import testData, {
 	testPlugin3,
 	testPlugin4,
 	testPlugin5,
-} from '../lib/testData';
+} from '../../lib/testData';
 
 describe('PluginDataManager', () => {
 	it('should sort search results (roughly) in order of relevance', () => {
@@ -53,5 +53,25 @@ describe('PluginDataManager', () => {
 		expect(manager.search('Plugin with N/A modified time', maxResults)).toMatchObject([
 			testPlugin5,
 		]);
+	});
+
+	it('should support searching by author', () => {
+		const manager = PluginDataManager.fromData(testData);
+
+		// Some plugins have the author field set to "No Author"
+		// Search for those.
+		expect(manager.search('author="No Author"', 10)).toMatchObject([
+			testPlugin4,
+			testPlugin3,
+			testPlugin5,
+		]);
+
+		// Search for a specific title within those plugins
+		expect(manager.search('com.example.thisdoesntexist3 author="No Author"', 10)).toMatchObject([
+			testPlugin3,
+		]);
+
+		// Now search for an author that really doesn't exist
+		expect(manager.search('author="🚫"', 10)).toHaveLength(0);
 	});
 });

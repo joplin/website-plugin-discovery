@@ -1,0 +1,49 @@
+.plugin-link-card {
+	display: block;
+
+	text-decoration: none;
+	padding-left: 0;
+	padding-right: 0;
+	cursor: pointer;
+
+	label {
+		cursor: pointer;
+		display: inline;
+	}
+
+	.card-img-top {
+		max-height: 128px;
+		object-fit: cover;
+	}
+
+	$margin-x: 10px;
+	--width-percent: 100%;
+	margin-right: $margin-x;
+
+	@include media-breakpoint-down(sm) {
+		display: flex;
+		flex-direction: row;
+
+		.card-img-top {
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+			width: 80px;
+			height: 100%;
+			max-height: 100%;
+		}
+	}
+
+	@include media-breakpoint-up(sm) {
+		--width-percent: 50%;
+	}
+
+	@include media-breakpoint-up(lg) {
+		--width-percent: 33%;
+	}
+
+	@include media-breakpoint-up(xl) {
+		--width-percent: 25%;
+	}
+
+	width: calc(var(--width-percent) - $margin-x);
+}

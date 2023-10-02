@@ -1,15 +1,15 @@
-import type PluginDataManager from './PluginDataManager';
+import type PluginDataManager from '../PluginDataManager';
 
 const initializeSearch = (
 	pluginData: PluginDataManager,
 	searchInput: HTMLInputElement,
-	searchResultsContainer: HTMLElement
+	searchResultsContainer: HTMLElement,
 ): void => {
 	const updateResults = () => {
 		const query = searchInput.value;
 
-		const maxResults = 5;
-		const results = pluginData.search(query, maxResults);
+		const defaultMaxResults = 5;
+		const results = pluginData.search(query, defaultMaxResults);
 
 		const resultsListElement = document.createElement('ul');
 
@@ -38,6 +38,25 @@ const initializeSearch = (
 
 	searchInput.oninput = updateResults;
 	searchInput.onclick = updateResults;
+
+	// Hide search results when defocused
+	searchInput.onfocus = () => {
+		searchResultsContainer.style.display = 'block';
+	};
+	searchInput.onblur = () => {
+		setTimeout(() => {
+			searchResultsContainer.style.display = 'none';
+		}, 250);
+	};
+
+	// Extract a search query from the URL and update the search input/results:
+	const searchQueryMatch = /\?search=([^;#]+).*$/.exec(location.href);
+	if (searchQueryMatch) {
+		const searchFor = searchQueryMatch[1];
+		searchInput.value = decodeURIComponent(searchFor);
+		searchInput.focus();
+		updateResults();
+	}
 };
 
 export default initializeSearch;

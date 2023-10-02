@@ -9,24 +9,13 @@
 <body>
 {{> navabar}}
 <main>
-	<div class="container banner">
-		<div class="row justify-content-center pb-3">
-			<div class="col-12 text-center">
-				<h2 class="mb-3">Extend Your Joplin.</h2>
-			</div>
-			<div class="col-lg-5 text-center">
-				<p class="text-muted subtitle mb-3">Joplin has many plugins provided by the community which can be helpful
-					in your workflow.</p>
-			</div>
-		</div>
-	</div>
-
 	<div class="container">
 		<div class="row gy-3">
-			<!-- Tab Selector -->
-			<div class="col-lg-2 d-none d-lg-block px-0">
-				<div class="nav-list py-3 px-3">
-					<nav class="nav nav-pills flex-column" id="nav-tab" role="tablist" aria-orientation="vertical">
+			<!-- Tab selector -->
+			<div class="col-lg-2 px-0">
+				<div class="nav-list categry-nav">
+					<h2>Categories</h2>
+					<nav class="nav nav-pills" id="nav-tab" role="tablist">
 						<button class="nav-link active" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all"
 							type="button" role="tab" aria-controls="nav-all" aria-selected="false">All</button>
 						{{#allPossibleCategories}}
@@ -36,74 +25,68 @@
 					</nav>
 				</div>
 			</div>
-			<!-- Tab Selector for Small Screens -->
-			<div class="col-12 d-lg-none">
-				<div class="nav-list py-3 px-3">
-					<nav class="nav nav-pills" id="nav-tab" role="tablist" aria-orientation="horizontal">
-						<button class="nav-link active" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all"
-							type="button" role="tab" aria-controls="nav-all" aria-selected="false">All</button>
-						{{#allPossibleCategories}}
-							<button class="nav-link capitalize" id="nav-{{name}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{name}}"
-								type="button" role="tab" aria-controls="nav-{{name}}" aria-selected="false">{{displayName}}</button>
-						{{/allPossibleCategories}}
-					</nav>
-				</div>
-			</div>
 
 			<!-- Tab Content -->
 			<div class="col-lg-10 col-12">
 				<div class="tab-content" id="nav-tabContent">
-					<div class="tab-pane fade show active" id='nav-all' role="tabpanel" aria-labelledby='nav-all-tab'
-						tabindex={0}>
+					<div class="tab-pane fade show active" id='nav-all' role="tabpanel" aria-labelledby='nav-all-tab' tabindex={0}>
 						<!-- Trending Section -->
-						<div class="row mx-3 py-4">
-							<div class="anchor" id="trending-section"></div>
-							<h5 class="py-3">Trending Plugins</h5>
-								{{#plugins}}
-									{{#trending}}
-										{{> pluginCard}}
-									{{/trending}}
-								{{/plugins}}
+						<div class="row main-section">
+							<div class="highlighted-heading heading">
+								<h3 id="popular">Most popular</h3>
+								<div class="subhead">Top downloaded plugins</div>
+							</div>
+							{{#plugins}}
+								{{#trending}}
+									{{> pluginCard}}
+								{{/trending}}
+							{{/plugins}}
 						</div>
 						<!-- Recommended Section -->
-						<div class="row mx-3 py-4">
-							<div class="anchor" id="recommended-section"></div>
-							<h5 class="py-3">Recommended Plugins</h5>
-								{{#plugins}}
-									{{#recommended}}
-										{{> pluginCard}}
-									{{/recommended}}
-								{{/plugins}}
+						<div class="row main-section">
+							<div class="highlighted-heading heading">
+								<h3 id="recommended-section">Recommended plugins</h3>
+							</div>
+							{{#plugins}}
+								{{#recommended}}
+									{{> pluginCard}}
+								{{/recommended}}
+							{{/plugins}}
 						</div>
 						<!-- All Plugins -->
-						<div class="row mx-3 py-4">
-							<div class="anchor" id="all-plugins-section"></div>
-							<h5 class="py-3">All Plugins</h5>
-								{{#plugins}}
-									{{#all}}
-										{{> pluginCard}}
-									{{/all}}
-								{{/plugins}}
+						<div class="row main-section">
+							<div class="highlighted-heading heading">
+								<h3 id="all-plugins-section">All plugins</h3>
+							</div>
+							{{#plugins}}
+								{{#all}}
+									{{> pluginCard}}
+								{{/all}}
+							{{/plugins}}
 						</div>
 					</div>
 
 					<!-- Plugins in categories -->
-						{{#allPossibleCategories}}
-							<div class="tab-pane fade show" id="nav-{{name}}" role="tabpanel" aria-labelledby="nav-{{name}}-tab" tabindex='0'>
-								<div class="row mx-3 py-4">
-									{{#plugins}}
-										{{> pluginCard}}
-									{{/plugins}}
-									{{^plugins}}
-										<div class="py-5">
-											<p class="text-center mb-3"><span class="fa-solid fa-box-open fa-4x text-muted"></span></p>
-											<h5 class="text-muted text-center mb-2">Oops... There are no plugins under this category.</h5> 
-										</div>
-									{{/plugins}}
+					{{#allPossibleCategories}}
+						<div class="tab-pane" id="nav-{{name}}" role="tabpanel" aria-labelledby="nav-{{name}}-tab" tabindex='0'>
+							<div class="row main-section">
+								<div class="highlighted-heading heading">
+									<h3>{{displayName}}</h3>
 								</div>
+								{{#plugins}}
+									{{> pluginCard}}
+								{{/plugins}}
+								{{^plugins}}
+									<div class="py-5">
+										<p class="text-center mb-3"><span class="fa-solid fa-box-open fa-4x text-muted"></span></p>
+										<h5 class="text-muted text-center mb-2">Oops... There are no plugins under this category.</h5> 
+									</div>
+								{{/plugins}}
 							</div>
-						{{/allPossibleCategories}}
+						</div>
+					{{/allPossibleCategories}}
 
+					{{> plugin-documentation-link}}
 				</div>
 			</div>
 		</div>
@@ -112,5 +95,3 @@
 </body>
 
 </html>
-
-<script src="{{&config.site}}/bundle.js"></script>

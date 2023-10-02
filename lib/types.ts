@@ -4,11 +4,21 @@ export interface BuildConfig {
 	site: string;
 }
 
-export type Manifest = Record<string, JoplinPlugin>;
+export type IdToManifestRecord = Record<string, JoplinPlugin>;
+export type IdToAssetsRecord = Record<string, PluginAssetData>;
 
 export type Stats = Record<string, any>;
 
+export interface PluginIconSet {
+	'16'?: string;
+	'32'?: string;
+	'48'?: string;
+	'128'?: string;
+	'256'?: string;
+}
+
 export interface JoplinPlugin {
+	// Directly from the manifest
 	manifest_version: number;
 	id: string;
 	app_min_version: string;
@@ -24,15 +34,28 @@ export interface JoplinPlugin {
 	_publish_commit: string;
 	_npm_package_name: string;
 	_recommended?: boolean;
-	screenshots?: { src: string }[];
+	screenshots?: { src: string; label?: string }[];
+	icons?: PluginIconSet;
 	downloadCount: number;
 	timeModified: string;
 	domId?: string;
+
+	// Loaded separately
+	assets?: PluginAssetData;
+}
+
+// Larger assets
+export interface PluginAssetData {
+	// Full text content of the readme.
+	// The text stored in the `readme` property must be sanitized.
+	readme: string;
+	screenshots: { uri: string; label: string }[];
+	iconUri: string | null;
 }
 
 // Data about all plugins
 export interface GlobalPluginData {
-	raw: Manifest;
+	raw: IdToManifestRecord;
 	all: JoplinPlugin[];
 	trending: JoplinPlugin[];
 	recommended: JoplinPlugin[];
