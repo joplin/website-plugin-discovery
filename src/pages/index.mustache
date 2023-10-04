@@ -2,6 +2,9 @@
 <html lang="en">
 
 <head>
+	<script>
+		window.pageId = 'pluginList';
+	</script>
 	{{> head-config}}
 	<title>Joplin Plugins</title>
 </head>
@@ -16,11 +19,31 @@
 				<div class="nav-list categry-nav">
 					<h2>Categories</h2>
 					<nav class="nav nav-pills" id="nav-tab" role="tablist">
-						<button class="nav-link active" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all"
-							type="button" role="tab" aria-controls="nav-all" aria-selected="false">All</button>
+						<a
+							class="nav-link active"
+							id="nav-all-tab"
+							data-bs-target="#nav-all"
+							type="button"
+							role="tab"
+							aria-controls="nav-all"
+							aria-selected="false"
+							href="#tab-all"
+						>
+							All
+						</a>
 						{{#allPossibleCategories}}
-							<button class="nav-link" id="nav-{{name}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{name}}"
-								type="button" role="tab" aria-controls="nav-{{name}}" aria-selected="false">{{displayName}}</button>
+							<a
+								class="nav-link"
+								id="nav-{{name}}-tab"
+								data-bs-target="#nav-{{name}}"
+								type="button"
+								role="tab"
+								aria-controls="nav-{{name}}"
+								aria-selected="false"
+								href="#tab-{{name}}"
+							>
+								{{displayName}}
+							</a>
 						{{/allPossibleCategories}}
 					</nav>
 				</div>

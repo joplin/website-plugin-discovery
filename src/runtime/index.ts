@@ -2,6 +2,7 @@ import PluginDataManager from './PluginDataManager';
 import initializeSearch from './search/initializeSearch';
 import initializePluginPage from './plugin/initializePluginPage';
 import initializeDownloadPage from './initializeDownloadPage';
+import initializePluginListPage from './initializePluginListPage';
 import 'bootstrap';
 
 import './style.scss';
@@ -14,6 +15,8 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 	if (page === 'pluginDisplay') {
 		initializePluginPage();
+	} else if (page === 'pluginList') {
+		initializePluginListPage();
 	}
 
 	const pluginDataManager = await PluginDataManager.fromURL(
