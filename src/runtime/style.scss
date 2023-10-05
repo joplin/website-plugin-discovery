@@ -1,5 +1,6 @@
 // Automatically switch between light and dark mode:
 $color-mode-type: media-query;
+$carousel-control-color: black;
 
 @import 'bootstrap/scss/bootstrap';
 @import './search/style.scss';
@@ -7,6 +8,17 @@ $color-mode-type: media-query;
 @import './components/components.scss';
 @import './components/plugin-card.scss';
 @import './components/plugin-documentation-link.scss';
+
+// colors
+:root body {
+	--carousel-button-color: #c4d3e7;
+	--bs-secondary-bg: #f4f3f3;
+
+	@include color-mode(dark) {
+		--bs-secondary-bg: #131212;
+		--carousel-button-color: #8493a7;
+	}
+}
 
 .plugin-description {
 	display: -webkit-box;
@@ -33,8 +45,8 @@ $color-mode-type: media-query;
 }
 
 .additional-information-table {
-	margin-left: auto;
-	margin-right: auto;
+	margin-top: 15px;
+	margin-left: 5px;
 
 	th {
 		padding-right: 40px;

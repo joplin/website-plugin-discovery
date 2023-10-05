@@ -102,14 +102,18 @@ main.plugin-details nav.breadcrumb-container {
 }
 
 #screenshots-carousel {
+	padding: 0 40px;
+
 	.carousel-control-next,
 	.carousel-control-prev {
-		background-color: var(--bs-blue);
+		background-color: var(--carousel-button-color);
 
-		$size: 50px;
+		$size: 49px;
 		height: $size;
 		width: $size;
 		border-radius: $size;
+
+		padding: 15px;
 
 		// Center vertically
 		margin-top: auto;

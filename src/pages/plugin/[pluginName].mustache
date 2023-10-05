@@ -102,13 +102,8 @@
 			<h3>Additional Information</h3>
 			<table class="additional-information-table">
 				<tbody>
-					<tr><th>Author</th><td>{{plugin.author}}</td></tr>
-					<tr><th>Version</th><td>{{plugin.version}}</td></tr>
-					<tr><th>Minimum app version</th><td>{{plugin.app_min_version}}</td></tr>
-					<tr><th>Downloads: This version</th><td>{{plugin.downloadCount}}</td></tr>
-					<tr><th>Last updated</th><td>{{plugin.timeModified}}</td></tr>
 					<tr>
-						<th>Links</th>
+						<th>Links:</th>
 						<td>
 							<ul class="list-group list-group-flush text-break">
 								{{#plugin.repository_url}}
@@ -126,6 +121,10 @@
 							{{/plugin.repository_url}}
 						</td>
 					</tr>
+					<tr><th>Version:</th><td>{{plugin.version}}</td></tr>
+					<tr><th>Minimum app version:</th><td>{{plugin.app_min_version}}</td></tr>
+					<tr><th>Downloads: This version:</th><td>{{plugin.downloadCount}}</td></tr>
+					<tr><th>Last updated:</th><td>{{plugin.timeModified}}</td></tr>
 				</tbody>
 			</table>
 		</div>
