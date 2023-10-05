@@ -33,28 +33,27 @@
 			<img class="plugin-icon" src="{{plugin.assets.iconUri}}" alt="Plugin icon"/>
 		</div>
 		<div class="plugin-page-header">
-			<div class="pb-3">
-				{{#plugin._recommended}}
-					<span class="plugin-recommended me-2 badge text-black">Recommended</span>
-				{{/plugin._recommended}}
-			</div>
-			
-			<h1 class="card-title">{{plugin.name}}</h1>
+			<h1 class="card-title pt-2">{{plugin.name}}</h1>
 			<div class="card-title pb-2">
 				by
 				<a
 					href="./?search=author%3D%22{{plugin.author}}%22%20max-results%3D20"
 					style="display: inline;"
-					class="text-primary"
 				>
 					{{plugin.author}}
 				</a>
 			</div>
 
+			<div>
+				{{#plugin._recommended}}
+					<span class="plugin-recommended me-2 badge"><i class="fas fa-check"></i> Recommended</span>
+				{{/plugin._recommended}}
+			</div>
+
 			<div class="categories">
 				{{#plugin.categories}}
-					<a class="plugin-category me-2 badge bg-secondary" href="{{config.site}}/#tab-{{.}}">
-						<i class="fas fa-tag"></i></i>{{.}}
+					<a class="plugin-category me-2 badge" href="{{config.site}}/#tab-{{.}}">
+						<i class="fas fa-tag"></i> {{.}}
 					</a>
 				{{/plugin.categories}}
 			</div>

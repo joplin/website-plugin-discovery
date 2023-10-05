@@ -6,17 +6,16 @@
 				{{ name }}
 			</label>
 		</h5>
-		<div class="pb-2">
-		{{#_recommended}}
-			<span class="plugin-recommended me-2 badge text-black">Recommended</span>
-		{{/_recommended}}
-		{{#categories}}
-			<span class="plugin-category me-2 badge bg-secondary">{{.}}</span>
-		{{/categories}}
-		</div>
 
 		<p class="plugin-description">
 			{{ description }}
 		</p>
+
+		<div class="recommended-badge-spacer"></div>
+		<div class="recommended-badge-container">
+		{{#_recommended}}
+			<span class="plugin-recommended me-2 badge"><i class="fas fa-check"></i> Recommended</span>
+		{{/_recommended}}
+		</div>
 	</div>
 </a>

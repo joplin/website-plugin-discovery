@@ -1,5 +1,5 @@
 .plugin-link-card {
-	display: block;
+	display: flex;
 
 	text-decoration: none;
 	padding-left: 0;
@@ -46,4 +46,14 @@
 	}
 
 	width: calc(var(--width-percent) - $margin-x);
+
+	.recommended-badge-spacer {
+		height: 20px;
+	}
+
+	.recommended-badge-container {
+		position: absolute;
+		bottom: 25px;
+		height: 1em;
+	}
 }

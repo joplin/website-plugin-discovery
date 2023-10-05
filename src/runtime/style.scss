@@ -15,16 +15,21 @@ $color-mode-type: media-query;
 	overflow: hidden;
 }
 
-.plugin-category {
+.plugin-category,
+.plugin-recommended {
+	border-radius: 12px;
+
 	text-transform: capitalize;
-	margin-top: -4px;
+	color: black;
 	text-decoration: none;
 }
 
+.plugin-category {
+	background-color: #ffe492;
+}
+
 .plugin-recommended {
-	text-transform: capitalize;
-	margin-top: -4px;
-	background-color: rgb(255, 217, 47);
+	background-color: rgb(125, 247, 145);
 }
 
 .additional-information-table {
