@@ -29,11 +29,19 @@ pre {
 	&.btn-outline-primary {
 		--bs-btn-color: #306497;
 
+		--bs-btn-border-color: var(--bs-btn-color);
+		--bs-btn-hover-bg: var(--bs-btn-border-color);
+		--bs-btn-hover-color: white;
+
 		@include color-mode(dark) {
 			--bs-btn-color: #99ccff;
+			--bs-btn-hover-color: black;
 		}
+	}
 
-		--bs-btn-border-color: var(--bs-btn-color);
+	&.btn-primary {
+		--bs-btn-bg: #0455b8;
+		--bs-btn-color: white;
 	}
 }
 
