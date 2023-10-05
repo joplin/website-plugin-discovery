@@ -164,3 +164,17 @@ main.plugin-details nav.breadcrumb-container {
 		margin-top: 15px;
 	}
 }
+
+.additional-information-table {
+	margin-top: 15px;
+	margin-left: 5px;
+
+	th {
+		padding-right: 40px;
+		vertical-align: top;
+	}
+
+	ul {
+		list-style-type: none;
+	}
+}

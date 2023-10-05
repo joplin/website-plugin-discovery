@@ -44,20 +44,6 @@ $carousel-control-color: black;
 	background-color: rgb(125, 247, 145);
 }
 
-.additional-information-table {
-	margin-top: 15px;
-	margin-left: 5px;
-
-	th {
-		padding-right: 40px;
-		vertical-align: top;
-	}
-
-	ul {
-		list-style-type: none;
-	}
-}
-
 main {
 	padding-top: 20px;
 }
@@ -80,6 +66,46 @@ main {
 .navbar-brand img {
 	height: 35px;
 	max-width: 80vw;
+}
+
+.site-links {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin-bottom: 2px;
+
+	& > a {
+		border-radius: 1em;
+		text-decoration: none;
+		padding: 2px 8px;
+		margin: 0px 2px;
+
+		background-color: black;
+
+		&.a-github {
+			background-color: black;
+		}
+
+		&.a-discord {
+			background-color: #007;
+		}
+
+		&.a-patreon {
+			background-color: #700;
+		}
+
+		&.a-linkedin {
+			background-color: #037;
+		}
+
+		color: white;
+		&:hover {
+			opacity: 0.8;
+		}
+
+		transition: 0.2s ease background-color;
+	}
 }
 
 :target {
