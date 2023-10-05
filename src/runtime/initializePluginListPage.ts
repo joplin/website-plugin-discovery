@@ -1,12 +1,13 @@
 import { Tab } from 'bootstrap';
 
-const initializePluginListPage = () => {
+const initTabNavigation = () => {
 	const tabContainer = document.querySelector('nav#nav-tab')!;
+	const breadcrumbCurrentTab = document.querySelector<HTMLElement>('#active-tab-breadcrumb')!;
 
 	let ignoreNextHashChange = false;
 
 	// Create all tabs
-	for (const tabTrigger of tabContainer.querySelectorAll('[role=tab]')) {
+	for (const tabTrigger of tabContainer.querySelectorAll<HTMLElement>('[role=tab]')) {
 		new Tab(tabTrigger);
 
 		tabTrigger.addEventListener('shown.bs.tab', () => {
@@ -18,6 +19,8 @@ const initializePluginListPage = () => {
 				ignoreNextHashChange = true;
 				location.hash = currentTabHash;
 			}
+
+			breadcrumbCurrentTab.innerText = tabTrigger.innerText;
 		});
 	}
 
@@ -42,6 +45,26 @@ const initializePluginListPage = () => {
 
 		navigateToTabFromHash(event.newURL);
 	});
+};
+
+const initializePluginListPage = () => {
+	initTabNavigation();
+
+	// Initialize plugin cards
+	const tabPanes = document.querySelectorAll('.tab-pane');
+	for (const tabPane of tabPanes) {
+		const tabName = tabPane.getAttribute('data-tab-name');
+
+		if (!tabName) {
+			console.error('A tab is missing the data-tab-name attribute!');
+			continue;
+		}
+
+		const pluginCardLinks = tabPane.querySelectorAll<HTMLAnchorElement>('a.plugin-link-card');
+		for (const link of pluginCardLinks) {
+			link.href += `?from-tab=${tabName}`;
+		}
+	}
 };
 
 export default initializePluginListPage;
