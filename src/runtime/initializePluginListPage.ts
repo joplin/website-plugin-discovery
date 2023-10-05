@@ -25,8 +25,12 @@ const initTabNavigation = () => {
 	}
 
 	const navigateToTabFromHash = (url: string) => {
-		const selectedTabMatch = url.match(/#tab-([a-zA-Z0-9\-_]+)$/);
-		const tabName = selectedTabMatch ? selectedTabMatch[1] : 'all';
+		const selectedTabMatch = url.match(/#tab-([a-zA-Z0-9\-_%]+)$/);
+		let tabName = selectedTabMatch ? selectedTabMatch[1] : 'all';
+
+		// Replace `%20`s (spaces) with dashes -- it simplifies other logic if
+		// tab names can have spaces in links.
+		tabName = tabName.replace(/%20/g, '-');
 
 		const tabButton = tabContainer.querySelector(`#nav-${tabName}-tab`);
 
