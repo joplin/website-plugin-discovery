@@ -7,7 +7,7 @@ $carousel-control-color: black;
 @import './plugin/style.scss';
 @import './components/components.scss';
 @import './components/plugin-card.scss';
-@import './components/plugin-documentation-link.scss';
+@import './components/page-footer.scss';
 
 // colors
 :root body {
@@ -66,46 +66,6 @@ main {
 .navbar-brand img {
 	height: 35px;
 	max-width: 80vw;
-}
-
-.site-links {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	flex-wrap: wrap;
-	margin-bottom: 2px;
-
-	& > a {
-		border-radius: 1em;
-		text-decoration: none;
-		padding: 2px 8px;
-		margin: 0px 2px;
-
-		background-color: black;
-
-		&.a-github {
-			background-color: black;
-		}
-
-		&.a-discord {
-			background-color: #007;
-		}
-
-		&.a-patreon {
-			background-color: #700;
-		}
-
-		&.a-linkedin {
-			background-color: #037;
-		}
-
-		color: white;
-		&:hover {
-			opacity: 0.8;
-		}
-
-		transition: 0.2s ease background-color;
-	}
 }
 
 :target {

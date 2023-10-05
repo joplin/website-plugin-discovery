@@ -1,0 +1,80 @@
+.plugin-documentation-section {
+	padding-top: 40px;
+	padding-bottom: 40px;
+
+	border-radius: 0.5rem;
+	background-color: var(--bs-secondary-bg);
+	margin-bottom: 3px;
+
+	& > .heading {
+		font-size: 1.1em;
+		text-align: center;
+		margin-bottom: 20px;
+	}
+
+	& > a {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		width: fit-content;
+	}
+}
+
+.site-links {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin-bottom: 3px;
+	margin-top: 3px;
+
+	& > a {
+		border-radius: 1em;
+		text-decoration: none;
+		padding: 2px 8px;
+		margin: 0px 2px;
+
+		background-color: black;
+
+		&.a-github {
+			background-color: black;
+		}
+
+		&.a-discord {
+			background-color: #007;
+		}
+
+		&.a-patreon {
+			background-color: #700;
+		}
+
+		&.a-linkedin {
+			background-color: #037;
+		}
+
+		color: white;
+		&:hover {
+			opacity: 0.8;
+		}
+
+		transition: 0.2s ease background-color;
+	}
+}
+
+body > .page-footer {
+	margin-top: 10px;
+	margin-left: 0;
+	margin-right: 0;
+
+	.plugin-documentation-section {
+		border-radius: 0;
+		margin-bottom: 0;
+	}
+}
+
+div > .page-footer,
+main > .page-footer {
+	@include media-breakpoint-up(md) {
+		margin-left: 15px;
+	}
+}
