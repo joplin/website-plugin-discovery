@@ -1,8 +1,19 @@
 $main-content-max-width: 670px;
 
+$icon-target-size: 180px;
+$overview-padding-x: 25px;
+
 main.plugin-details nav.breadcrumb-container {
-	padding-left: 30px;
-	padding-right: 30px;
+	$padding-x: 20px;
+	padding-left: $padding-x;
+	padding-right: $padding-x;
+
+	max-width: calc(
+		$main-content-max-width + $icon-target-size + $icon-target-size + 2 * $overview-padding-x + 2 *
+			$padding-x
+	);
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .plugin-overview {
@@ -24,21 +35,21 @@ main.plugin-details nav.breadcrumb-container {
 		}
 	}
 
-	$spacing: 25px;
+	$spacing: $overview-padding-x;
 
 	padding-bottom: 20px;
 	padding-left: $spacing;
 	padding-right: $spacing;
 
 	.plugin-icon-container {
-		width: 180px;
+		width: $icon-target-size;
 		flex-grow: 1;
 		display: flex;
 		justify-content: flex-end;
 
 		.plugin-icon {
 			border-radius: 20px;
-			width: 180px;
+			width: $icon-target-size;
 		}
 	}
 
@@ -50,8 +61,15 @@ main.plugin-details nav.breadcrumb-container {
 	}
 
 	.download-link-container {
+		// Should grow at the same rate as the icon container
+		// to keep the header centered
+		width: $icon-target-size;
 		flex-grow: 1;
-		width: 180px;
+
+		& > * {
+			$download-link-size: 150px;
+			min-width: $download-link-size;
+		}
 	}
 }
 

@@ -50,8 +50,11 @@ pre code {
 	white-space: pre-wrap;
 }
 
-nav.breadcrumb-container li {
-	text-transform: capitalize;
+nav.breadcrumb-container {
+	--bs-breadcrumb-divider: '›';
+	li {
+		text-transform: capitalize;
+	}
 }
 
 .nav-pills {

@@ -53,7 +53,9 @@
 
 			<div class="categories">
 				{{#plugin.categories}}
-					<span class="plugin-category me-2 badge bg-secondary">{{.}}</span>
+					<a class="plugin-category me-2 badge bg-secondary" href="{{config.site}}/#tab-{{.}}">
+						<i class="fas fa-tag"></i></i>{{.}}
+					</a>
 				{{/plugin.categories}}
 			</div>
 		</div>

@@ -26,13 +26,12 @@ const initTabNavigation = () => {
 
 	const navigateToTabFromHash = (url: string) => {
 		const selectedTabMatch = url.match(/#tab-([a-zA-Z0-9\-_]+)$/);
-		if (selectedTabMatch) {
-			const tabName = selectedTabMatch[1];
-			const tabButton = tabContainer.querySelector(`#nav-${tabName}-tab`);
+		const tabName = selectedTabMatch ? selectedTabMatch[1] : 'all';
 
-			if (tabButton) {
-				Tab.getOrCreateInstance(tabButton).show();
-			}
+		const tabButton = tabContainer.querySelector(`#nav-${tabName}-tab`);
+
+		if (tabButton) {
+			Tab.getOrCreateInstance(tabButton).show();
 		}
 	};
 	navigateToTabFromHash(location.href);
