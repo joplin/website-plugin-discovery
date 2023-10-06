@@ -1,4 +1,3 @@
-import getURLData from '../../util/getURLData';
 import initializeScreenshotCarousel from './initializeScreenshotCarousel';
 import postprocessReadme from './postprocessReadme';
 
@@ -16,18 +15,6 @@ const initializePluginPage = () => {
 		console.error('Unable to find the README container for post-processing!');
 	} else {
 		postprocessReadme(readmeContainer);
-	}
-
-	// Update the link to the pluign's source
-	const sourceLink = document.querySelector<HTMLAnchorElement>('a#view-plugin-source-link');
-	if (!sourceLink) {
-		console.error('Unable to find the plugin view-source link');
-	} else {
-		const urlData = getURLData(location.href);
-
-		if (urlData.fromTab) {
-			sourceLink.href += '?from-tab=' + urlData.fromTab;
-		}
 	}
 };
 

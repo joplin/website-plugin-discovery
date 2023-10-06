@@ -1,5 +1,6 @@
 import type { JoplinPlugin } from '../../../../lib/types';
 import type PluginDataManager from '../../util/PluginDataManager';
+import getURLData from '../../util/getURLData';
 
 // Client-side JavaScript for the downloadPlugin.html page.
 // Assumes that the plugin ID is specified in the URL.
@@ -9,14 +10,14 @@ const initializeDownloadPage = (dataManager: PluginDataManager) => {
 	const pluginTitleRegions = document.querySelectorAll('#plugin-title');
 
 	// Get the plugin ID from the URL:
-	const pluginIdMatch = /[?]id=(.*)$/.exec(location.href);
+	const urlData = getURLData(location.href);
 	let plugin: JoplinPlugin | null = null;
 	let pluginId: string | null = null;
-	if (pluginIdMatch) {
+	if (urlData.pluginId) {
 		// 1: First capture group
-		pluginId = pluginIdMatch[1];
+		pluginId = urlData.pluginId;
 
-		plugin = dataManager.pluginFromId(pluginId);
+		plugin = dataManager.pluginFromId(urlData.pluginId);
 	}
 
 	if (!plugin) {

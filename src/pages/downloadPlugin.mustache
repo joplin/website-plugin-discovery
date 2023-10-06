@@ -14,7 +14,18 @@
 <body>
 {{> navabar}}
 <main>
-	<div class="container my-5">
+	<div class="container">
+		<nav aria-label="breadcrumb" class="breadcrumb-container">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item">
+					<a href="{{config.site}}"><i class="fas fa-home"></i> Home</a>
+				</li>
+				<li class="breadcrumb-item"><a id="current-category-nav-link" href="{{config.site}}/">All</a></li>
+				<li class="breadcrumb-item"><a id="current-plugin-nav-link"></a></li>
+				<li class="breadcrumb-item active" aria-current="page">Download</li>
+			</ol>
+		</nav>
+
 		<div class="row">
 			<!-- Main Section -->
 			<div class="col-lg-8 col-12 py-2">

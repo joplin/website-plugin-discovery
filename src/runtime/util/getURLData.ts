@@ -1,7 +1,9 @@
 // Extracts information from the page's URL.
 const getURLData = (url: string) => {
+	// Support both plugin=someid and id=someid forms -- older links
+	// may use id=
+	const pluginIdMatch = url.match(/\?(?:plugin|id)=([^,?#/]+)[^/]*$/);
 	const fromTabMatch = url.match(/\?from-tab=([^,?#/]+)[^/]*$/);
-	const pluginIdMatch = url.match(/\?plugin=([^,?#/]+)[^/]*$/);
 
 	return {
 		// All tab names use alphabetic characters -- replace other characters.

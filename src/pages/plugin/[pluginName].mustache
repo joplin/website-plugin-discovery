@@ -61,7 +61,12 @@
 			</div>
 		</div>
 		<div class="download-link-container">
-			<a href="{{&config.site}}/downloadPlugin.html?id={{plugin.id}}" class="btn btn-primary">Install Plugin</a>
+			<a
+				href="{{&config.site}}/downloadPlugin.html?plugin={{plugin.id}}"
+				class="btn btn-primary append-parent-tab-to-href"
+			>
+				Install Plugin
+			</a>
 		</div>
 	</div>
 	<div class="plugin-content">
@@ -115,7 +120,13 @@
 									<li><a href={{.}} style="display: block;"><i class="fa-solid fa-link"></i> Homepage</a></li>
 								{{/plugin.homepage_url}}
 								<li>
-									<a id="view-plugin-source-link" href="{{config.site}}/view-source.html?plugin={{plugin.id}}"><i class="fa-solid fa-code"></i> View source</a>
+									<a
+										id="view-plugin-source-link"
+										href="{{config.site}}/view-source.html?plugin={{plugin.id}}"
+										class="append-parent-tab-to-href"
+									>
+										<i class="fa-solid fa-code"></i> View source
+									</a>
 								</li>
 							</ul>
 						</td>

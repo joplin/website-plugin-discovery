@@ -29,6 +29,17 @@ const initializeBreadcrumbs = async () => {
 			currentPluginLink.href = pluginDataManager.getLinkToPlugin(plugin) + fromTabSpecifier;
 		}
 	}
+
+	// To make the category breadcrumb work, some links need to be updated
+	if (urlData.fromTab) {
+		const linksToUpdate = document.querySelectorAll<HTMLAnchorElement>(
+			'a.append-parent-tab-to-href',
+		);
+
+		for (const link of linksToUpdate) {
+			link.href += '?from-tab=' + urlData.fromTab;
+		}
+	}
 };
 
 export default initializeBreadcrumbs;
