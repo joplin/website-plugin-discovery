@@ -23,11 +23,6 @@ const codeMirrorStyle = EditorView.theme({
 		fontSize: '0.9em',
 	},
 
-	'& .cm-scroller': {
-		'overflow-y': 'auto',
-		'max-height': 'calc(100vh - 160px)',
-	},
-
 	// Change the selection color. See https://codemirror.net/examples/styling/
 	'.cm-content': {
 		caretColor: 'var(--cm-caret-color)',

@@ -10,10 +10,21 @@
 			flex-shrink: 0;
 		}
 
-		.source-view {
+		.source-view-container {
 			flex-grow: 1;
 			overflow-x: auto;
 		}
+	}
+
+	.cm-scroller,
+	.files-nav {
+		overflow-y: auto;
+		max-height: calc(100vh - 160px);
+	}
+
+	.files-nav {
+		overflow-x: hidden;
+		word-wrap: break-word;
 	}
 
 	--cm-primary-text-color: var(--bs-body-color);
