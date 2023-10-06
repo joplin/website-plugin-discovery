@@ -27,7 +27,20 @@ const showPluginSource = async (outputContainer: HTMLElement, pluginDownloadURL:
 		outputContainer.querySelector<HTMLInputElement>('#pretty-print-checkbox')!;
 
 	// Load and show data
-	const source = await PluginSource.fromURL(pluginDownloadURL);
+	let source: PluginSource;
+	try {
+		source = await PluginSource.fromURL(pluginDownloadURL);
+	} catch (error) {
+		const errorMessage = `Error: ${error}`;
+		if (errorMessage.includes('tar header')) {
+			loadingMessage.innerText = `${errorMessage}. Note: Re-loading the page might fix this.`;
+		} else {
+			loadingMessage.innerText = errorMessage;
+		}
+
+		loadingMessage.classList.add('alert', 'alert-warning');
+		return;
+	}
 
 	// We use a read-only CodeMirror editor to display the data
 	const codeMirrorExtensions = [
