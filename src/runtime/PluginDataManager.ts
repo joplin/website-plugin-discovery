@@ -28,6 +28,11 @@ class PluginDataManager {
 		return this.siteRoot + '/plugin/' + plugin.id;
 	}
 
+	public getDownloadLink(plugin: JoplinPlugin) {
+		// This URL permits CORS requests
+		return `https://raw.githubusercontent.com/joplin/plugins/master/plugins/${plugin.id}/plugin.jpl`;
+	}
+
 	public getWeeksSinceUpdated(plugin: JoplinPlugin): number {
 		const nowTime = new Date().getTime();
 		const modifiedTime = new Date(plugin.timeModified).getTime();

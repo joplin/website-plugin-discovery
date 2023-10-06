@@ -6,6 +6,7 @@ import initializePluginListPage from './initializePluginListPage';
 import 'bootstrap';
 
 import './style.scss';
+import initializeViewSourcePage from './view-source/initializeViewSourcePage';
 
 // E.g. /site/ or /pluginWebsite/
 const siteRoot: string = (window as any).siteRoot;
@@ -27,6 +28,8 @@ window.addEventListener('DOMContentLoaded', async () => {
 	// If initializeDownloadPage was already called
 	if (page === 'download') {
 		initializeDownloadPage(pluginDataManager);
+	} else if (page === 'view-source') {
+		initializeViewSourcePage(pluginDataManager);
 	}
 
 	initializeSearch(pluginDataManager);
