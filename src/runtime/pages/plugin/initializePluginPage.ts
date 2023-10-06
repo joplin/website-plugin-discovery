@@ -1,6 +1,3 @@
-// pluginPage.ts is bundled separately from index.ts. As such, it's only run
-// on plugin pages.
-
 import initializeScreenshotCarousel from './initializeScreenshotCarousel';
 import postprocessReadme from './postprocessReadme';
 

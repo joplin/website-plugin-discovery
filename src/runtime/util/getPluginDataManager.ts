@@ -1,4 +1,4 @@
-import PluginDataManager from '../PluginDataManager';
+import PluginDataManager from './PluginDataManager';
 
 // E.g. /site/ or /pluginWebsite/
 const siteRoot: string = (window as any).siteRoot;

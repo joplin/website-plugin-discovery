@@ -1,4 +1,4 @@
-import { Carousel } from 'bootstrap';
+const { Carousel } = window.bootstrap;
 
 const initializeScreenshotCarousel = (screenshotsCard: HTMLElement) => {
 	const rawScreenshotContainer = screenshotsCard.querySelector('#raw-screenshots')!;

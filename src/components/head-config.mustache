@@ -1,11 +1,14 @@
 <!-- Common page configuration that goes in the <head></head> tag -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<link rel="icon" type="image/x-icon" href="{{&config.site}}/favicon.png" />
-<link rel="stylesheet" href="{{&config.site}}/fontawesome-6.4.2/css/all.min.css" type="text/css"/>
+<link rel="icon" type="image/x-icon" href="{{config.site}}/favicon.png" />
+<link rel="stylesheet" href="{{config.site}}/fontawesome-6.4.2/css/all.min.css" type="text/css"/>
 <script>
 	// Allow included JavaScipt files to determine the root directory
 	// of this site.
 	window.siteRoot = `{{&config.site}}`;
 </script>
-<script src="{{&config.site}}/bundle-main.js"></script>
+
+<!-- Scripts used by all pages -->
+<script src="{{config.site}}/bundle-main.js"></script>
+<script src="{{config.site}}/bundle-components.js"></script>

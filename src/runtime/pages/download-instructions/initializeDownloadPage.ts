@@ -1,5 +1,5 @@
-import { JoplinPlugin } from '../../lib/types';
-import PluginDataManager from './PluginDataManager';
+import type { JoplinPlugin } from '../../../../lib/types';
+import type PluginDataManager from '../../util/PluginDataManager';
 
 // Client-side JavaScript for the downloadPlugin.html page.
 // Assumes that the plugin ID is specified in the URL.

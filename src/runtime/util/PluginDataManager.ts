@@ -1,4 +1,4 @@
-import { IdToManifestRecord, type JoplinPlugin, MarketplaceData } from '../../lib/types';
+import { IdToManifestRecord, type JoplinPlugin, MarketplaceData } from '../../../lib/types';
 
 class PluginDataManager {
 	private allPlugins: JoplinPlugin[];

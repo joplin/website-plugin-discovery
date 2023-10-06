@@ -7,8 +7,19 @@ import { type BuildConfig } from '../lib/types';
 const bundleJs = (buildConfig: BuildConfig, watch: boolean): Promise<void> => {
 	const runtimeDirectory = path.join(buildConfig.sourceDir, 'runtime');
 	const webpackConfig: webpack.Configuration = {
-		mode: 'production',
+		mode: watch ? 'development' : 'production',
 		entry: {
+			pluginPage: path.join(runtimeDirectory, 'pages', 'plugin', 'index.ts'),
+			downloadInstructionsPage: path.join(
+				runtimeDirectory,
+				'pages',
+				'download-instructions',
+				'index.ts',
+			),
+			pluginListPage: path.join(runtimeDirectory, 'pages', 'plugin-list', 'index.ts'),
+			viewSourcePage: path.join(runtimeDirectory, 'pages', 'view-source', 'index.ts'),
+
+			components: path.join(runtimeDirectory, 'components', 'index.ts'),
 			main: path.join(runtimeDirectory, 'index.ts'),
 		},
 		output: {

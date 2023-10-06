@@ -1,5 +1,9 @@
 // Styling for general components
 
+@import './page-footer.scss';
+@import './plugin-card.scss';
+@import './search/style.scss';
+
 // Code: highlight.js
 @include color-mode(dark) {
 	@import 'highlight.js/scss/a11y-dark.scss';

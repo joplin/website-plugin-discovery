@@ -1,36 +1,8 @@
-import PluginDataManager from './PluginDataManager';
-import initializeSearch from './search/initializeSearch';
-import initializePluginPage from './plugin/initializePluginPage';
-import initializeDownloadPage from './initializeDownloadPage';
-import initializePluginListPage from './initializePluginListPage';
-import 'bootstrap';
-
 import './style.scss';
-import initializeViewSourcePage from './view-source/initializeViewSourcePage';
 
-// E.g. /site/ or /pluginWebsite/
-const siteRoot: string = (window as any).siteRoot;
-
-window.addEventListener('DOMContentLoaded', async () => {
-	const page = (window as any).pageId ?? 'default';
-
-	if (page === 'pluginDisplay') {
-		initializePluginPage();
-	} else if (page === 'pluginList') {
-		initializePluginListPage();
-	}
-
-	const pluginDataManager = await PluginDataManager.fromURL(
-		`${siteRoot}/pluginData.json`,
-		siteRoot,
-	);
-
-	// If initializeDownloadPage was already called
-	if (page === 'download') {
-		initializeDownloadPage(pluginDataManager);
-	} else if (page === 'view-source') {
-		initializeViewSourcePage(pluginDataManager);
-	}
-
-	initializeSearch(pluginDataManager);
-});
+// Make bootstrap globally available to all other scripts.
+// This prevents us from importing bootstrap multiple times (which
+// causes bootstrap to re-initialize multiple times, breaking some
+// functionality).
+import * as bootstrap from 'bootstrap';
+window.bootstrap = bootstrap;

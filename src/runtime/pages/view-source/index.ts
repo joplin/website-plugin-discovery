@@ -1,7 +1,8 @@
-import PluginDataManager from '../PluginDataManager';
+import getPluginDataManager from '../../util/getPluginDataManager';
 import showPluginSource from './showPluginSource';
 
-const initializeViewSourcePage = (plugins: PluginDataManager) => {
+const initializeViewSourcePage = async () => {
+	const plugins = await getPluginDataManager();
 	const outputContainer = document.querySelector<HTMLElement>('#view-source-output')!;
 
 	const pluginNameMatch = /[?]plugin=([^,?/]+)/.exec(location.href);
@@ -21,4 +22,6 @@ const initializeViewSourcePage = (plugins: PluginDataManager) => {
 	showPluginSource(outputContainer, plugins.getDownloadLink(plugin));
 };
 
-export default initializeViewSourcePage;
+window.addEventListener('DOMContentLoaded', async () => {
+	await initializeViewSourcePage();
+});

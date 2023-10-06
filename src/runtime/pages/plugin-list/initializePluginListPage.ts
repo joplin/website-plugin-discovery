@@ -1,4 +1,4 @@
-import { Tab } from 'bootstrap';
+const { Tab } = window.bootstrap;
 
 const initTabNavigation = () => {
 	const tabContainer = document.querySelector('nav#nav-tab')!;

@@ -3,11 +3,9 @@ $color-mode-type: media-query;
 $carousel-control-color: black;
 
 @import 'bootstrap/scss/bootstrap';
-@import './search/style.scss';
-@import './plugin/style.scss';
-@import './components/components.scss';
-@import './components/plugin-card.scss';
-@import './components/page-footer.scss';
+@import './pages/plugin/style.scss';
+@import './pages/view-source/style.scss';
+@import './components/style.scss';
 
 // colors
 :root body {

@@ -1,4 +1,4 @@
-import makeAlert from '../components/makeAlert';
+import makeAlert from '../../util/makeAlert';
 
 const alwaysLoadSettingKey = 'always-load-external';
 

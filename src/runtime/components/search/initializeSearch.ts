@@ -1,6 +1,8 @@
-import type PluginDataManager from '../PluginDataManager';
+import getPluginDataManager from '../../util/getPluginDataManager';
 
-const initializeSearch = (pluginData: PluginDataManager): void => {
+const initializeSearch = async () => {
+	const pluginData = await getPluginDataManager();
+
 	const searchInput = document.querySelector<HTMLInputElement>('#search-input')!;
 	const searchResultsContainer = document.querySelector<HTMLElement>('#search-results-container')!;
 	const searchContainer = searchInput.parentElement!;
