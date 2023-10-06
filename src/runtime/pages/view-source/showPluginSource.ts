@@ -6,6 +6,7 @@ import { javascript } from '@codemirror/lang-javascript';
 import { css } from '@codemirror/lang-css';
 import { html } from '@codemirror/lang-html';
 import codeMirrorTheme from './codeMirrorTheme';
+import type { Tab as TabType } from 'bootstrap';
 
 const fileExtensionToCMExtension: Record<string, Extension> = {
 	css: css(),
@@ -41,6 +42,8 @@ const showPluginSource = async (outputContainer: HTMLElement, pluginDownloadURL:
 		extensions: codeMirrorExtensions,
 	});
 
+	let firstTab: TabType | null = null;
+
 	for (const filePath of source.getFiles()) {
 		const navItem = document.createElement('li');
 		navItem.classList.add('nav-item');
@@ -55,6 +58,7 @@ const showPluginSource = async (outputContainer: HTMLElement, pluginDownloadURL:
 		fileLink.innerText = filePath;
 
 		const tab = new Tab(fileLink);
+		firstTab ??= tab;
 
 		const showCurrentFile = async () => {
 			const fileExtensionMatch = filePath.match(/\.(\w+)$/);
@@ -87,6 +91,7 @@ const showPluginSource = async (outputContainer: HTMLElement, pluginDownloadURL:
 		};
 	}
 
+	firstTab?.show();
 	loadingMessage.remove();
 };
 
