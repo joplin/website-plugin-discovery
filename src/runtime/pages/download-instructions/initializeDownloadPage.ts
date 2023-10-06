@@ -28,9 +28,7 @@ const initializeDownloadPage = (dataManager: PluginDataManager) => {
 
 	for (const link of downloadJPLLinks) {
 		if (plugin) {
-			const id = plugin.id;
-			const version = plugin.version ?? 0;
-			const href = `https://github.com/joplin/plugins/releases/download/plugins/${id}@${version}.jpl`;
+			const href = dataManager.getReleaseDownloadLink(plugin);
 			link.setAttribute('href', href);
 		} else {
 			(link as HTMLLinkElement).innerText = errorInvalidIdMessage;

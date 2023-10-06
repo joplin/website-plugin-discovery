@@ -28,9 +28,16 @@ class PluginDataManager {
 		return this.siteRoot + '/plugin/' + plugin.id;
 	}
 
-	public getDownloadLink(plugin: JoplinPlugin) {
-		// This URL permits CORS requests
+	// A URL that permits CORS requests
+	public getCorsDownloadLink(plugin: JoplinPlugin) {
 		return `https://raw.githubusercontent.com/joplin/plugins/master/plugins/${plugin.id}/plugin.jpl`;
+	}
+
+	// A URL associated with a specific version of the plugin (from the releases page)
+	public getReleaseDownloadLink(plugin: JoplinPlugin) {
+		const id = plugin.id;
+		const version = plugin.version ?? 0;
+		return `https://github.com/joplin/plugins/releases/download/plugins/${id}@${version}.jpl`;
 	}
 
 	public getWeeksSinceUpdated(plugin: JoplinPlugin): number {

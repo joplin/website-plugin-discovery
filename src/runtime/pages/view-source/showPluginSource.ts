@@ -44,7 +44,28 @@ const showPluginSource = async (outputContainer: HTMLElement, pluginDownloadURL:
 
 	let firstTab: TabType | null = null;
 
-	for (const filePath of source.getFiles()) {
+	// Customize the order of files in the sidebar
+	const pluginFiles = [...source.getFiles()];
+	pluginFiles.sort((a, b) => {
+		if (a === b) {
+			return 0;
+		}
+
+		// Show manifest.json before all other files
+		const manifestFileName = 'manifest.json';
+		if (a === manifestFileName) {
+			return -1;
+		}
+
+		if (b === manifestFileName) {
+			return 1;
+		}
+
+		// Otherwise sort alphabetically
+		return a > b ? 1 : -1;
+	});
+
+	for (const filePath of pluginFiles) {
 		const navItem = document.createElement('li');
 		navItem.classList.add('nav-item');
 

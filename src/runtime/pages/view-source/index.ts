@@ -19,10 +19,24 @@ const initializeViewSourcePage = async () => {
 		return;
 	}
 
-	const pluginInfoContainer = document.querySelector<HTMLElement>('#plugin-info')!;
-	pluginInfoContainer.innerText = pluginId + ' v' + plugin.version;
+	// Fill elements in the HTML with information about the plugin
+	for (const pluginIdElem of document.querySelectorAll<HTMLElement>('.plugin-id')) {
+		pluginIdElem.innerText = pluginId;
+	}
 
-	showPluginSource(outputContainer, plugins.getDownloadLink(plugin));
+	for (const pluginVersionElem of document.querySelectorAll<HTMLElement>('.plugin-version')) {
+		pluginVersionElem.innerText = plugin.version;
+	}
+
+	for (const pluginNameElem of document.querySelectorAll<HTMLElement>('.plugin-name')) {
+		pluginNameElem.innerText = plugin.name;
+	}
+
+	for (const downloadLink of document.querySelectorAll<HTMLAnchorElement>('a.plugin-jpl-link')) {
+		downloadLink.href = plugins.getReleaseDownloadLink(plugin);
+	}
+
+	showPluginSource(outputContainer, plugins.getCorsDownloadLink(plugin));
 };
 
 window.addEventListener('DOMContentLoaded', async () => {
