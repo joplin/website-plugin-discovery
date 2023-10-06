@@ -8,9 +8,21 @@
 			width: 200px;
 			flex-grow: 0;
 			flex-shrink: 0;
+			display: flex;
 
 			flex-direction: column;
 			padding-right: 5px;
+			flex-wrap: nowrap;
+
+			li {
+				width: 100%;
+
+				button {
+					width: 100%;
+					text-align: left;
+					display: block;
+				}
+			}
 		}
 
 		.source-view-container {

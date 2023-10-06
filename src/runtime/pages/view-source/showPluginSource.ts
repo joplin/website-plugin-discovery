@@ -82,16 +82,15 @@ const showPluginSource = async (outputContainer: HTMLElement, pluginDownloadURL:
 		const navItem = document.createElement('li');
 		navItem.classList.add('nav-item');
 
-		const fileLink = document.createElement('a');
-		fileLink.classList.add('nav-link');
+		const tabButton = document.createElement('button');
+		tabButton.classList.add('nav-link');
 
-		navItem.appendChild(fileLink);
+		navItem.appendChild(tabButton);
 		filesNav.appendChild(navItem);
 
-		fileLink.href = '#';
-		fileLink.innerText = filePath;
+		tabButton.innerText = filePath;
 
-		const tab = new Tab(fileLink);
+		const tab = new Tab(tabButton);
 		firstTab ??= tab;
 
 		const showCurrentFile = async () => {
@@ -112,7 +111,7 @@ const showPluginSource = async (outputContainer: HTMLElement, pluginDownloadURL:
 			);
 		};
 
-		fileLink.addEventListener('shown.bs.tab', async () => {
+		tabButton.addEventListener('shown.bs.tab', async () => {
 			showCurrentFile();
 
 			prettyPrintCheckbox.onchange = () => {
@@ -120,7 +119,7 @@ const showPluginSource = async (outputContainer: HTMLElement, pluginDownloadURL:
 			};
 		});
 
-		fileLink.onclick = async () => {
+		tabButton.onclick = async () => {
 			tab.show();
 		};
 	}
