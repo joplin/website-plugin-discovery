@@ -2,11 +2,13 @@ import tar from 'tar-stream';
 import { Buffer } from 'buffer';
 import { format } from 'prettier/standalone';
 
-// eslint-disable-next-line
-const PrettierPluginBabel = require('prettier/plugins/babel');
-
-// eslint-disable-next-line
-const PrettierPluginESTree = require('prettier/plugins/estree');
+const PrettierPlugins = [
+	// eslint-disable-next-line
+	require('prettier/plugins/babel'),
+	require('prettier/plugins/estree'),
+	require('prettier/plugins/html'),
+	require('prettier/plugins/postcss'),
+];
 
 type TarRecordType = Record<string, string>;
 
@@ -17,14 +19,22 @@ export default class PluginSource {
 		return Object.keys(this.data);
 	}
 
-	public async getFileContent(filePath: string) {
+	public async getFileContent(filePath: string, prettyPrint: boolean) {
 		const textData = this.data[filePath];
 
-		if (filePath.endsWith('js')) {
-			return await format(textData, {
-				parser: 'babel',
-				plugins: [PrettierPluginBabel, PrettierPluginESTree],
-			});
+		if (prettyPrint) {
+			try {
+				return await format(textData, {
+					filepath: filePath,
+					plugins: PrettierPlugins,
+
+					semi: true,
+					singleQuote: true,
+				});
+			} catch (error) {
+				// Errors are expected in some cases (e.g. if there's no formatter for the file type).
+				console.warn('Pretty-print error: ', error);
+			}
 		}
 
 		return textData;

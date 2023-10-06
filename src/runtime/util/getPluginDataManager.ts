@@ -4,7 +4,7 @@ import PluginDataManager from './PluginDataManager';
 const siteRoot: string = (window as any).siteRoot;
 
 // Returns an instance of the plugin data manager
-const getPluginDataManager = async () => {
+const getPluginDataManager = async (): Promise<PluginDataManager> => {
 	const global = window as any;
 
 	global.pluginDataManager ??= await PluginDataManager.fromURL(

@@ -1,3 +1,4 @@
+import getURLData from '../../util/getURLData';
 import initializeScreenshotCarousel from './initializeScreenshotCarousel';
 import postprocessReadme from './postprocessReadme';
 
@@ -17,17 +18,15 @@ const initializePluginPage = () => {
 		postprocessReadme(readmeContainer);
 	}
 
-	// Update the nav links to include one of the plugin's tags
-	const parentTagLink = document.querySelector<HTMLAnchorElement>('a#current-category-nav-link');
-	if (!parentTagLink) {
-		console.error('Unable to find the parent tag navigation link');
+	// Update the link to the pluign's source
+	const sourceLink = document.querySelector<HTMLAnchorElement>('a#view-plugin-source-link');
+	if (!sourceLink) {
+		console.error('Unable to find the plugin view-source link');
 	} else {
-		const sourceTagMatch = location.href.match(/\?from-tab=([a-zA-Z0-9\-_]+)/);
+		const urlData = getURLData(location.href);
 
-		if (sourceTagMatch) {
-			const parentTagId = sourceTagMatch[1];
-			parentTagLink.innerText = parentTagId.replace(/-/g, ' ');
-			parentTagLink.href += `#tab-${parentTagId}`;
+		if (urlData.fromTab) {
+			sourceLink.href += '?from-tab=' + urlData.fromTab;
 		}
 	}
 };

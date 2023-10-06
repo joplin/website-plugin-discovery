@@ -5,7 +5,7 @@ const initializeViewSourcePage = async () => {
 	const plugins = await getPluginDataManager();
 	const outputContainer = document.querySelector<HTMLElement>('#view-source-output')!;
 
-	const pluginNameMatch = /[?]plugin=([^,?/]+)/.exec(location.href);
+	const pluginNameMatch = /[?]plugin=([^,?/#]+)/.exec(location.href);
 	if (!pluginNameMatch) {
 		outputContainer.innerText = 'Invalid URL. Should end with ?plugin=some.plugin.id';
 		return;
@@ -18,6 +18,9 @@ const initializeViewSourcePage = async () => {
 		outputContainer.innerText = 'Invalid plugin ID ' + pluginId;
 		return;
 	}
+
+	const pluginInfoContainer = document.querySelector<HTMLElement>('#plugin-info')!;
+	pluginInfoContainer.innerText = pluginId + ' v' + plugin.version;
 
 	showPluginSource(outputContainer, plugins.getDownloadLink(plugin));
 };

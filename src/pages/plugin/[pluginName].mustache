@@ -114,14 +114,10 @@
 								{{#plugin.homepage_url}}
 									<li><a href={{.}} style="display: block;"><i class="fa-solid fa-link"></i> Homepage</a></li>
 								{{/plugin.homepage_url}}
-								<li><a href="{{config.site}}/view-source.html?plugin={{plugin.id}}"><i class="fa-solid fa-code"></i> View source</a></li>
+								<li>
+									<a id="view-plugin-source-link" href="{{config.site}}/view-source.html?plugin={{plugin.id}}"><i class="fa-solid fa-code"></i> View source</a>
+								</li>
 							</ul>
-
-							{{^plugin.repository_url}}
-								{{^plugin.homepage_url}}
-									No links
-								{{/plugin.homepage_url}}
-							{{/plugin.repository_url}}
 						</td>
 					</tr>
 					<tr><th>Version:</th><td>{{plugin.version}}</td></tr>
