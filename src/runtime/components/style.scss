@@ -49,6 +49,18 @@ pre {
 	}
 }
 
+a {
+	// Generally, it's clear from context/color that something is a link
+	text-decoration: none;
+}
+
+.alert a {
+	// ...unless it's in an alert (anchors get additional styling in this
+	// case and may need an underline to distinguish them from surrounding
+	// text).
+	text-decoration: underline;
+}
+
 code {
 	border: 1px solid var(--bs-border-color-translucent);
 	border-radius: 4px;
