@@ -22,12 +22,31 @@ main.plugin-details nav.breadcrumb-container {
 	justify-content: center;
 	align-items: center;
 
+	$header-offset: 0.5rem;
+
+	.plugin-page-header > h1 {
+		padding-top: $header-offset;
+	}
+
+	// Align the download link vertically with the header
+	.download-link-container {
+		// Add an additional offset to compensate for the header's
+		// font size.
+		margin-top: calc($header-offset + 0.1rem);
+		align-self: flex-start;
+	}
+
 	@include media-breakpoint-down(md) {
 		flex-direction: column;
 
 		.plugin-page-header {
 			text-align: center;
 			width: unset;
+		}
+
+		.download-link-container {
+			align-self: unset;
+			margin-top: 0;
 		}
 
 		.download-link-container a {
