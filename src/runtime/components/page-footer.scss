@@ -33,35 +33,17 @@
 	margin-right: auto;
 
 	& > a {
-		border-radius: 1em;
 		text-decoration: none;
 		padding: 2px 8px;
 		margin: 0px 2px;
 
-		background-color: black;
+		color: var(--bs-primary-color);
 
-		&.a-github {
-			background-color: black;
-		}
-
-		&.a-discord {
-			background-color: #007;
-		}
-
-		&.a-patreon {
-			background-color: #700;
-		}
-
-		&.a-linkedin {
-			background-color: #037;
-		}
-
-		color: white;
 		&:hover {
-			opacity: 0.8;
+			opacity: 0.5;
 		}
 
-		transition: 0.2s ease background-color;
+		transition: 0.2s ease opacity;
 	}
 }
 
