@@ -1,17 +1,24 @@
-$main-content-max-width: 670px;
-
 $icon-target-size: 180px;
 $overview-padding-x: 25px;
+$content-padding-x: 10px;
+
+:root {
+	--main-content-max-width: 870px;
+
+	@include media-breakpoint-down(xl) {
+		--main-content-max-width: 700px;
+	}
+}
 
 main.plugin-details nav.breadcrumb-container {
 	$padding-x: 20px;
 	padding-left: $padding-x;
 	padding-right: $padding-x;
 
-	max-width: calc(
-		$main-content-max-width + $icon-target-size + $icon-target-size + 2 * $overview-padding-x + 2 *
-			$padding-x
+	$size-offset: calc(
+		$icon-target-size + $icon-target-size + 2 * $overview-padding-x + 2 * $padding-x
 	);
+	max-width: calc(--main-content-max-width + $size-offset);
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -23,6 +30,21 @@ main.plugin-details nav.breadcrumb-container {
 	align-items: center;
 
 	$header-offset: 0.5rem;
+
+	$spacing: $overview-padding-x;
+
+	padding-bottom: 20px;
+	padding-left: $spacing;
+	padding-right: $spacing;
+
+	.plugin-page-header {
+		width: var(--main-content-max-width);
+		max-width: 75vw;
+		margin-left: $spacing;
+		margin-right: $spacing;
+		padding-left: $content-padding-x;
+		padding-right: $content-padding-x;
+	}
 
 	.plugin-page-header > h1 {
 		padding-top: $header-offset;
@@ -42,6 +64,8 @@ main.plugin-details nav.breadcrumb-container {
 		.plugin-page-header {
 			text-align: center;
 			width: unset;
+			padding-left: 0;
+			padding-right: 0;
 		}
 
 		.download-link-container {
@@ -54,12 +78,6 @@ main.plugin-details nav.breadcrumb-container {
 		}
 	}
 
-	$spacing: $overview-padding-x;
-
-	padding-bottom: 20px;
-	padding-left: $spacing;
-	padding-right: $spacing;
-
 	.plugin-icon-container {
 		width: $icon-target-size;
 		flex-grow: 1;
@@ -70,13 +88,6 @@ main.plugin-details nav.breadcrumb-container {
 			border-radius: 20px;
 			width: $icon-target-size;
 		}
-	}
-
-	.plugin-page-header {
-		width: $main-content-max-width;
-		max-width: 75vw;
-		margin-left: $spacing;
-		margin-right: $spacing;
 	}
 
 	.download-link-container {
@@ -95,7 +106,7 @@ main.plugin-details nav.breadcrumb-container {
 .plugin-content {
 	& > .section,
 	& > .secondary-section > .content {
-		max-width: $main-content-max-width;
+		max-width: var(--main-content-max-width);
 		margin-left: auto;
 		margin-right: auto;
 	}
@@ -107,8 +118,8 @@ main.plugin-details nav.breadcrumb-container {
 	& > .section {
 		padding-top: 20px;
 		padding-bottom: 20px;
-		padding-left: 10px;
-		padding-right: 10px;
+		padding-left: $content-padding-x;
+		padding-right: $content-padding-x;
 
 		border-bottom: 3px solid var(--bs-secondary-border-subtle);
 	}
