@@ -28,6 +28,10 @@
 	margin-bottom: 3px;
 	margin-top: 3px;
 
+	width: max-content;
+	margin-left: auto;
+	margin-right: auto;
+
 	& > a {
 		border-radius: 1em;
 		text-decoration: none;
