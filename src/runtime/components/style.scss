@@ -146,7 +146,7 @@ nav.breadcrumb-container {
 
 	background-repeat: no-repeat;
 	background-position-y: 10px;
-	padding-bottom: 5px;
+	padding-bottom: 10px;
 }
 
 .highlighted-heading {
@@ -155,7 +155,7 @@ nav.breadcrumb-container {
 	h3,
 	h4 {
 		display: inline-block;
-		font-size: 2em;
+		font-size: 1.5em;
 
 		@include highlight-background(#ffe492f0);
 
@@ -165,7 +165,7 @@ nav.breadcrumb-container {
 	}
 
 	.subhead {
-		font-size: 1.5em;
+		font-size: 1.05em;
 		opacity: 0.9;
 		display: inline;
 		margin-left: 1em;
