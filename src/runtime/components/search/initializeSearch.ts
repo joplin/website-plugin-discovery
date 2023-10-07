@@ -10,6 +10,11 @@ const initializeSearch = async () => {
 	const updateResults = () => {
 		const query = searchInput.value;
 
+		if (query === '') {
+			searchResultsContainer.replaceChildren();
+			return;
+		}
+
 		const defaultMaxResults = 5;
 		const results = pluginData.search(query, defaultMaxResults);
 
