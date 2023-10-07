@@ -63,7 +63,7 @@
 		<div class="download-link-container">
 			<a
 				href="{{&config.site}}/downloadPlugin.html?plugin={{plugin.id}}"
-				class="btn btn-primary append-parent-tab-to-href"
+				class="btn btn-primary process--append-parent-tab-to-href"
 			>
 				Install Plugin
 			</a>
@@ -123,7 +123,7 @@
 									<a
 										id="view-plugin-source-link"
 										href="{{config.site}}/view-source.html?plugin={{plugin.id}}"
-										class="append-parent-tab-to-href"
+										class="process--append-parent-tab-to-href"
 									>
 										<i class="fa-solid fa-code"></i> View source
 									</a>
@@ -134,7 +134,7 @@
 					<tr><th>Version:</th><td>{{plugin.version}}</td></tr>
 					<tr><th>Minimum app version:</th><td>{{plugin.app_min_version}}</td></tr>
 					<tr><th>Downloads: This version:</th><td>{{plugin.downloadCount}}</td></tr>
-					<tr><th>Last updated:</th><td>{{plugin.timeModified}}</td></tr>
+					<tr><th>Last updated:</th><td class="process--format-as-local-time">{{plugin.timeModified}}</td></tr>
 				</tbody>
 			</table>
 		</div>

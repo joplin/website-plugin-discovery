@@ -33,7 +33,7 @@ const initializeBreadcrumbs = async () => {
 	// To make the category breadcrumb work, some links need to be updated
 	if (urlData.fromTab) {
 		const linksToUpdate = document.querySelectorAll<HTMLAnchorElement>(
-			'a.append-parent-tab-to-href',
+			'a.process--append-parent-tab-to-href',
 		);
 
 		for (const link of linksToUpdate) {
