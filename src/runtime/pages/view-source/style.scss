@@ -1,3 +1,7 @@
+.plugin-npm-link {
+	float: right;
+}
+
 #view-source-output {
 	@include media-breakpoint-up(lg) {
 		display: flex;
