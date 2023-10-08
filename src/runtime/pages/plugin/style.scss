@@ -208,3 +208,35 @@ main.plugin-details nav.breadcrumb-container {
 		list-style-type: none;
 	}
 }
+
+// <pre>s with .has-copy-button should be of the form
+//   <pre>
+//    <code>the code here</code>
+//    <div class='copy-button-container'><button class='copy-button'>...</button></div>
+// </pre>
+pre.has-copy-button {
+	// Display in reverse-flex order -- show the button above the code block,
+	// but focus the code block before the button.
+	display: flex;
+	flex-direction: column-reverse;
+
+	.copy-button-container {
+		display: flex;
+		height: 0;
+		overflow-y: visible;
+		justify-content: end;
+
+		.copy-button {
+			opacity: 0.2;
+			width: min-content;
+			height: min-content;
+
+			&:hover,
+			&:focus-visible {
+				opacity: 1;
+			}
+
+			transition: 0.2s ease opacity;
+		}
+	}
+}
