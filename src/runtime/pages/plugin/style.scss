@@ -178,6 +178,11 @@ main.plugin-details nav.breadcrumb-container {
 .table-wrapper {
 	max-width: 100%;
 	overflow-x: auto;
+
+	// Add a small amount of vertical padding -- this seems to prevent
+	// browsers from adding a vertical scrollbar (overflow-x: auto can
+	// also enable vertical scroll).
+	padding: 2px 0px;
 }
 
 #readme {
