@@ -25,12 +25,14 @@ $line-height-base: 1.4;
 		--carousel-button-color: #c4d3e7;
 		--bs-secondary-bg: #f4f3f3;
 		--bs-tertiary-color: #424043;
+		--bs-tertiary-bg: #f7f8f8;
 	}
 
 	@include color-mode(dark) {
 		--bs-secondary-bg: #131212;
 		--carousel-button-color: #8493a7;
 		--bs-tertiary-color: #eee;
+		--bs-tertiary-bg: #2d3035;
 	}
 }
 
