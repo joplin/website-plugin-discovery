@@ -221,15 +221,22 @@ pre.has-copy-button {
 	flex-direction: column-reverse;
 
 	.copy-button-container {
+		// Push the button to the right
 		display: flex;
+		justify-content: end;
+
+		// Don't shift the code to make room for the button
 		height: 0;
 		overflow-y: visible;
-		justify-content: end;
 
 		.copy-button {
 			width: min-content;
 			height: min-content;
 			border: none;
+
+			// Shift the button content closer to the edge of the container to
+			// compensate for padding (which is invisible).
+			margin: calc(0px - var(--bs-btn-padding-y)) calc(0px - var(--bs-btn-padding-x));
 		}
 	}
 }
