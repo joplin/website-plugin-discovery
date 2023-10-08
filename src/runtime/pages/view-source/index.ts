@@ -32,6 +32,18 @@ const initializeViewSourcePage = async () => {
 		pluginNameElem.innerText = plugin.name;
 	}
 
+	for (const npmLinkContainer of document.querySelectorAll<HTMLElement>('.plugin-npm-link')) {
+		const link = document.createElement('a');
+		link.href = plugins.getNPMLink(plugin);
+
+		const icon = document.createElement('i');
+		icon.classList.add('fa-brands', 'fa-npm');
+		icon.setAttribute('aria-label', 'NPM');
+
+		link.replaceChildren(icon, document.createTextNode(` ${plugin._npm_package_name}`));
+		npmLinkContainer.replaceChildren(link);
+	}
+
 	for (const downloadLink of document.querySelectorAll<HTMLAnchorElement>('a.plugin-jpl-link')) {
 		downloadLink.href = plugins.getReleaseDownloadLink(plugin);
 	}

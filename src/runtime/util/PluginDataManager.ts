@@ -40,6 +40,10 @@ class PluginDataManager {
 		return `https://github.com/joplin/plugins/releases/download/plugins/${id}@${version}.jpl`;
 	}
 
+	public getNPMLink(plugin: JoplinPlugin) {
+		return `https://www.npmjs.com/package/${plugin._npm_package_name}`;
+	}
+
 	public getWeeksSinceUpdated(plugin: JoplinPlugin): number {
 		const nowTime = new Date().getTime();
 		const modifiedTime = new Date(plugin.timeModified).getTime();
