@@ -9,8 +9,11 @@ $carousel-control-color: black;
 
 // colors
 :root body {
-	--carousel-button-color: #c4d3e7;
-	--bs-secondary-bg: #f4f3f3;
+	@include color-mode(light) {
+		--bs-body-color: #3c4043;
+		--carousel-button-color: #c4d3e7;
+		--bs-secondary-bg: #f4f3f3;
+	}
 
 	@include color-mode(dark) {
 		--bs-secondary-bg: #131212;
