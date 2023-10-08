@@ -13,13 +13,6 @@
 	@import 'highlight.js/scss/a11y-light.scss';
 }
 
-:root pre {
-	padding: 12px;
-	border-radius: 4px;
-	background-color: var(--bs-tertiary-bg);
-	color: var(--bs-tertiary-color);
-}
-
 // Bootstrap adjusts sizes based on the screen width by default.
 // Disable this.
 h1 {
@@ -93,17 +86,24 @@ a {
 	text-decoration: underline;
 }
 
-code {
-	border: 1px solid var(--bs-border-color-translucent);
-	border-radius: 4px;
-	padding: 3px;
-	color: inherit;
-}
-
 pre code {
 	border: none;
 	padding: 0;
 	white-space: pre-wrap;
+	background-color: inherit;
+}
+
+:root pre,
+code {
+	border-radius: 4px;
+	padding: 3px;
+	background-color: var(--bs-tertiary-bg);
+	color: var(--bs-tertiary-color);
+	border: 1px solid var(--bs-border-color-translucent);
+}
+
+:root pre {
+	padding: 12px;
 }
 
 nav.breadcrumb-container {
