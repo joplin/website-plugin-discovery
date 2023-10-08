@@ -13,9 +13,11 @@
 	@import 'highlight.js/scss/a11y-light.scss';
 }
 
-pre {
-	padding: 3px;
+:root pre {
+	padding: 12px;
 	border-radius: 4px;
+	background-color: var(--bs-tertiary-bg);
+	color: var(--bs-tertiary-color);
 }
 
 // Bootstrap adjusts sizes based on the screen width by default.
