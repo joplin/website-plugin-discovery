@@ -90,7 +90,7 @@ const addHeaderLinks = (readmeContainer: HTMLElement) => {
 		const linkButton = document.createElement('button');
 
 		linkButton.innerHTML = '<i class="fas fa-link"></i>';
-		linkButton.classList.add('btn', 'copy-link-button', 'fade-in-on-hover');
+		linkButton.classList.add('btn', 'link-to-header-button', 'fade-in-on-hover');
 
 		linkButton.title = 'Link to header';
 		linkButton.setAttribute('aria-label', 'Jump to header');
