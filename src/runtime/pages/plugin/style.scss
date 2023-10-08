@@ -18,7 +18,7 @@ main.plugin-details nav.breadcrumb-container {
 	$size-offset: calc(
 		$icon-target-size + $icon-target-size + 2 * $overview-padding-x + 2 * $padding-x
 	);
-	max-width: calc(--main-content-max-width + $size-offset);
+	max-width: calc(var(--main-content-max-width) + $size-offset);
 	margin-left: auto;
 	margin-right: auto;
 }
