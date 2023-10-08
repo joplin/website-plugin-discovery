@@ -227,20 +227,9 @@ pre.has-copy-button {
 		justify-content: end;
 
 		.copy-button {
-			opacity: 0.2;
 			width: min-content;
 			height: min-content;
 			border: none;
-
-			&:hover,
-			&:focus-visible {
-				// Note:
-				// Chrome on Linux may make the button disappear when opacity is
-				// set to 1. Only transition to 0.9.
-				opacity: 0.9;
-			}
-
-			transition: 0.2s ease opacity;
 		}
 	}
 }

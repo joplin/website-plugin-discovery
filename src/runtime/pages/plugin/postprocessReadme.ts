@@ -40,7 +40,7 @@ const addCopyCodeButtons = (readmeContainer: HTMLElement) => {
 		copyButtonContainer.classList.add('copy-button-container');
 
 		const copyButton = document.createElement('button');
-		copyButton.classList.add('btn', 'copy-button');
+		copyButton.classList.add('btn', 'copy-button', 'fade-in-on-hover');
 
 		const setButtonLabel = (label: string) => {
 			// Some browsers/screen readers don't read the title attribute.
@@ -83,8 +83,29 @@ const addCopyCodeButtons = (readmeContainer: HTMLElement) => {
 	}
 };
 
+const addHeaderLinks = (readmeContainer: HTMLElement) => {
+	const headers = readmeContainer.querySelectorAll('h1, h2, h3, h4, h5, h6');
+
+	for (const header of headers) {
+		const linkButton = document.createElement('button');
+
+		linkButton.innerHTML = '<i class="fas fa-link"></i>';
+		linkButton.classList.add('btn', 'copy-link-button', 'fade-in-on-hover');
+
+		linkButton.title = 'Link to header';
+		linkButton.setAttribute('aria-label', 'Jump to header');
+
+		linkButton.onclick = () => {
+			location.hash = header.id;
+		};
+
+		header.insertAdjacentElement('beforeend', linkButton);
+	}
+};
+
 const postprocessReadme = (readmeContainer: HTMLElement) => {
 	addIdsToHeaders(readmeContainer);
+	addHeaderLinks(readmeContainer);
 	wrapTablesInContainers(readmeContainer);
 	addCopyCodeButtons(readmeContainer);
 };

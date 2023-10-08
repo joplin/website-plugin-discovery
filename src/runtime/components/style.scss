@@ -231,3 +231,18 @@ nav.breadcrumb-container {
 		font-weight: bold;
 	}
 }
+
+// Elements that should fade in when focused/have hover
+.fade-in-on-hover {
+	opacity: 0.15;
+
+	&:hover,
+	&:focus-visible {
+		// Note:
+		// Chrome on Linux may make some buttons disappear when opacity is
+		// set to 1. Only transition to 0.9.
+		opacity: 0.9;
+	}
+
+	transition: 0.2s ease opacity;
+}
