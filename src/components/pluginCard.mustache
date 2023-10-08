@@ -1,21 +1,24 @@
 <a href="plugin/{{id}}/" id="plugin-card-{{id}}" class="col-md-12 gx-3 mb-3 card plugin-link-card">
 	<img src="{{assets.iconUri}}" class="card-img-top" alt=""/>
 	<div class="card-body {{domId}}">
-		<h5 class="text-wrap pb-2">
+		<div class="plugin-header text-wrap">
 			<label for="plugin-card-{{id}}" class="plugin-title">
 				{{ name }}
 			</label>
-		</h5>
+
+			{{#_recommended}}
+				<span
+					class="plugin-recommended-circle"
+					aria-label="Recommended"
+
+					data-bs-toggle="tooltip"
+					data-bs-title="Recommended"
+				><i class="fas fa-crown"></i></span>
+			{{/_recommended}}
+		</div>
 
 		<p class="plugin-description">
 			{{ description }}
 		</p>
-
-		<div class="recommended-badge-spacer"></div>
-		<div class="recommended-badge-container">
-		{{#_recommended}}
-			<span class="plugin-recommended me-2 badge"><i class="fas fa-crown"></i> Recommended</span>
-		{{/_recommended}}
-		</div>
 	</div>
 </a>

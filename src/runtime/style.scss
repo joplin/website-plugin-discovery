@@ -54,6 +54,30 @@ $line-height-base: 1.4;
 	background-color: #ffe492;
 }
 
+.plugin-recommended-circle {
+	border-radius: 3rem;
+	padding: 5px;
+	font-size: 12px;
+
+	margin-top: -4px;
+
+	// Fix the size of the icon
+	width: 32px;
+	height: 32px;
+	flex-shrink: 0;
+	flex-grow: 0;
+
+	// Center the content
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	// Coloring
+	--crown-color: #ffaa33;
+	color: var(--crown-color);
+	border: 1px solid var(--crown-color);
+}
+
 main {
 	padding-top: 20px;
 }

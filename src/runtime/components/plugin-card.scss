@@ -50,13 +50,17 @@
 
 	width: calc(var(--width-percent) - $margin-x);
 
-	.recommended-badge-spacer {
-		height: 20px;
-	}
+	.plugin-header {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
 
-	.recommended-badge-container {
-		position: absolute;
-		bottom: 25px;
-		height: 1em;
+		label {
+			font-size: 1.1em;
+			font-weight: bold;
+			flex-grow: 1;
+
+			margin-bottom: 0.4em;
+		}
 	}
 }
