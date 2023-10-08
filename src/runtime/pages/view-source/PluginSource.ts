@@ -55,7 +55,7 @@ export default class PluginSource {
 
 		const extract = tar.extract({ defaultEncoding: 'hex' });
 
-		const parseDataPromise = new Promise<TarRecordType>((resolve) => {
+		const parseDataPromise = new Promise<TarRecordType>((resolve, reject) => {
 			const entries: Record<string, string> = {};
 			extract.on('entry', (header, stream, next) => {
 				// Skip directories (file paths will give us)
@@ -79,6 +79,10 @@ export default class PluginSource {
 
 			extract.on('finish', () => {
 				resolve(entries);
+			});
+
+			extract.on('error', (...args: any[]) => {
+				reject(...args);
 			});
 		});
 
