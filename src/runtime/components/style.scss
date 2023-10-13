@@ -56,21 +56,28 @@ p {
 	border-radius: 4rem;
 
 	&.btn-outline-primary {
-		--bs-btn-color: #306497;
+		--bs-btn-color: var(--blue);
 
 		--bs-btn-border-color: var(--bs-btn-color);
 		--bs-btn-hover-bg: var(--bs-btn-border-color);
 		--bs-btn-hover-color: white;
 
 		@include color-mode(dark) {
-			--bs-btn-color: #99ccff;
 			--bs-btn-hover-color: black;
 		}
 	}
 
 	&.btn-primary {
-		--bs-btn-bg: #0455b8;
+		--bs-btn-bg: var(--blue);
+		--bs-btn-border-color: var(--bs-btn-bg);
 		--bs-btn-color: white;
+
+		--bs-btn-hover-bg: var(--bs-blue);
+		--bs-btn-hover-color: white;
+
+		@include color-mode(dark) {
+			--bs-btn-color: black;
+		}
 	}
 }
 
@@ -130,7 +137,7 @@ nav.breadcrumb-container {
 	padding-top: $padding-item-y;
 
 	@include media-breakpoint-up(lg) {
-		& > nav {
+		& > .nav {
 			flex-direction: column;
 		}
 	}
@@ -152,15 +159,29 @@ nav.breadcrumb-container {
 	.nav {
 		--bs-nav-pills-link-active-color: var(--bs-secondary-color);
 		--bs-nav-pills-link-active-bg: var(--bs-secondary-bg);
-		--bs-nav-tabs-link-active-border-color: var(--bs-primary-border-subtle);
 
 		& > .nav-link {
 			text-align: left;
 			padding: $padding-item-y $padding-item-x;
 
 			&.active {
-				border: 2px solid var(--bs-nav-tabs-link-active-border-color);
+				$border-width: 2px;
+				$border-style: $border-width solid var(--bs-nav-tabs-link-active-border-color);
+
+				border: $border-style;
+				padding: $padding-item-y calc($padding-item-x - $border-width);
 				font-weight: bold;
+				border-radius: 5px;
+
+				@include media-breakpoint-up(lg) {
+					padding-right: $padding-item-x;
+
+					// Only show the left border
+					border-right: none;
+					border-top: none;
+					border-bottom: none;
+					border-radius: 0;
+				}
 			}
 		}
 	}

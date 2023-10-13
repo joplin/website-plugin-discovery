@@ -24,12 +24,18 @@ $line-height-base: 1.4;
 		--carousel-button-color: #c4d3e7;
 		--bs-border-color-translucent: rgba(0, 0, 0, 0.1);
 
+		$blue: #0455b8;
+		$link-hover-color: #2586e0;
 		$body-color: #3c4043;
 		$body-bg: #fff;
 		$secondary-bg: #fafafa;
 		$tertiary-bg: #f7f8f8;
 		$tertiary-color: #424043;
 
+		--bs-link-hover-color: $link-hover-color;
+		--bs-link-hover-color-rgb: #{to-rgb($link-hover-color)};
+		--blue: #{$blue};
+		--blue-rgb: #{to-rgb($blue)};
 		--bs-body-color: #{$body-color};
 		--bs-body-color-rgb: #{to-rgb($body-color)};
 		--bs-body-bg: #{$body-bg};
@@ -45,11 +51,17 @@ $line-height-base: 1.4;
 		--carousel-button-color: #8493a7;
 		--bs-border-color-translucent: rgba(100, 100, 100, 0.1);
 
+		$blue: #99ccff;
+		$link-hover-color: #aaccff;
 		$body-bg: #303030;
 		$secondary-bg: #292929;
 		$tertiary-bg: #303233;
 		$tertiary-color: #eee;
 
+		--bs-link-hover-color: $link-hover-color;
+		--bs-link-hover-color-rgb: #{to-rgb($link-hover-color)};
+		--blue: #{$blue};
+		--blue-rgb: #{to-rgb($blue)};
 		--bs-body-bg: #{$body-bg};
 		--bs-secondary-bg: #{$secondary-bg};
 		--bs-secondary-bg-rgb: #{to-rgb($secondary-bg)};
@@ -58,6 +70,10 @@ $line-height-base: 1.4;
 		--bs-tertiary-bg: #{$tertiary-bg};
 		--bs-tertiary-bg-rgb: #{to-rgb($tertiary-bg)};
 	}
+
+	--bs-nav-tabs-link-active-border-color: var(--blue);
+	--bs-link-color: var(--blue);
+	--bs-link-color-rgb: var(--blue-rgb);
 }
 
 .plugin-description {
