@@ -121,6 +121,12 @@ nav.breadcrumb-container {
 
 .nav-pills {
 	--bs-nav-pills-border-radius: 0.375rem;
+	--bs-nav-pills-link-active-bg: var(--blue);
+	--bs-nav-pills-link-active-color: #fff;
+
+	@include color-mode(dark) {
+		--bs-nav-pills-link-active-color: #000;
+	}
 }
 
 .nav {
