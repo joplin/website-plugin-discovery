@@ -17,6 +17,7 @@ $line-height-base: 1.4;
 @import './pages/plugin/style.scss';
 @import './pages/view-source/style.scss';
 @import './components/style.scss';
+@import './pages/plugin-list/style.scss';
 
 // colors
 :root body {
@@ -75,6 +76,8 @@ $line-height-base: 1.4;
 	--bs-link-color: var(--blue);
 	--bs-link-color-rgb: var(--blue-rgb);
 }
+
+// Other
 
 .plugin-description {
 	display: -webkit-box;
