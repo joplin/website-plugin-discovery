@@ -21,18 +21,42 @@ $line-height-base: 1.4;
 // colors
 :root body {
 	@include color-mode(light) {
-		--bs-body-color: #3c4043;
 		--carousel-button-color: #c4d3e7;
-		--bs-secondary-bg: #f4f3f3;
-		--bs-tertiary-color: #424043;
-		--bs-tertiary-bg: #f7f8f8;
+		--bs-border-color-translucent: rgba(0, 0, 0, 0.1);
+
+		$body-color: #3c4043;
+		$body-bg: #fff;
+		$secondary-bg: #fafafa;
+		$tertiary-bg: #f7f8f8;
+		$tertiary-color: #424043;
+
+		--bs-body-color: #{$body-color};
+		--bs-body-color-rgb: #{to-rgb($body-color)};
+		--bs-body-bg: #{$body-bg};
+		--bs-secondary-bg: #{$secondary-bg};
+		--bs-secondary-bg-rgb: #{to-rgb($secondary-bg)};
+		--bs-tertiary-color: #{$tertiary-color};
+		--bs-tertiary-color-rgb: #{to-rgb($tertiary-color)};
+		--bs-tertiary-bg: #{$tertiary-bg};
+		--bs-tertiary-bg-rgb: #{to-rgb($tertiary-bg)};
 	}
 
 	@include color-mode(dark) {
-		--bs-secondary-bg: #131212;
 		--carousel-button-color: #8493a7;
-		--bs-tertiary-color: #eee;
-		--bs-tertiary-bg: #2d3035;
+		--bs-border-color-translucent: rgba(100, 100, 100, 0.1);
+
+		$body-bg: #303030;
+		$secondary-bg: #292929;
+		$tertiary-bg: #303233;
+		$tertiary-color: #eee;
+
+		--bs-body-bg: #{$body-bg};
+		--bs-secondary-bg: #{$secondary-bg};
+		--bs-secondary-bg-rgb: #{to-rgb($secondary-bg)};
+		--bs-tertiary-color: #{$tertiary-color};
+		--bs-tertiary-color-rgb: #{to-rgb($tertiary-color)};
+		--bs-tertiary-bg: #{$tertiary-bg};
+		--bs-tertiary-bg-rgb: #{to-rgb($tertiary-bg)};
 	}
 }
 
