@@ -72,38 +72,44 @@
 						tabindex="0"
 					>
 						<!-- Trending Section -->
-						<div class="row main-section">
+						<div class="plugin-section main-section most-popular-section">
 							<div class="highlighted-heading heading">
 								<h3 id="popular">Most popular</h3>
 								<div class="subhead">Top downloaded plugins</div>
 							</div>
-							{{#plugins}}
-								{{#trending}}
-									{{> pluginCard}}
-								{{/trending}}
-							{{/plugins}}
+							<div class="content">
+								{{#plugins}}
+									{{#trending}}
+										{{> pluginCard}}
+									{{/trending}}
+								{{/plugins}}
+							</div>
 						</div>
 						<!-- Recommended Section -->
-						<div class="row main-section">
+						<div class="plugin-section main-section">
 							<div class="highlighted-heading heading">
 								<h3 id="recommended-section">Recommended plugins</h3>
 							</div>
-							{{#plugins}}
-								{{#recommended}}
-									{{> pluginCard}}
-								{{/recommended}}
-							{{/plugins}}
+							<div class="content">
+								{{#plugins}}
+									{{#recommended}}
+										{{> pluginCard}}
+									{{/recommended}}
+								{{/plugins}}
+							</div>
 						</div>
 						<!-- All Plugins -->
-						<div class="row main-section">
+						<div class="plugin-section main-section">
 							<div class="highlighted-heading heading">
 								<h3 id="all-plugins-section">All plugins</h3>
 							</div>
-							{{#plugins}}
-								{{#all}}
-									{{> pluginCard}}
-								{{/all}}
-							{{/plugins}}
+							<div class="content">
+								{{#plugins}}
+									{{#all}}
+										{{> pluginCard}}
+									{{/all}}
+								{{/plugins}}
+							</div>
 						</div>
 					</div>
 
@@ -117,19 +123,21 @@
 							aria-labelledby="nav-{{name}}-tab"
 							tabindex='0'
 						>
-							<div class="row main-section">
+							<div class="plugin-section main-section">
 								<div class="highlighted-heading heading">
 									<h3>{{displayName}}</h3>
 								</div>
-								{{#plugins}}
-									{{> pluginCard}}
-								{{/plugins}}
-								{{^plugins}}
-									<div class="py-5">
-										<p class="text-center mb-3"><span class="fa-solid fa-box-open fa-4x text-muted"></span></p>
-										<h5 class="text-muted text-center mb-2">Oops... There are no plugins under this category.</h5> 
-									</div>
-								{{/plugins}}
+								<div class="content">
+									{{#plugins}}
+										{{> pluginCard}}
+									{{/plugins}}
+									{{^plugins}}
+										<div class="py-5">
+											<p class="text-center mb-3"><span class="fa-solid fa-box-open fa-4x text-muted"></span></p>
+											<h5 class="text-muted text-center mb-2">Oops... There are no plugins under this category.</h5> 
+										</div>
+									{{/plugins}}
+								</div>
 							</div>
 						</div>
 					{{/allPossibleCategories}}

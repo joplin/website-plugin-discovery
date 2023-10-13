@@ -2,4 +2,20 @@
 	// Always show vertical scrollbars to prevent the page width from changing
 	// when switching tabs.
 	overflow-y: scroll;
+
+	.plugin-section > .content {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+
+	.most-popular-section {
+		@include media-breakpoint-only(lg) {
+			// Hide the 4th and later most popular on lg sized screens (causes
+			// cards to fit the page width.
+			.content > :nth-child(n + 4) {
+				display: none;
+			}
+		}
+	}
 }

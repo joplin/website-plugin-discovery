@@ -87,6 +87,6 @@ export default async function getPlugins(config: BuildConfig): Promise<GlobalPlu
 		raw: plugins,
 		all: Object.values(plugins),
 		recommended: Object.values(plugins).filter((plugin: JoplinPlugin) => plugin._recommended),
-		trending: await getTrendingPlugins(plugins, 3),
+		trending: await getTrendingPlugins(plugins, 4),
 	};
 }
