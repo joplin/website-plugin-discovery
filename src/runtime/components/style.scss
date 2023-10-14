@@ -172,12 +172,11 @@ nav.breadcrumb-container {
 
 			&.active {
 				$border-width: 2px;
-				$border-style: $border-width solid var(--bs-nav-tabs-link-active-border-color);
+				$border-style: $border-width solid var(--nav-link-active-border-color);
 
 				border: $border-style;
 				padding: $padding-item-y calc($padding-item-x - $border-width);
 				font-weight: bold;
-				border-radius: 5px;
 
 				@include media-breakpoint-up(lg) {
 					padding-right: $padding-item-x;
@@ -186,9 +185,21 @@ nav.breadcrumb-container {
 					border-right: none;
 					border-top: none;
 					border-bottom: none;
-					border-radius: 0;
 				}
+
+				background-color: rgba(150, 150, 150, 0.1);
 			}
+
+			border-radius: 5px;
+			@include media-breakpoint-up(lg) {
+				border-radius: 0;
+			}
+
+			&:hover {
+				background-color: rgba(150, 150, 150, 0.2);
+			}
+
+			transition: 0.3s ease background-color;
 		}
 	}
 }
