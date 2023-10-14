@@ -1,6 +1,11 @@
 import renderMarkdown from './renderMarkdown';
+import { LinkRewriter } from './types';
 
-const noOpLinkFilter = (link: string) => link;
+const noOpLinkFilter: LinkRewriter = {
+	mapRelativeLink: (link) => link,
+	mapAbsoluteLink: (link) => link,
+	mapAnchor: (link) => link,
+};
 
 describe('renderMarkdown', () => {
 	it('should sanitize markdown', () => {
@@ -27,15 +32,18 @@ describe('renderMarkdown', () => {
 
 	it('should support transforming relative links', () => {
 		expect(
-			renderMarkdown(
-				'[test](./foo.txt)',
-				(href) => 'http://example.com/' + href.replace(/^\.\//, ''),
-			),
+			renderMarkdown('[test](./foo.txt)', {
+				...noOpLinkFilter,
+				mapRelativeLink: (href) => 'http://example.com/' + href.replace(/^\.\//, ''),
+			}),
 		).toBe('<p><a href="http://example.com/foo.txt">test</a></p>\n');
 
 		// Should only transform relative links
-		expect(renderMarkdown('[test](https://example.com/foo.txt)', (_href) => 'no')).toBe(
-			'<p><a href="https://example.com/foo.txt">test</a></p>\n',
-		);
+		expect(
+			renderMarkdown('[test](https://example.com/foo.txt)', {
+				...noOpLinkFilter,
+				mapRelativeLink: (_href) => 'no',
+			}),
+		).toBe('<p><a href="https://example.com/foo.txt">test</a></p>\n');
 	});
 });

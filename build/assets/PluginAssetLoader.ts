@@ -11,8 +11,9 @@ class GitHubReference {
 	public constructor(
 		public readonly organization: string,
 		public readonly project: string,
+		public readonly branch: string = 'HEAD',
 	) {
-		this.gitHubBaseUri = `${organization}/${project}/HEAD`;
+		this.gitHubBaseUri = `${organization}/${project}/${branch}`;
 	}
 
 	public convertURIToGitHubURI(uri: string, baseDirectory: string) {
@@ -92,6 +93,11 @@ class NPMReference {
 	}
 }
 
+// Capture groups:
+// 1. The username/organization
+// 2. The project name
+const githubURLRegex = /^https?:\/\/(?:www\.)?github.com\/([^/]+)\/([^/]+)/;
+
 export default class PluginAssetLoader {
 	private gitHubReference?: GitHubReference;
 	private npmReference: NPMReference;
@@ -100,11 +106,6 @@ export default class PluginAssetLoader {
 		private manifest: JoplinPlugin,
 		private buildConfig: BuildConfig,
 	) {
-		// Capture groups:
-		// 1. The username/organization
-		// 2. The project name
-		const githubURLRegex = /^https?:\/\/(?:www\.)?github.com\/([^/]+)\/([^/]+)/;
-
 		let githubRepositoryMatch = githubURLRegex.exec(manifest.repository_url ?? '');
 		if (!githubRepositoryMatch) {
 			githubRepositoryMatch = githubURLRegex.exec(manifest.homepage_url ?? '');
@@ -147,11 +148,40 @@ export default class PluginAssetLoader {
 	}
 
 	public async getRenderedReadme() {
-		const transformRelativeLinks = (link: string) => {
+		const mapRelativeLink = (link: string) => {
 			return this.gitHubReference?.convertURIToGitHubURI(link, '') ?? '#';
 		};
+		const mapAbsoluteLink = (link: string, tagName: string) => {
+			// Images with https://github.com/user/project/path/to/image.png srcs won't load
+			// when not on GitHub.
+			//
+			// However, anchor links work fine.
+			if (tagName !== 'img') {
+				return link;
+			}
 
-		return renderMarkdown(await this.getReadme(), transformRelativeLinks);
+			const gitHubBlobUriRegex =
+				/^https:\/\/(?:www\.)?github\.com\/([^/]+)\/([^/]+)\/blob\/([^/]+)\/(.*)$/;
+			const gitHubMatch = gitHubBlobUriRegex.exec(link);
+			if (!gitHubMatch) {
+				return link;
+			}
+
+			// Convert to a raw.githubusercontent.com URI
+			const organization = gitHubMatch[1];
+			const project = gitHubMatch[2];
+			const branch = gitHubMatch[3];
+			const path = gitHubMatch[4];
+
+			const targetProjectReference = new GitHubReference(organization, project, branch);
+			return targetProjectReference.convertURIToGitHubURI(path, '') ?? link;
+		};
+
+		return renderMarkdown(await this.getReadme(), {
+			mapRelativeLink,
+			mapAbsoluteLink,
+			mapAnchor: (linkUri) => linkUri,
+		});
 	}
 
 	public async getScreenshots() {

@@ -1,24 +1,22 @@
-import { MapRelativeLinksCallback } from './types';
+import { LinkRewriter } from './types';
 
 // Returns a function that could be passed to html-sanitizer to transform tags.
 const makeTransformImageOrAnchorCallback =
-	(mapRelativeLink: MapRelativeLinksCallback) =>
-	(tagName: string, attribs: Record<string, string>) => {
+	(mapLinks: LinkRewriter) => (tagName: string, attribs: Record<string, string>) => {
 		attribs = {
 			...attribs,
 		};
 
 		const mapLink = (link: string) => {
-			if (
-				link.startsWith('http://') ||
-				link.startsWith('https://') ||
-				link.startsWith('mailto:') ||
-				link.startsWith('#')
-			) {
-				return link;
+			if (link.startsWith('http://') || link.startsWith('https://') || link.startsWith('mailto:')) {
+				return mapLinks.mapAbsoluteLink(link, tagName);
 			}
 
-			return mapRelativeLink(link);
+			if (link.startsWith('#')) {
+				return mapLinks.mapAnchor(link, tagName);
+			}
+
+			return mapLinks.mapRelativeLink(link, tagName);
 		};
 
 		if (attribs.href) {

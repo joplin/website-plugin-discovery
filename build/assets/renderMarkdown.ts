@@ -1,12 +1,12 @@
 import MarkdownIt from 'markdown-it';
 import sanitizeHtml from 'sanitize-html';
-import { MapRelativeLinksCallback } from './types';
+import { LinkRewriter } from './types';
 import makeTransformImageOrAnchorCallback from './makeTransformImageOrAnchorCallback';
 import hljs from 'highlight.js';
 
 let markdownRenderer: MarkdownIt | null = null;
 
-const renderMarkdown = (markdown: string, mapRelativeLink: MapRelativeLinksCallback) => {
+const renderMarkdown = (markdown: string, mapLinks: LinkRewriter) => {
 	if (!markdownRenderer) {
 		const markdownItOptions = {
 			html: true,
@@ -25,7 +25,7 @@ const renderMarkdown = (markdown: string, mapRelativeLink: MapRelativeLinksCallb
 		markdownRenderer = new MarkdownIt(markdownItOptions);
 	}
 
-	const transformImageOrAnchor = makeTransformImageOrAnchorCallback(mapRelativeLink);
+	const transformImageOrAnchor = makeTransformImageOrAnchorCallback(mapLinks);
 
 	const sanitizeOptions = {
 		allowedTags: [
