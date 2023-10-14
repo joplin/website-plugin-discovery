@@ -19,7 +19,6 @@
 	}
 
 	$margin-x: 10px;
-	--width-percent: 100%;
 	margin-right: $margin-x;
 
 	@include media-breakpoint-down(sm) {
@@ -36,6 +35,9 @@
 		}
 	}
 
+	// Note: When changing these breakpoints, ensure that styles in the main
+	// page (plugin list page) that rely on some number of cards per row are not broken.
+	--width-percent: 100%;
 	@include media-breakpoint-up(sm) {
 		--width-percent: 50%;
 	}
