@@ -11,6 +11,10 @@
 
 .search-input {
 	padding-left: 30px;
+
+	// Use a slightly larger font size to prevent browsers from automatically
+	// zooming in.
+	font-size: 1rem;
 }
 
 .search-results {

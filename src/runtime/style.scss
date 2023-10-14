@@ -19,6 +19,17 @@ $line-height-base: 1.4;
 @import './components/style.scss';
 @import './pages/plugin-list/style.scss';
 
+// root font size
+:root {
+	@include media-breakpoint-down(md) {
+		// Slightly increase the font size on small screens.
+		//
+		// On mobile devices, using inputs with too small of a font
+		// size causes the browser to automatically zoom.
+		font-size: 1.05em;
+	}
+}
+
 // colors
 :root body {
 	@include color-mode(light) {
