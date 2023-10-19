@@ -10,7 +10,14 @@ const initializeBreadcrumbs = async () => {
 	// Only fill conditionally -- not all pages have breadcrumbs links
 	if (parentTagLink && urlData.fromTab) {
 		parentTagLink.innerText = urlData.fromTab.replace(/-/g, ' ');
-		parentTagLink.href += `#tab-${urlData.fromTab.replace(/[^a-zA-Z0-9]/g, '-')}`;
+
+		const targetHash = `#tab-${urlData.fromTab.replace(/[^a-zA-Z0-9]/g, '-')}`;
+		parentTagLink.href += targetHash;
+
+		// Hide the breadcrumb if the plugin was accessed directly from the "Home" tab.
+		if (targetHash === '#tab-home' && parentTagLink.parentElement?.matches('li.breadcrumb-item')) {
+			parentTagLink.parentElement.style.display = 'none';
+		}
 	}
 
 	const currentPluginLink = document.querySelector<HTMLAnchorElement>('a#current-plugin-nav-link');

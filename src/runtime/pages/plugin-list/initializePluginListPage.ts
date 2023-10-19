@@ -1,5 +1,7 @@
 const { Tab } = window.bootstrap;
 
+const homepageTabName = 'home';
+
 const initTabNavigation = () => {
 	const tabContainer = document.querySelector('nav#nav-tab')!;
 	const breadcrumbCurrentTab = document.querySelector<HTMLElement>('#active-tab-breadcrumb')!;
@@ -20,13 +22,24 @@ const initTabNavigation = () => {
 				location.hash = currentTabHash;
 			}
 
-			breadcrumbCurrentTab.innerText = tabTrigger.innerText;
+			breadcrumbCurrentTab.textContent = tabTrigger.textContent;
+
+			const breadcrumbRootTab = document.querySelector('#home-tab-breadcrumb')!;
+
+			// Hide the breadcrumb if on the home page
+			if (currentTabHash === `#tab-${homepageTabName}`) {
+				breadcrumbCurrentTab.style.display = 'none';
+				breadcrumbRootTab.classList.add('active');
+			} else {
+				breadcrumbCurrentTab.style.display = '';
+				breadcrumbRootTab.classList.remove('active');
+			}
 		});
 	}
 
 	const navigateToTabFromHash = (url: string) => {
 		const selectedTabMatch = url.match(/#tab-([a-zA-Z0-9\-_%]+)$/);
-		let tabName = selectedTabMatch ? selectedTabMatch[1] : 'all';
+		let tabName = selectedTabMatch ? selectedTabMatch[1] : homepageTabName;
 
 		// Replace `%20`s (spaces) with dashes -- it simplifies other logic if
 		// tab names can have spaces in links.

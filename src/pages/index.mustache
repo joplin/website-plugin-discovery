@@ -3,7 +3,7 @@
 
 <head>
 	<script>
-		window.pageId = 'pluginList';
+		window.pageId = 'homePage';
 	</script>
 	{{> head-config}}
 	<title>Joplin Plugins</title>
@@ -18,10 +18,22 @@
 	<div class="container">
 		<nav aria-label="breadcrumb" class="breadcrumb-container">
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item">
-					<a href="#tab-all"><i class="fas fa-home"></i> Home</a>
+				<li
+					class="breadcrumb-item active"
+					id="home-tab-breadcrumb"
+				>
+					<a href="#tab-home"><i class="fas fa-home"></i> Home</a>
 				</li>
-				<li id="active-tab-breadcrumb" class="breadcrumb-item active" aria-current="page">All</li>
+				<li
+					id="active-tab-breadcrumb"
+					class="breadcrumb-item"
+					aria-current="page"
+
+					{{! Hide by default -- will be shown after switching to other tabs }}
+					style="display: none;"
+				>
+					Home
+				</li>
 			</ol>
 		</nav>
 		<div class="row gy-3">
@@ -31,7 +43,19 @@
 					<h2>Categories</h2>
 					<nav class="nav nav-pills" id="nav-tab" role="tablist">
 						<a
-							class="nav-link active"
+							class="nav-link active d-none"
+							id="nav-home-tab"
+							data-bs-target="#nav-home"
+							type="button"
+							role="tab"
+							aria-controls="nav-home"
+							aria-selected="false"
+							href="#tab-home"
+						>
+							Home
+						</a>
+						<a
+							class="nav-link"
 							id="nav-all-tab"
 							data-bs-target="#nav-all"
 							type="button"
@@ -64,11 +88,11 @@
 			<div class="col-lg-10 col-12 px-0">
 				<div class="tab-content" id="nav-tabContent">
 					<div
-						class="tab-pane fade show active"
-						data-tab-name="all"
-						id="nav-all"
+						class="tab-pane show active"
+						data-tab-name="home"
+						aria-labelledby="nav-home-tab"
+						id="nav-home"
 						role="tabpanel"
-						aria-labelledby="nav-all-tab"
 						tabindex="0"
 					>
 						<!-- Trending Section -->
@@ -85,6 +109,7 @@
 								{{/plugins}}
 							</div>
 						</div>
+
 						<!-- Recommended Section -->
 						<div class="plugin-section main-section">
 							<div class="highlighted-heading heading">
@@ -98,6 +123,16 @@
 								{{/plugins}}
 							</div>
 						</div>
+					</div>
+
+					<div
+						class="tab-pane"
+						data-tab-name="all"
+						aria-labelledby="nav-all-tab"
+						role="tabpanel"
+						id="nav-all"
+						tabindex="0"
+					>
 						<!-- All Plugins -->
 						<div class="plugin-section main-section">
 							<div class="highlighted-heading heading">

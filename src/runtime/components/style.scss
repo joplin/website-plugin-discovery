@@ -117,6 +117,14 @@ nav.breadcrumb-container {
 	li {
 		text-transform: capitalize;
 	}
+
+	li.active {
+		a {
+			// If active, clicking the link brings us to the current page.
+			// Style the link to look like body/breadcrumb text.
+			color: inherit;
+		}
+	}
 }
 
 .nav-pills {

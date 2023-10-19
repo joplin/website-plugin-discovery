@@ -20,31 +20,9 @@ function convertToDomId(id: string): string {
 	return id.toLowerCase().replace(/[.]/g, '-');
 }
 
-async function getTrendingPlugins(
-	plugins: IdToManifestRecord,
-	topn: number,
-): Promise<JoplinPlugin[]> {
-	const result = [];
-	for (const pluginId in plugins) {
-		result.push({
-			id: pluginId,
-			downloadCount: plugins[pluginId].downloadCount,
-			popularity:
-				plugins[pluginId].downloadCount /
-				(Date.now() - new Date(plugins[pluginId].timeModified).getTime()),
-		});
-	}
-
-	return result
-		.sort((a, b) => b.popularity - a.popularity)
-		.slice(0, topn)
-		.map((item) => {
-			return {
-				domId: convertToDomId(item.id),
-				...plugins[item.id],
-			};
-		});
-}
+const getPluginPopularity = (plugin: JoplinPlugin) => {
+	return plugin.downloadCount / (Date.now() - new Date(plugin.timeModified).getTime());
+};
 
 async function getPluginData(config: BuildConfig): Promise<IdToManifestRecord> {
 	const rawPlugins = await fetchPluginData();
@@ -75,6 +53,8 @@ async function getPluginData(config: BuildConfig): Promise<IdToManifestRecord> {
 			rawPlugins[pluginId].downloadCount = 0;
 			rawPlugins[pluginId].timeModified = 'N/A';
 		}
+
+		rawPlugins[pluginId].domId = convertToDomId(pluginId);
 	}
 
 	return rawPlugins;
@@ -83,10 +63,17 @@ async function getPluginData(config: BuildConfig): Promise<IdToManifestRecord> {
 export default async function getPlugins(config: BuildConfig): Promise<GlobalPluginData> {
 	const plugins = await getPluginData(config);
 
+	const all = Object.values(plugins);
+
+	// Sort by popularity
+	all.sort((a, b) => {
+		return getPluginPopularity(b) - getPluginPopularity(a);
+	});
+
 	return {
 		raw: plugins,
-		all: Object.values(plugins),
-		recommended: Object.values(plugins).filter((plugin: JoplinPlugin) => plugin._recommended),
-		trending: await getTrendingPlugins(plugins, 4),
+		all,
+		recommended: all.filter((plugin: JoplinPlugin) => plugin._recommended),
+		trending: all.slice(0, 4),
 	};
 }
