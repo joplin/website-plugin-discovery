@@ -12,13 +12,13 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="{{&config.site}}/#popular" onclick="openTab('all')">Popular</a>
+					<a class="nav-link active" aria-current="page" href="{{&config.site}}/#popular">Popular</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="{{&config.site}}/#recommended-section" onclick="openTab('all')">Recommended</a>
+					<a class="nav-link" href="{{&config.site}}/#recommended-section">Recommended</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="{{&config.site}}/#all-plugins-section" onclick="openTab('all')">All Plugins</a>
+					<a class="nav-link" href="{{&config.site}}/#tab-all">All Plugins</a>
 				</li>
 			</ul>
 			<div class="search-field col-12 col-lg-3 mb-3 mb-lg-0 me-lg-3">
@@ -33,13 +33,3 @@
 		</div>
 	</div>
 </nav>
-<script>
-	function openTab(tab) {
-		if(tab === 'all'){
-			const triggerFirstTabEleList = document.querySelectorAll('#nav-tab :first-child')
-			for (let i = 0; i < triggerFirstTabEleList.length; i++) {
-				bootstrap.Tab.getInstance(triggerFirstTabEleList[i]).show() // Select All Tab
-			}
-		}
-	}
-</script>

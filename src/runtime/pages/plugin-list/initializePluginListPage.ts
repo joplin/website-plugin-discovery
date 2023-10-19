@@ -37,8 +37,8 @@ const initTabNavigation = () => {
 		});
 	}
 
-	const navigateToTabFromHash = (url: string) => {
-		const selectedTabMatch = url.match(/#tab-([a-zA-Z0-9\-_%]+)$/);
+	const navigateToTabFromHash = (hash: string) => {
+		const selectedTabMatch = hash.match(/#tab-([a-zA-Z0-9\-_%]+)$/);
 		let tabName = selectedTabMatch ? selectedTabMatch[1] : homepageTabName;
 
 		// Replace `%20`s (spaces) with dashes -- it simplifies other logic if
@@ -51,7 +51,56 @@ const initTabNavigation = () => {
 			Tab.getOrCreateInstance(tabButton).show();
 		}
 	};
-	navigateToTabFromHash(location.href);
+
+	// Also activates the tab containing the element.
+	const scrollToElementWithHash = (hash: string) => {
+		// Find the tab that contains an element with that ID (hash starts with
+		// a "#" symbol)
+		const hashContent = hash.substring(1);
+		const targetElement = document.getElementById(hashContent);
+
+		// Search for a containing tab
+		let tabContainer = targetElement;
+		while (tabContainer && !tabContainer.matches('.tab-pane')) {
+			tabContainer = tabContainer.parentElement;
+		}
+
+		if (tabContainer) {
+			const labeledById = tabContainer.getAttribute('aria-labelledby');
+			const tabButton = document.querySelector(`#${labeledById}`);
+
+			if (tabButton) {
+				// May change the page hash
+				Tab.getOrCreateInstance(tabButton).show();
+
+				// Reset to the original hash (it also leads to this tab)
+				location.hash = hash;
+			} else {
+				console.warn('No tab associated with hash', hash);
+			}
+		}
+
+		if (targetElement) {
+			targetElement.scrollIntoView();
+		}
+	};
+
+	const navigateFromPageHash = (pageUrl: string) => {
+		const hashMatch = pageUrl.match(/#.+$/);
+
+		if (!hashMatch) {
+			return;
+		}
+
+		const hash = hashMatch[0];
+		if (hash.startsWith('#tab-')) {
+			navigateToTabFromHash(hash);
+		} else {
+			scrollToElementWithHash(hash);
+		}
+	};
+
+	navigateFromPageHash(location.href);
 
 	window.addEventListener('hashchange', (event) => {
 		if (ignoreNextHashChange) {
@@ -59,7 +108,7 @@ const initTabNavigation = () => {
 			return;
 		}
 
-		navigateToTabFromHash(event.newURL);
+		navigateFromPageHash(event.newURL);
 	});
 };
 
