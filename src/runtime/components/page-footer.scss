@@ -20,6 +20,26 @@
 	}
 }
 
+.page-footer {
+	.copyright {
+		float: left;
+	}
+
+	.privacy-policy {
+		float: right;
+	}
+
+	@include media-breakpoint-down(sm) {
+		.copyright {
+			margin-left: 4px;
+		}
+
+		.privacy-policy {
+			margin-right: 4px;
+		}
+	}
+}
+
 .site-links {
 	display: flex;
 	flex-direction: row;
