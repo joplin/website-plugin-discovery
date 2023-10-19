@@ -4,9 +4,9 @@
 <svg
    version="1.1"
    id="svg195"
-   width="800"
+   width="650"
    height="120"
-   viewBox="0 0 800 120"
+   viewBox="0 0 650 120"
    sodipodi:docname="joplin-logo-large.svg"
    inkscape:export-filename="joplin-logo-large.png"
    inkscape:export-xdpi="96"
@@ -30,9 +30,9 @@
      showgrid="false"
      inkscape:zoom="0.90824416"
      inkscape:cx="439.30918"
-     inkscape:cy="-108.45101"
+     inkscape:cy="-107.9005"
      inkscape:window-width="1440"
-     inkscape:window-height="836"
+     inkscape:window-height="831"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -53,11 +53,11 @@
        inkscape:label="text480"><tspan
          sodipodi:role="line"
          id="tspan478"
-         x="0"
-         y="0"
-         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-family:Montserrat;-inkscape-font-specification:'Montserrat Semi-Bold';fill:#2282f7;fill-opacity:1;stroke-width:1.15364">Joplin plugin store</tspan><tspan
+         x="159.81183"
+         y="83.463211"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-family:Montserrat;-inkscape-font-specification:'Montserrat Semi-Bold';fill:#2282f7;fill-opacity:1;stroke-width:1.15364">Joplin plugins</tspan><tspan
          sodipodi:role="line"
-         x="0"
-         y="0"
+         x="159.81183"
+         y="163.84134"
          id="tspan482"
          style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-family:Montserrat;-inkscape-font-specification:'Montserrat Semi-Bold';fill:#2282f7;fill-opacity:1;stroke-width:1.15364" /></text></g></svg>
