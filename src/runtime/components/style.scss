@@ -174,7 +174,7 @@ nav.breadcrumb-container {
 		--bs-nav-pills-link-active-color: var(--bs-secondary-color);
 		--bs-nav-pills-link-active-bg: var(--bs-secondary-bg);
 
-		& > .nav-link {
+		.nav-link {
 			text-align: left;
 			padding: $padding-item-y $padding-item-x;
 

@@ -21,3 +21,18 @@
 		}
 	}
 }
+
+.nav {
+	.home-tab-container {
+		// Only show the home tab when it has focus (there's already a link
+		// for this tab).
+		height: 0px;
+		width: 0px;
+		overflow: hidden;
+
+		&:focus-within {
+			height: unset;
+			width: unset;
+		}
+	}
+}
