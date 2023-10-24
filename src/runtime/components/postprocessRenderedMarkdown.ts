@@ -103,11 +103,11 @@ const addHeaderLinks = (readmeContainer: HTMLElement) => {
 	}
 };
 
-const postprocessReadme = (readmeContainer: HTMLElement) => {
+const postprocessRenderedMarkdown = (readmeContainer: HTMLElement) => {
 	addIdsToHeaders(readmeContainer);
 	addHeaderLinks(readmeContainer);
 	wrapTablesInContainers(readmeContainer);
 	addCopyCodeButtons(readmeContainer);
 };
 
-export default postprocessReadme;
+export default postprocessRenderedMarkdown;

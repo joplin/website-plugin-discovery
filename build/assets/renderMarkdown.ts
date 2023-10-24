@@ -6,7 +6,7 @@ import hljs from 'highlight.js';
 
 let markdownRenderer: MarkdownIt | null = null;
 
-const renderMarkdown = (markdown: string, mapLinks: LinkRewriter) => {
+const renderMarkdown = (markdown: string, mapLinks?: LinkRewriter) => {
 	if (!markdownRenderer) {
 		const markdownItOptions = {
 			html: true,
@@ -25,7 +25,9 @@ const renderMarkdown = (markdown: string, mapLinks: LinkRewriter) => {
 		markdownRenderer = new MarkdownIt(markdownItOptions);
 	}
 
-	const transformImageOrAnchor = makeTransformImageOrAnchorCallback(mapLinks);
+	const transformImageOrAnchor = mapLinks
+		? makeTransformImageOrAnchorCallback(mapLinks)
+		: undefined;
 
 	const sanitizeOptions = {
 		allowedTags: [

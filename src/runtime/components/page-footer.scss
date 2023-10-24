@@ -21,12 +21,11 @@
 }
 
 .page-footer {
-	.copyright {
-		float: left;
-	}
-
-	.privacy-policy {
-		float: right;
+	.legal-and-about-links {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		margin-bottom: 14px;
 	}
 
 	@include media-breakpoint-down(sm) {

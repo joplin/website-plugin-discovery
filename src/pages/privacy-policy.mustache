@@ -1,13 +1,9 @@
 <!DOCTYPE html>
-<html class="plugin-list-page" lang="en">
+<html class="legal-notice" lang="en">
 
 <head>
-	<script>
-		window.pageId = 'homePage';
-	</script>
 	{{> head-config}}
 	<title>Joplin Plugins - Privacy Policy</title>
-	<meta name="description" content="Explore plugins available for the Joplin note taking application."/>
 </head>
 
 <body>
@@ -22,14 +18,24 @@
 				<li class="breadcrumb-item active" aria-current="page">Privacy Policy</li>
 			</ol>
 		</nav>
-		<div class="main-section">
-			<h1>Joplin Plugins Privacy Policy</h1>
-			<h2>Who are we?</h2>
-			<p>The Joplin Plugins website is owned by Joplin, registered at 3 Place Simone Veil, CS 20739 54064 Nancy, France. SIREN: RCS Nancy 919 395 087</p>
-			<h2>What information do we collect?</h2>
-			<p>We do not collect any information.</p>
-			<h2>Plugin sub-pages</h2>
-			<p>Plugin authors can choose to include external images in a plugin's subpage of this website, which may allow third parties to access your IP or certain cookies depending on your browser settings.</p>
+		<div class="main-section" data--is-rendered-markdown>
+			{{#renderMarkdown}}
+<h1 align="center">Joplin Plugins Privacy Policy</h1>
+
+## Who are we?
+
+The Joplin Plugins website is owned by Joplin, registered at 3 Place Simone Veil, CS 20739 54064 Nancy, France. SIREN: RCS Nancy 919 395 087
+
+
+## What information do we collect?
+
+We do not collect any information.
+
+
+## Plugin sub-pages
+
+Plugin authors can choose to include external images in a plugin's subpage of this website, which may allow third parties to access your IP or certain cookies depending on your browser settings.
+			{{/renderMarkdown}}
 		</div>
 
 		{{> page-footer}}

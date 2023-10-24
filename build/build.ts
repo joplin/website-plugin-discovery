@@ -11,6 +11,7 @@ import {
 	type MarketplaceData as GlobalMarketplaceData,
 	IdToManifestRecord,
 } from '../lib/types';
+import renderMarkdown from './assets/renderMarkdown';
 
 export interface Template {
 	path: string;
@@ -89,7 +90,14 @@ export function renderTemplates(
 			});
 		} else {
 			const distPath = path.join(outputBasePath, template.name + '.html');
-			const output = Mustache.render(template.content, globalData, partials);
+			const data = {
+				...globalData,
+				renderMarkdown: () => (markdown: string) => {
+					return renderMarkdown(markdown);
+				},
+			};
+
+			const output = Mustache.render(template.content, data, partials);
 			fs.mkdirsSync(path.dirname(distPath));
 			fs.writeFileSync(distPath, output, 'utf8');
 		}
