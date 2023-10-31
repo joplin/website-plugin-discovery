@@ -51,6 +51,7 @@ export interface PluginAssetData {
 	readme: string;
 	screenshots: { uri: string; label: string }[];
 	iconUri: string | null;
+	iconAdditionalClassNames: string;
 }
 
 // Data about all plugins

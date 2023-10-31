@@ -87,6 +87,7 @@ main.plugin-details nav.breadcrumb-container {
 		.plugin-icon {
 			border-radius: 20px;
 			width: $icon-target-size;
+			border: 1px solid var(--bs-border-color-translucent);
 		}
 	}
 

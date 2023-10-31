@@ -32,7 +32,11 @@
 	</nav>
 	<div class="plugin-overview">
 		<div class="plugin-icon-container">
-			<img class="plugin-icon" src="{{plugin.assets.iconUri}}" alt="Plugin icon"/>
+			<img
+				class="plugin-icon {{plugin.assets.iconAdditionalClassNames}}"
+				src="{{plugin.assets.iconUri}}"
+				alt="Plugin icon"
+			/>
 		</div>
 		<div class="plugin-page-header">
 			<h1 class="card-title">{{plugin.name}}</h1>

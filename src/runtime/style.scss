@@ -132,6 +132,12 @@ $line-height-base: 1.4;
 	border: 1px solid var(--crown-color);
 }
 
+.plugin-icon.auto-invert {
+	@include color-mode(dark) {
+		filter: invert(83%) hue-rotate(180deg) saturate(2.5);
+	}
+}
+
 main {
 	padding-top: 20px;
 }

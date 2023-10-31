@@ -244,12 +244,20 @@ export default class PluginAssetLoader {
 	}
 
 	public async loadAssets(): Promise<PluginAssetData> {
-		const iconUri =
-			(await this.getIcon()) ?? (await getDefaultIconUri(this.buildConfig, this.getCategories()));
+		let iconUri = await this.getIcon();
+		let iconAdditionalClassNames = '';
+
+		if (!iconUri) {
+			iconUri = await getDefaultIconUri(this.buildConfig, this.getCategories());
+			// Invert default icons in dark mode
+			iconAdditionalClassNames = 'default-icon auto-invert';
+		}
+
 		return {
 			readme: await this.getRenderedReadme(),
 			screenshots: await this.getScreenshots(),
 			iconUri,
+			iconAdditionalClassNames,
 		};
 	}
 }
