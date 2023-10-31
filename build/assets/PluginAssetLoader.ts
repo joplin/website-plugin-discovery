@@ -5,6 +5,7 @@ import { BuildConfig, JoplinPlugin, PluginAssetData, PluginIconSet } from '../..
 import cachedFetch from '../fetch/cachedFetch';
 import fetchFromGitHub from '../fetch/fetchFromGitHub';
 import renderMarkdown from './renderMarkdown';
+import getDefaultIconUri from './getDefaultIconUri';
 
 class GitHubReference {
 	private gitHubBaseUri: string;
@@ -229,12 +230,26 @@ export default class PluginAssetLoader {
 		return null;
 	}
 
+	private getCategories(): string[] {
+		let categories = this.manifest.categories ?? [];
+
+		// Protect against incorrectly specified data
+		if (!Array.isArray(categories)) {
+			categories = [];
+		} else {
+			categories = categories.filter((category) => typeof category === 'string');
+		}
+
+		return categories;
+	}
+
 	public async loadAssets(): Promise<PluginAssetData> {
-		const defaultIconUri = path.join(this.buildConfig.site, 'plugin-icon-placeholder.svg');
+		const iconUri =
+			(await this.getIcon()) ?? (await getDefaultIconUri(this.buildConfig, this.getCategories()));
 		return {
 			readme: await this.getRenderedReadme(),
 			screenshots: await this.getScreenshots(),
-			iconUri: (await this.getIcon()) ?? defaultIconUri,
+			iconUri,
 		};
 	}
 }
