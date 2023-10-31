@@ -37,7 +37,7 @@ const getDefaultIconUri = async (buildConfig: BuildConfig, manifestCategories: s
 		console.warn(`Missing icon for category, ${primaryCategory}`);
 	}
 
-	const fileNameCandidates = fileNamesByCategory[primaryCategory];
+	const fileNameCandidates = fileNamesByCategory[primaryCategory] ?? [];
 	const iconFileName = fileNameCandidates[manifestCategories.length % fileNameCandidates.length];
 
 	return join(buildConfig.site, iconsFolderName, iconFileName);

@@ -7,6 +7,8 @@ import {
 	BuildConfig,
 } from '../../lib/types';
 import PluginAssetLoader from '../assets/PluginAssetLoader';
+import CategoryGuesser from './CategoryGuesser';
+import pluginDefaultCategories from './pluginDefaultCategories';
 
 async function fetchPluginData(): Promise<IdToManifestRecord> {
 	return await JSON.parse((await fetchFromGitHub('joplin/plugins/master/manifests.json')).result);
@@ -28,19 +30,6 @@ async function getPluginData(config: BuildConfig): Promise<IdToManifestRecord> {
 	const rawPlugins = await fetchPluginData();
 	const rawStats = await fetchStatsData();
 
-	// Load assets
-	const loadAssetTasks: Array<Promise<void>> = [];
-	for (const pluginId in rawPlugins) {
-		const assetLoader = new PluginAssetLoader(rawPlugins[pluginId], config);
-
-		loadAssetTasks.push(
-			(async () => {
-				rawPlugins[pluginId].assets = await assetLoader.loadAssets();
-			})(),
-		);
-	}
-	await Promise.all(loadAssetTasks);
-
 	for (const pluginId in rawPlugins) {
 		rawStats[pluginId] ??= {};
 
@@ -55,7 +44,36 @@ async function getPluginData(config: BuildConfig): Promise<IdToManifestRecord> {
 		}
 
 		rawPlugins[pluginId].domId = convertToDomId(pluginId);
+
+		// Add default categories, if available
+		if (pluginId in pluginDefaultCategories && !rawPlugins[pluginId].categories?.length) {
+			rawPlugins[pluginId].categories = pluginDefaultCategories[pluginId];
+		}
 	}
+
+	const categoryTracker = new CategoryGuesser(Object.values(rawPlugins));
+
+	for (const pluginId in rawPlugins) {
+		if (
+			!Array.isArray(rawPlugins[pluginId].categories) ||
+			rawPlugins[pluginId].categories?.length === 0
+		) {
+			rawPlugins[pluginId].categories = [categoryTracker.guessCategory(rawPlugins[pluginId])];
+		}
+	}
+
+	// Load assets (may depend on categories)
+	const loadAssetTasks: Array<Promise<void>> = [];
+	for (const pluginId in rawPlugins) {
+		const assetLoader = new PluginAssetLoader(rawPlugins[pluginId], config);
+
+		loadAssetTasks.push(
+			(async () => {
+				rawPlugins[pluginId].assets = await assetLoader.loadAssets();
+			})(),
+		);
+	}
+	await Promise.all(loadAssetTasks);
 
 	return rawPlugins;
 }

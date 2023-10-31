@@ -76,7 +76,7 @@ export function renderTemplates(
 			console.log('Rendering dynamic route pluginName');
 			routes.pluginName.forEach((key: string) => {
 				const distPath = path.join(outputBasePath, key, 'index.html');
-				console.log(`- Rendering ${distPath}`);
+				//console.log(`- Rendering ${distPath}`);
 				const data = {
 					...globalData,
 					path: key,
