@@ -193,7 +193,15 @@ export default class PluginAssetLoader {
 		const screenshots = [];
 
 		for (const screenshot of this.manifest.screenshots) {
-			const screenshotURI = this.gitHubReference?.convertManifsetURIToGitHubURI(screenshot.src);
+			let screenshotURI;
+
+			// We allow all https:// URLs for screenshots -- plugin authors can specify images with
+			// arbitrary srcs in the main page (so can already include arbitrary screenshots).
+			if (screenshot.src?.startsWith('https://')) {
+				screenshotURI = screenshot.src;
+			} else {
+				screenshotURI = this.gitHubReference?.convertManifsetURIToGitHubURI(screenshot.src);
+			}
 
 			if (!screenshotURI) {
 				continue;
