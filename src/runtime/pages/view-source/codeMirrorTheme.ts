@@ -58,6 +58,12 @@ const codeMirrorStyle = EditorView.theme({
 		color: 'var(--cm-secondary-text-color)',
 		boxShadow: '2px 0px 0px var(--cm-shadow-color)',
 	},
+
+	'.cm-matchingBracket': {
+		display: 'inline-block',
+		transform: 'scale(1.1)',
+		fontWeight: 'bold',
+	},
 });
 
 const codeMirrorHighlightStyle = HighlightStyle.define([
