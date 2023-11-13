@@ -112,6 +112,25 @@ code {
 	padding: 12px;
 }
 
+details {
+	transition:
+		0.3s ease padding,
+		0.3s ease border;
+
+	border: 0px solid var(--bs-border-color-translucent);
+	border-radius: 6px;
+
+	&[open] {
+		padding: 4px;
+
+		border: 1px solid var(--bs-border-color-translucent);
+
+		summary {
+			margin-bottom: 3px;
+		}
+	}
+}
+
 nav.breadcrumb-container {
 	--bs-breadcrumb-divider: '›';
 	li {
