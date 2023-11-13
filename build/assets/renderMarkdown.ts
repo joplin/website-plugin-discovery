@@ -8,7 +8,7 @@ let markdownRenderer: MarkdownIt | null = null;
 
 const renderMarkdown = (markdown: string, mapLinks?: LinkRewriter) => {
 	if (!markdownRenderer) {
-		const markdownItOptions = {
+		const markdownItOptions: MarkdownIt.Options = {
 			html: true,
 			highlight: (code: string, language: string) => {
 				const beforeHtml = '<pre class="hljs"><code>';
@@ -21,8 +21,14 @@ const renderMarkdown = (markdown: string, mapLinks?: LinkRewriter) => {
 				// See https://github.com/markdown-it/markdown-it#syntax-highlighting
 				return beforeHtml + markdownRenderer?.utils.escapeHtml(code) + afterHtml;
 			},
+			linkify: true,
 		};
 		markdownRenderer = new MarkdownIt(markdownItOptions);
+		markdownRenderer.linkify.set({
+			fuzzyLink: false,
+			fuzzyEmail: false,
+			fuzzyIP: false,
+		});
 	}
 
 	const transformImageOrAnchor = mapLinks
