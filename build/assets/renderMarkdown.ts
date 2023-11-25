@@ -71,6 +71,12 @@ const renderMarkdown = (markdown: string, mapLinks?: LinkRewriter) => {
 			'details',
 			'summary',
 			'img',
+
+			// Used for annotation
+			// (E.g. in the Rubi and Furigana plugin README)
+			'ruby',
+			'rp',
+			'rt',
 		],
 		allowedAttributes: {
 			img: ['src', 'alt', 'width', 'height', 'data-original-src'],
