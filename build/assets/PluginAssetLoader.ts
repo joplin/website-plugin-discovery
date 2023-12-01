@@ -18,7 +18,7 @@ class GitHubReference {
 	}
 
 	public convertURIToGitHubURI(uri: string, baseDirectory: string) {
-		uri = uri.startsWith('.') ? path.join(baseDirectory, uri) : uri;
+		uri = uri.startsWith('.') ? path.posix.join(baseDirectory, uri) : uri;
 
 		// Avoid relative URLs that still aren't resolved
 		if (uri.startsWith('..')) {
@@ -34,7 +34,7 @@ class GitHubReference {
 	}
 
 	public convertManifsetURIToGitHubURI(uri: string) {
-		return this.convertURIToGitHubURI(uri, 'src/');
+		return this.convertURIToGitHubURI(uri, '');
 	}
 
 	public async fetchFile(filePath: string) {
