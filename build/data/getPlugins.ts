@@ -6,7 +6,7 @@ import {
 	type Stats,
 	BuildConfig,
 } from '../../lib/types';
-import PluginAssetLoader from '../assets/PluginAssetLoader';
+import PluginRemoteInfoLoader from '../assets/PluginRemoteInfoLoader';
 import CategoryGuesser from './CategoryGuesser';
 import pluginDefaultCategories from './pluginDefaultCategories';
 
@@ -63,17 +63,20 @@ async function getPluginData(config: BuildConfig): Promise<IdToManifestRecord> {
 	}
 
 	// Load assets (may depend on categories)
-	const loadAssetTasks: Array<Promise<void>> = [];
+	const loadRemoteInfoTasks: Array<Promise<void>> = [];
 	for (const pluginId in rawPlugins) {
-		const assetLoader = new PluginAssetLoader(rawPlugins[pluginId], config);
+		const assetLoader = new PluginRemoteInfoLoader(rawPlugins[pluginId], config);
 
-		loadAssetTasks.push(
+		loadRemoteInfoTasks.push(
+			(async () => {
+				rawPlugins[pluginId]._npm_package_maintainers = await assetLoader.loadMaintainers();
+			})(),
 			(async () => {
 				rawPlugins[pluginId].assets = await assetLoader.loadAssets();
 			})(),
 		);
 	}
-	await Promise.all(loadAssetTasks);
+	await Promise.all(loadRemoteInfoTasks);
 
 	return rawPlugins;
 }

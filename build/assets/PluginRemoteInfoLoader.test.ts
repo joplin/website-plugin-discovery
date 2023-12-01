@@ -1,14 +1,14 @@
 import { testPlugin1 } from '../../lib/testData';
 import { testConfig } from '../config';
-import PluginAssetLoader from './PluginAssetLoader';
+import PluginRemoteInfoLoader from './PluginRemoteInfoLoader';
 
-describe('PluginAssetLoader', () => {
+describe('PluginRemoteInfoLoader', () => {
 	it('should resolve GitHub repositories from repository URIs', () => {
 		const testPluginReadmeUri =
 			'https://raw.githubusercontent.com/personalizedrefrigerator/joplin-draw/HEAD/README.md';
 
 		const getFoundReadmeUriForRepository = (repositoryUri: string) => {
-			return new PluginAssetLoader(
+			return new PluginRemoteInfoLoader(
 				{
 					...testPlugin1,
 					repository_url: repositoryUri,
@@ -17,7 +17,7 @@ describe('PluginAssetLoader', () => {
 				testConfig,
 			).getReadmeFetchUri();
 		};
-		expect(new PluginAssetLoader(testPlugin1, testConfig).getReadmeFetchUri()).toBe(
+		expect(new PluginRemoteInfoLoader(testPlugin1, testConfig).getReadmeFetchUri()).toBe(
 			testPluginReadmeUri,
 		);
 

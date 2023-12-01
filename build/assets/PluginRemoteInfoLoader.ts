@@ -63,10 +63,16 @@ interface NPMPackageVersionData {
 	version: string;
 }
 
+interface NPMPackageMaintainerData {
+	name: string;
+	email: string;
+}
+
 interface NPMPackageMetadata {
 	readme: string;
 	homepage: string;
 	versions: Record<string, NPMPackageVersionData>;
+	maintainers: NPMPackageMaintainerData[];
 }
 
 class NPMReference {
@@ -99,7 +105,7 @@ class NPMReference {
 // 2. The project name
 const githubURLRegex = /^https?:\/\/(?:www\.)?github.com\/([^/]+)\/([^/]+)/;
 
-export default class PluginAssetLoader {
+export default class PluginRemoteInfoLoader {
 	private gitHubReference?: GitHubReference;
 	private npmReference: NPMReference;
 
@@ -267,5 +273,19 @@ export default class PluginAssetLoader {
 			iconUri,
 			iconAdditionalClassNames,
 		};
+	}
+
+	public async loadMaintainers(): Promise<string[]> {
+		const packageMetadata = await this.npmReference.getPackageMetadata();
+
+		if (!packageMetadata || !Array.isArray(packageMetadata.maintainers)) {
+			return [];
+		}
+
+		const maintainers: string[] = packageMetadata.maintainers
+			.map((maintainer) => maintainer.name ?? '')
+			.filter((maintainer) => maintainer !== '');
+
+		return maintainers;
 	}
 }

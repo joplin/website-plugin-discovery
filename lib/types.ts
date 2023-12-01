@@ -34,6 +34,7 @@ export interface JoplinPlugin {
 	_publish_commit: string;
 	_npm_package_name: string;
 	_recommended?: boolean;
+	_npm_package_maintainers: string[];
 	screenshots?: { src: string; label?: string }[];
 	icons?: PluginIconSet;
 	downloadCount: number;

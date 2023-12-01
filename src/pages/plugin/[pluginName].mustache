@@ -136,6 +136,16 @@
 							</ul>
 						</td>
 					</tr>
+					<tr>
+						<th>Maintainers:</th>
+						<td>
+							{{#plugin._npm_package_maintainers}}
+								<a href="./?search=maintainer%3D%22{{.}}%22%20max-results%3D20" class="maintainer-link">
+									{{.}}
+								</a>
+							{{/plugin._npm_package_maintainers}}
+						</td>
+					</tr>
 					<tr><th>Version:</th><td>{{plugin.version}}</td></tr>
 					<tr><th>Minimum app version:</th><td>{{plugin.app_min_version}}</td></tr>
 					<tr><th>Downloads: This version:</th><td>{{plugin.downloadCount}}</td></tr>

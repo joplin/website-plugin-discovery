@@ -55,33 +55,58 @@ class PluginDataManager {
 
 	public search(query: string, defaultMaxResults: number): JoplinPlugin[] {
 		const optionsFromQuery = () => {
-			let maxResults = defaultMaxResults;
 			let newQuery = query;
+
+			const getOption = (optionExp: string, valueExp: string) => {
+				const regex = new RegExp(`^(.*\\s+|)${optionExp}[=:]\\s*(${valueExp})(.*)$`);
+				const match = newQuery.match(regex);
+
+				let result: string | null = null;
+				if (match) {
+					const beforeMatch = match[1];
+					result = match[2];
+					const afterMatch = match[3];
+
+					newQuery = beforeMatch + afterMatch;
+				}
+				return result;
+			};
+
+			const getStringOption = (optionNameExp: string) => {
+				let match = getOption(optionNameExp, '"[^"]+"|[^" \\t;,]+');
+
+				// Remove quotes and unescape contents if necessary
+				if (match && match.match(/^["].*["]$/)) {
+					match = match
+						.replace(/^"/g, '')
+						.replace(/"$/g, '')
+						.replace(/[&]quo;/g, '"');
+				}
+
+				return match;
+			};
+
+			const getNumberOption = (optionNameExp: string) => {
+				const match = getOption(optionNameExp, '\\d+');
+
+				if (match) {
+					return parseInt(match);
+				}
+
+				return null;
+			};
 
 			// Allow overriding the maximum results option using
 			//   max-results=numberHere
 			// syntax.
-			const maxResultsOptionMatch = newQuery.match(/^(.*\s+)max-results[=:]\s*(\d+)(.*)$/);
-			if (maxResultsOptionMatch) {
-				const beforeMatch = maxResultsOptionMatch[1];
-				maxResults = parseInt(maxResultsOptionMatch[2]);
-				const afterMatch = maxResultsOptionMatch[3];
+			const maxResults = getNumberOption('max-results') ?? defaultMaxResults;
 
-				newQuery = beforeMatch + afterMatch;
-			}
-
-			let onlyShowFromAuthor: string | null = null;
-			const authorOptionMatch = newQuery.match(/^(.*\s+|)author[=:]"([^"]+)"(.*)$/);
-			if (authorOptionMatch) {
-				const beforeMatch = authorOptionMatch[1];
-				onlyShowFromAuthor = authorOptionMatch[2].replace(/[&]quo;/g, '"');
-				const afterMatch = authorOptionMatch[3];
-
-				newQuery = beforeMatch + afterMatch;
-			}
+			const onlyShowFromAuthor = getStringOption('author');
+			const onlyShowForMaintainers = getStringOption('maintainer')?.split(/\sOR\s/);
 
 			return {
 				onlyShowFromAuthor,
+				onlyShowForMaintainers,
 				maxResults,
 				newQuery,
 			};
@@ -164,6 +189,17 @@ class PluginDataManager {
 		const matches = this.allPlugins
 			.filter((plugin) => {
 				return !options.onlyShowFromAuthor || plugin.author === options.onlyShowFromAuthor;
+			})
+			.filter((plugin) => {
+				if (!options.onlyShowForMaintainers) return true;
+
+				for (const allowedMaintainer of options.onlyShowForMaintainers) {
+					if (plugin._npm_package_maintainers.includes(allowedMaintainer)) {
+						return true;
+					}
+				}
+
+				return false;
 			})
 			.filter((plugin) => matchQuality(plugin) > 0);
 
