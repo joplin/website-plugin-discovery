@@ -13,6 +13,9 @@ $h6-font-size: 1.1rem;
 
 $line-height-base: 1.4;
 
+$form-select-bg: transparent;
+$form-select-border-color: transparent;
+
 @import 'bootstrap/scss/bootstrap';
 @import './pages/plugin/style.scss';
 @import './pages/view-source/style.scss';

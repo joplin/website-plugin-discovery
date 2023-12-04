@@ -1,4 +1,12 @@
-<a href="plugin/{{id}}/" id="plugin-card-{{id}}" class="col-md-12 gx-3 mb-3 card plugin-link-card">
+<a
+	href="plugin/{{id}}/"
+	id="plugin-card-{{id}}"
+	class="col-md-12 gx-3 mb-3 card plugin-link-card"
+
+	{{! Data used for changing the sort order with JavaScript }}
+	data-sort-title="{{name}}"
+	data-sort-updated="{{timeModified}}"
+>
 	<img src="{{assets.iconUri}}" class="card-img-top plugin-icon {{assets.iconAdditionalClassNames}}" alt=""/>
 	<div class="card-body {{domId}}">
 		<div class="plugin-header text-wrap">

@@ -9,6 +9,12 @@
 		flex-wrap: wrap;
 	}
 
+	.plugin-section > .heading.-with-sort-option {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
 	.most-popular-section {
 		@include media-breakpoint-only(lg) {
 			// Hide the 4th and later most popular on lg sized screens (causes
@@ -20,20 +26,33 @@
 			}
 		}
 	}
-}
 
-.nav {
-	.home-tab-container {
-		// Only show the home tab when it has focus (there's already a link
-		// for this tab).
-		height: 0px;
-		width: 0px;
-		opacity: 0.75;
-		overflow: hidden;
+	.sort-dropdown {
+		opacity: 0.8;
+		font-size: 0.95em;
+		cursor: pointer;
 
-		&:focus-within {
-			height: unset;
-			width: unset;
+		&:hover,
+		&:active {
+			opacity: 1;
+		}
+
+		transition: 0.3s ease opacity;
+	}
+
+	.nav {
+		.home-tab-container {
+			// Only show the home tab when it has focus (there's already a link
+			// for this tab).
+			height: 0px;
+			width: 0px;
+			opacity: 0.75;
+			overflow: hidden;
+
+			&:focus-within {
+				height: unset;
+				width: unset;
+			}
 		}
 	}
 }
