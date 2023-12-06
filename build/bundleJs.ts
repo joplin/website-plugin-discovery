@@ -29,6 +29,7 @@ const bundleJs = (buildConfig: BuildConfig, watch: boolean): Promise<void> => {
 			// self-executing script function.
 			iife: true,
 		},
+		devtool: watch ? 'cheap-source-map' : undefined,
 		module: {
 			rules: [
 				{
