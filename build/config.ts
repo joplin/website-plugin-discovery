@@ -11,10 +11,10 @@ export const devConfig: BuildConfig = {
 	site: '/site',
 };
 
-export const productionConfig: BuildConfig = {
+export const productionBaseConfig: BuildConfig = {
 	sourceDir,
 	distDir: siteDirectory,
-	site: '/website-plugin-discovery',
+	site: '/',
 };
 
 const testOutputDir = path.join(__dirname, 'test');

@@ -3,7 +3,6 @@ import * as path from 'node:path';
 import klawSync from 'klaw-sync';
 import * as fs from 'fs-extra';
 import getGlobalMarketplaceData from './data/getGlobalMarketplaceData';
-import { devConfig, productionConfig } from './config';
 import bundleJs from './bundleJs';
 import {
 	type BuildConfig,
@@ -121,9 +120,7 @@ function writePluginDataAsJSON(rawPluginData: IdToManifestRecord, config: BuildC
 	fs.writeFileSync(path.join(config.distDir, 'pluginData.json'), dataString);
 }
 
-export async function build(mode: 'dev' | 'production', watchJs: boolean): Promise<void> {
-	const config = mode === 'dev' ? devConfig : productionConfig;
-
+export async function build(config: BuildConfig, watchJs: boolean): Promise<void> {
 	fs.ensureDirSync(config.distDir);
 	clearBuildPath(config.distDir);
 	copyStaticFiles(config);
