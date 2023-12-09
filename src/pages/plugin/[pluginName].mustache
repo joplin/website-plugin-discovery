@@ -153,6 +153,28 @@
 			</table>
 		</div>
 		<div class="section" id="readme" data--is-rendered-markdown>
+			{{#plugin.warnings}}
+			<div class="alert alert-warning plugin-warning" role="alert" data--is-rendered-markdown>
+				<strong>
+					<i class="fa-solid fa-triangle-exclamation" aria-label="Warning"></i> Warning:
+				</strong>
+
+				{{&message}}
+
+				<span class="date">
+					<strong>Updated:</strong>
+					<span class="process--format-as-local-time">
+						{{dateUpdated}}
+					</span>
+				</span>
+				
+
+				<a class="remove" href="https://github.com/joplin/website-plugin-discovery/issues/new">
+					No longer relevant? File an issue to remove this warning.
+				</a>
+			</div>
+			{{/plugin.warnings}}
+
 			{{&plugin.assets.readme}}
 		</div>
 	</div>

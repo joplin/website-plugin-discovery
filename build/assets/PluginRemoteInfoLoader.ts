@@ -4,7 +4,7 @@ import path from 'path';
 import { BuildConfig, JoplinPlugin, PluginAssetData, PluginIconSet } from '../../lib/types';
 import cachedFetch from '../fetch/cachedFetch';
 import fetchFromGitHub from '../fetch/fetchFromGitHub';
-import renderMarkdown from './renderMarkdown';
+import renderMarkdown from '../rendering/renderMarkdown';
 import getDefaultIconUri from './getDefaultIconUri';
 
 class GitHubReference {

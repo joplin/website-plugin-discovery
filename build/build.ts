@@ -10,7 +10,7 @@ import {
 	type MarketplaceData as GlobalMarketplaceData,
 	IdToManifestRecord,
 } from '../lib/types';
-import renderMarkdown from './assets/renderMarkdown';
+import renderMarkdown from './rendering/renderMarkdown';
 
 export interface Template {
 	path: string;

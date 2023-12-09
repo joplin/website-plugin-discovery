@@ -17,6 +17,11 @@ export interface PluginIconSet {
 	'256'?: string;
 }
 
+export interface PluginWarning {
+	message: string;
+	dateUpdated: string;
+}
+
 export interface JoplinPlugin {
 	// Directly from the manifest
 	manifest_version: number;
@@ -34,14 +39,15 @@ export interface JoplinPlugin {
 	_publish_commit: string;
 	_npm_package_name: string;
 	_recommended?: boolean;
-	_npm_package_maintainers: string[];
 	screenshots?: { src: string; label?: string }[];
 	icons?: PluginIconSet;
 	downloadCount: number;
 	timeModified: string;
-	domId?: string;
 
 	// Loaded separately
+	_npm_package_maintainers: string[];
+	domId?: string;
+	warnings?: PluginWarning[];
 	assets?: PluginAssetData;
 }
 

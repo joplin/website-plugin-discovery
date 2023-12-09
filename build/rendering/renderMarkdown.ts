@@ -83,12 +83,14 @@ const renderMarkdown = (markdown: string, mapLinks?: LinkRewriter) => {
 			a: ['href'],
 			'*': ['align', 'alt', 'aria-label', 'class'],
 		},
-		transformTags: {
-			// The TypeScript definitions aren't correct (or are outdated
-			// here).
-			img: transformImageOrAnchor as any,
-			a: transformImageOrAnchor as any,
-		},
+		transformTags: transformImageOrAnchor
+			? {
+					// The TypeScript definitions aren't correct (or are outdated
+					// here).
+					img: transformImageOrAnchor as any,
+					a: transformImageOrAnchor as any,
+			  }
+			: undefined,
 	};
 
 	return sanitizeHtml(markdownRenderer.render(markdown), sanitizeOptions);

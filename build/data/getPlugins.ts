@@ -9,6 +9,7 @@ import {
 import PluginRemoteInfoLoader from '../assets/PluginRemoteInfoLoader';
 import CategoryGuesser from './CategoryGuesser';
 import pluginDefaultCategories from './pluginDefaultCategories';
+import getPluginWarnings from './getPluginWarnings';
 
 async function fetchPluginData(): Promise<IdToManifestRecord> {
 	return await JSON.parse((await fetchFromGitHub('joplin/plugins/master/manifests.json')).result);
@@ -75,6 +76,8 @@ async function getPluginData(config: BuildConfig): Promise<IdToManifestRecord> {
 				rawPlugins[pluginId].assets = await assetLoader.loadAssets();
 			})(),
 		);
+
+		rawPlugins[pluginId].warnings = getPluginWarnings(pluginId);
 	}
 	await Promise.all(loadRemoteInfoTasks);
 
