@@ -1,0 +1,45 @@
+.table-wrapper {
+	max-width: 100%;
+	overflow-x: auto;
+
+	// Add a small amount of vertical padding -- this seems to prevent
+	// browsers from adding a vertical scrollbar (overflow-x: auto can
+	// also enable vertical scroll).
+	padding: 2px 0px;
+}
+
+// <pre>s with .has-copy-button should be of the form
+//   <pre>
+//    <code>the code here</code>
+//    <div class='copy-button-container'><button class='copy-button'>...</button></div>
+// </pre>
+pre.has-copy-button {
+	// Display in reverse-flex order -- show the button above the code block,
+	// but focus the code block before the button.
+	display: flex;
+	flex-direction: column-reverse;
+
+	.copy-button-container {
+		// Push the button to the right
+		display: flex;
+		justify-content: end;
+
+		// Don't shift the code to make room for the button
+		height: 0;
+		overflow-y: visible;
+
+		.copy-button {
+			width: min-content;
+			height: min-content;
+			border: none;
+
+			// Shift the button content closer to the edge of the container to
+			// compensate for padding (which is invisible).
+			margin: calc(0px - var(--bs-btn-padding-y)) calc(0px - var(--bs-btn-padding-x));
+		}
+	}
+}
+
+.link-to-header-button {
+	border: none;
+}

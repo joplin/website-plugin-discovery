@@ -25,6 +25,8 @@ const toBagOfWords = (text: string) => {
 	return deduplicatedWords;
 };
 
+// Based on word frequency, attempts to determine the categories of plugins (if
+// lacking category information).
 export default class CategoryGuesser {
 	private wordToCategoryScore: Record<string, Record<string, number>> = Object.create(null);
 
