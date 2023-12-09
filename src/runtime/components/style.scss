@@ -3,6 +3,7 @@
 @import './page-footer.scss';
 @import './plugin-card.scss';
 @import './search/style.scss';
+@import './rendered-markdown.scss';
 
 // Code: highlight.js
 @include color-mode(dark) {
