@@ -15,7 +15,7 @@
 ├── src/
 │   ├── assets: Files copied to config.distDir
 │   ├── components, pages: Mustache templates
-│   └── runtime: Runtime scripts
+│   └── runtime: Runtime scripts and styles
 ```
 
 
@@ -23,7 +23,14 @@
 
 All commands are run from the root of the project, from a terminal:
 
-| Command        | Action                                         |
-| :------------- | :--------------------------------------------- |
-| `yarn install` | Installs dependencies                          |
-| `yarn build`   | Build production site to `./{config.distDir}/` |
+| Command                            | Action                                                                      |
+| :--------------------------------- | :-------------------------------------------------------------------------- |
+| `yarn install`                     | Installs dependencies                                                       |
+| `yarn build`                       | Build development site to `./site/`                                         |
+| `yarn watch-js`                    | Build to `./site/` and watch for runtime JS and SCSS changes.               |
+| `yarn build-production <base-url>` | Build production site to `./site/` with a custom base URL (e.g. `/plugins`) |
+
+
+## 🚧 Adding a plugin warning
+
+Warning messages can be added to plugin pages by editing `build/data/getPluginWarnings.ts`.
