@@ -1,7 +1,10 @@
 <!-- Common page configuration that goes in the <head></head> tag -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,viewport-fit=cover"/>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src * data: ; style-src 'self' 'unsafe-inline'; child-src 'none';"/>
+{{!
+	connect-src: fetch requests. raw.githubusercontent.com is needed for the source viewer.
+}}
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src * data: ; style-src 'self' 'unsafe-inline' ; child-src 'none' ; connect-src 'self' raw.githubusercontent.com ;"/>
 <link rel="icon" type="image/x-icon" href="{{config.site}}/favicon.png" />
 <link rel="stylesheet" href="{{config.site}}/fontawesome-6.4.2/css/all.min.css" type="text/css"/>
 
