@@ -7,15 +7,11 @@ import { PluginWarning } from '../../lib/types';
 import renderMarkdown from '../rendering/renderMarkdown';
 
 const pluginWarnings: Record<string, PluginWarning[]> = {
-	'joplin.plugin.app.locker': [
-		{
-			message: [
-				'[End-to-end encryption](https://joplinapp.org/help/apps/sync/e2ee) is not local encryption.',
-				'Enabling end-to-end encryption **does not** encrypt your data locally.',
-			].join(' '),
-			dateUpdated: '2023-12-09T04:19:38.641Z',
-		},
-	],
+	// Warnings can be added here. For example,
+	// 'plugin.id.here': [{
+	//		message: 'some message here',
+	//		dateUpdated: '2023-12-09T04:19:38.641Z',
+	// }],
 };
 
 const getPluginWarnings = (pluginId: string): PluginWarning[] | undefined => {
