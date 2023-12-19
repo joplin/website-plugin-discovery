@@ -163,8 +163,6 @@ nav.breadcrumb-container {
 
 .nav-list {
 	border-radius: 0.375rem;
-	background-color: var(--bs-secondary-bg);
-	color: var(--bs-secondary-color);
 
 	$padding-item-x: 1rem;
 	$padding-item-y: 1rem;
@@ -186,7 +184,7 @@ nav.breadcrumb-container {
 		margin-right: $padding-item-x;
 		padding-bottom: 15px;
 
-		border-bottom: 1px solid var(--bs-secondary-color);
+		border-bottom: 1px solid var(--bs-border-color-translucent);
 		font-size: 1.3em;
 	}
 
@@ -276,7 +274,6 @@ nav.breadcrumb-container {
 
 .main-section {
 	border-radius: 0.5rem;
-	background-color: var(--bs-secondary-bg);
 
 	margin-bottom: 10px;
 	padding: 10px 20px;

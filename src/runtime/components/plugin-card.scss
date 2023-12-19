@@ -6,6 +6,10 @@
 	padding-right: 0;
 	cursor: pointer;
 
+	@include color-mode(dark) {
+		background-color: #303030;
+	}
+
 	word-break: break-word;
 
 	label {
