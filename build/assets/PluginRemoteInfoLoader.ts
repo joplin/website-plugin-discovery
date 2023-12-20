@@ -93,8 +93,14 @@ class NPMReference {
 			return null;
 		}
 
-		const packageData = JSON.parse(data.result);
-		this.packageMetadata = packageData;
+		let packageData: NPMPackageMetadata | null = null;
+
+		try {
+			packageData = JSON.parse(data.result);
+			this.packageMetadata = packageData;
+		} catch (error) {
+			console.error(`Failed to parse NPM package metadata for ${this.packageName}. Error:`, error);
+		}
 
 		return packageData;
 	}
