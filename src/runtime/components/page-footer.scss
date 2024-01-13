@@ -22,6 +22,7 @@
 
 .page-footer {
 	padding: 0px 30px;
+
 	> .links {
 		margin-top: 18px;
 		margin-bottom: 18px;
@@ -37,12 +38,17 @@
 	margin-left: auto;
 	margin-right: auto;
 
+	> .link {
+		color: var(--bs-emphasis-color);
+		opacity: 0.65;
+	}
+
 	@include media-breakpoint-down(sm) {
-		.copyright {
+		> .copyright {
 			margin-left: 4px;
 		}
 
-		.privacy-policy {
+		> .privacy {
 			margin-right: 4px;
 		}
 	}
