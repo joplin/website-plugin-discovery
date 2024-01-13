@@ -135,9 +135,17 @@ $form-select-border-color: transparent;
 	border: 1px solid var(--crown-color);
 }
 
-.plugin-icon.auto-invert {
-	@include color-mode(dark) {
-		filter: invert(83%) hue-rotate(180deg) saturate(2.5);
+.plugin-icon {
+	&.auto-invert {
+		@include color-mode(dark) {
+			filter: invert(83%) hue-rotate(180deg) saturate(2.5);
+		}
+	}
+
+	&:not(.auto-invert) {
+		@include color-mode(dark) {
+			filter: drop-shadow(0px 0px 2px rgba(250, 250, 255, 0.2));
+		}
 	}
 }
 
