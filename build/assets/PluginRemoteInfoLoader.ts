@@ -265,19 +265,25 @@ export default class PluginRemoteInfoLoader {
 
 	public async loadAssets(): Promise<PluginAssetData> {
 		let iconUri = await this.getIcon();
-		let iconAdditionalClassNames = '';
+		const iconAdditionalClassNames = [];
 
 		if (!iconUri) {
 			iconUri = await getDefaultIconUri(this.buildConfig, this.getCategories());
 			// Invert default icons in dark mode
-			iconAdditionalClassNames = 'default-icon auto-invert';
+			iconAdditionalClassNames.push('default-icon', 'auto-invert');
+		}
+
+		// If the icon name ends with .autoinvert.ext (for some extension .ext),
+		// we auto-invert it in dark mode.
+		if (iconUri.match(/\.autoinvert\.[a-zA-Z]{2,4}$/)) {
+			iconAdditionalClassNames.push('auto-invert');
 		}
 
 		return {
 			readme: await this.getRenderedReadme(),
 			screenshots: await this.getScreenshots(),
 			iconUri,
-			iconAdditionalClassNames,
+			iconAdditionalClassNames: iconAdditionalClassNames.join(' '),
 		};
 	}
 
