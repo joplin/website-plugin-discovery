@@ -48,15 +48,12 @@
 				</a>
 			</div>
 
-			<div>
+			<div class="categories">
 				{{#plugin._recommended}}
 					<a href="{{config.site}}/#recommended-section">
 						<span class="plugin-recommended badge"><i class="fas fa-crown"></i> Recommended</span>
 					</a>
 				{{/plugin._recommended}}
-			</div>
-
-			<div class="categories">
 				{{#plugin.categories}}
 					<a class="plugin-category me-2 badge" href="{{config.site}}/#tab-{{.}}">
 						<i class="fas fa-tag"></i> {{.}}
