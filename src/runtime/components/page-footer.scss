@@ -21,12 +21,21 @@
 }
 
 .page-footer {
-	.legal-and-about-links {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		margin-bottom: 14px;
+	padding: 0px 30px;
+	> .links {
+		margin-top: 18px;
+		margin-bottom: 18px;
 	}
+}
+
+.legal-and-about-links {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+
+	max-width: var(--main-content-max-width, unset);
+	margin-left: auto;
+	margin-right: auto;
 
 	@include media-breakpoint-down(sm) {
 		.copyright {
@@ -70,6 +79,8 @@ body > .page-footer {
 	margin-top: 10px;
 	margin-left: 0;
 	margin-right: 0;
+	padding-left: 0;
+	padding-right: 0;
 
 	.plugin-documentation-section {
 		border-radius: 0;
