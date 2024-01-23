@@ -1,11 +1,18 @@
 // Handles loading assets for a single plugin
 
 import path from 'path';
-import { BuildConfig, JoplinPlugin, PluginAssetData, PluginIconSet } from '../../lib/types';
+import {
+	BuildConfig,
+	JoplinPlugin,
+	LabeledImage,
+	PluginAssetData,
+	PluginIconSet,
+	PromoTile,
+} from '../../lib/types';
 import cachedFetch from '../fetch/cachedFetch';
 import fetchFromGitHub from '../fetch/fetchFromGitHub';
 import renderMarkdown from '../rendering/renderMarkdown';
-import getDefaultIconUri from './getDefaultIconUri';
+import getDefaultPromoTileUri from './getDefaultPromoTileUri';
 
 class GitHubReference {
 	private gitHubBaseUri: string;
@@ -197,7 +204,20 @@ export default class PluginRemoteInfoLoader {
 		});
 	}
 
-	public async getScreenshots() {
+	// Screenshots or promo tile
+	private processImageUri(uri: string | undefined) {
+		// We allow all https:// URLs for screenshots -- plugin authors can specify images with
+		// arbitrary srcs in the main page (so can already include arbitrary screenshots).
+		if (uri?.startsWith('https://')) {
+			return uri;
+		} else if (uri) {
+			return this.gitHubReference?.convertManifsetURIToGitHubURI(uri);
+		}
+
+		return null;
+	}
+
+	private async getScreenshots(): Promise<LabeledImage[]> {
 		if (!this.manifest.screenshots) {
 			return [];
 		}
@@ -205,22 +225,13 @@ export default class PluginRemoteInfoLoader {
 		const screenshots = [];
 
 		for (const screenshot of this.manifest.screenshots) {
-			let screenshotURI;
-
-			// We allow all https:// URLs for screenshots -- plugin authors can specify images with
-			// arbitrary srcs in the main page (so can already include arbitrary screenshots).
-			if (screenshot.src?.startsWith('https://')) {
-				screenshotURI = screenshot.src;
-			} else {
-				screenshotURI = this.gitHubReference?.convertManifsetURIToGitHubURI(screenshot.src);
-			}
-
+			const screenshotURI = this.processImageUri(screenshot.src);
 			if (!screenshotURI) {
 				continue;
 			}
 
 			screenshots.push({
-				uri: screenshotURI,
+				src: screenshotURI,
 				label: screenshot.label ?? 'Unlabeled screenshot',
 			});
 		}
@@ -228,7 +239,53 @@ export default class PluginRemoteInfoLoader {
 		return screenshots;
 	}
 
-	public async getIcon() {
+	private async getPromoTile(): Promise<PromoTile> {
+		const defaultPromoTile = async (): Promise<PromoTile> => {
+			// Invert default icons in dark mode
+			const classNames = ['-auto-invert'];
+
+			const iconUri = await this.getIcon();
+			let uri = iconUri;
+			if (!uri) {
+				uri = await getDefaultPromoTileUri(this.buildConfig, this.getCategories());
+				classNames.push('-fill-icon-area');
+			} else {
+				classNames.push('-shrink', '-dark-mode-shadow');
+			}
+
+			return {
+				src: uri,
+				// In most cases the promo tile is purely decorative (and thus a label is
+				// distracting).
+				label: '',
+				extraClassNames: classNames.join(' '),
+			};
+		};
+		if (!this.manifest.promo_tile) {
+			return await defaultPromoTile();
+		}
+
+		const imageUri = this.processImageUri(this.manifest.promo_tile.src);
+		if (!imageUri) {
+			return await defaultPromoTile();
+		}
+
+		const extraClassNames = ['-fill-icon-area'];
+
+		// If the icon name ends with .autoinvert.ext (for some extension .ext),
+		// we auto-invert it in dark mode.
+		if (imageUri.match(/\.autoinvert\.[a-zA-Z]{2,4}$/)) {
+			extraClassNames.push('-auto-invert');
+		}
+
+		return {
+			src: imageUri,
+			label: `${this.manifest.promo_tile.label ?? ''}`,
+			extraClassNames: extraClassNames.join(' '),
+		};
+	}
+
+	private async getIcon() {
 		if (!this.manifest.icons || !this.gitHubReference) {
 			return null;
 		}
@@ -264,26 +321,16 @@ export default class PluginRemoteInfoLoader {
 	}
 
 	public async loadAssets(): Promise<PluginAssetData> {
-		let iconUri = await this.getIcon();
-		const iconAdditionalClassNames = [];
+		const promoTile = await this.getPromoTile();
 
-		if (!iconUri) {
-			iconUri = await getDefaultIconUri(this.buildConfig, this.getCategories());
-			// Invert default icons in dark mode
-			iconAdditionalClassNames.push('default-icon', 'auto-invert');
-		}
-
-		// If the icon name ends with .autoinvert.ext (for some extension .ext),
-		// we auto-invert it in dark mode.
-		if (iconUri.match(/\.autoinvert\.[a-zA-Z]{2,4}$/)) {
-			iconAdditionalClassNames.push('auto-invert');
-		}
+		const iconUri = await this.getIcon();
 
 		return {
 			readme: await this.getRenderedReadme(),
 			screenshots: await this.getScreenshots(),
+			promoTile,
 			iconUri,
-			iconAdditionalClassNames: iconAdditionalClassNames.join(' '),
+			iconAdditionalClassNames: !iconUri ? '-missing' : '-dark-mode-shadow',
 		};
 	}
 

@@ -17,11 +17,6 @@
 		display: inline;
 	}
 
-	.card-img-top {
-		aspect-ratio: 1.5;
-		object-fit: contain;
-	}
-
 	$margin-x: 10px;
 	margin-right: $margin-x;
 
@@ -36,6 +31,10 @@
 			width: 80px;
 			height: 100%;
 			max-height: 100%;
+
+			&.-shrink {
+				padding: 0;
+			}
 		}
 	}
 

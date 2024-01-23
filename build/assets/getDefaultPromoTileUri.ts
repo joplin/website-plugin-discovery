@@ -2,7 +2,7 @@ import { join } from 'path';
 import { BuildConfig } from '../../lib/types';
 import { readdir } from 'fs/promises';
 
-const getDefaultIconUri = async (buildConfig: BuildConfig, manifestCategories: string[]) => {
+const getDefaultPromoTileUri = async (buildConfig: BuildConfig, manifestCategories: string[]) => {
 	const iconsFolderName = 'default-plugin-icons';
 	const iconsFolderPath = join(buildConfig.sourceDir, 'assets', iconsFolderName);
 	const iconFileNames = await readdir(iconsFolderPath);
@@ -42,4 +42,4 @@ const getDefaultIconUri = async (buildConfig: BuildConfig, manifestCategories: s
 
 	return join(buildConfig.site, iconsFolderName, iconFileName);
 };
-export default getDefaultIconUri;
+export default getDefaultPromoTileUri;

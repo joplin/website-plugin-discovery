@@ -22,6 +22,11 @@ export interface PluginWarning {
 	dateUpdated: string;
 }
 
+export interface LabeledImage {
+	src: string;
+	label?: string;
+}
+
 export interface JoplinPlugin {
 	// Directly from the manifest
 	manifest_version: number;
@@ -39,8 +44,9 @@ export interface JoplinPlugin {
 	_publish_commit: string;
 	_npm_package_name: string;
 	_recommended?: boolean;
-	screenshots?: { src: string; label?: string }[];
+	screenshots?: LabeledImage[];
 	icons?: PluginIconSet;
+	promo_tile?: LabeledImage;
 	downloadCount: number;
 	timeModified: string;
 
@@ -51,12 +57,17 @@ export interface JoplinPlugin {
 	assets?: PluginAssetData;
 }
 
+export interface PromoTile extends LabeledImage {
+	extraClassNames: string; // space-separated
+}
+
 // Larger assets
 export interface PluginAssetData {
 	// Full text content of the readme.
 	// The text stored in the `readme` property must be sanitized.
 	readme: string;
-	screenshots: { uri: string; label: string }[];
+	screenshots: LabeledImage[];
+	promoTile: PromoTile;
 	iconUri: string | null;
 	iconAdditionalClassNames: string;
 }
