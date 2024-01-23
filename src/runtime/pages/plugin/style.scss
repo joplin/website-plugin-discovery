@@ -82,6 +82,10 @@ $overview-header-offset: 0.5rem;
 		height: 50px;
 		margin: 0px 5px;
 		align-self: center;
+
+		&.default-icon {
+			display: none;
+		}
 	}
 }
 
