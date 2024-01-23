@@ -58,18 +58,13 @@ $overview-header-offset: 0.5rem;
 }
 
 .plugin-page-header {
-	width: var(--main-content-max-width);
-	max-width: 75vw;
+	max-width: var(--main-content-max-width);
+	flex-grow: 1;
 	padding-left: $content-padding-x;
 	padding-right: $content-padding-x;
 
 	> h1 {
 		padding-top: $overview-header-offset;
-	}
-
-	> .title {
-		display: flex;
-		flex-direction: row;
 	}
 }
 
@@ -86,6 +81,11 @@ $overview-header-offset: 0.5rem;
 		&.default-icon {
 			display: none;
 		}
+	}
+
+	@include media-breakpoint-down(md) {
+		flex-direction: column;
+		align-items: center;
 	}
 }
 
