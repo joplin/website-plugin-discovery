@@ -19,7 +19,7 @@
 
 	.card-img-top {
 		aspect-ratio: 1.5;
-		object-fit: cover;
+		object-fit: contain;
 	}
 
 	$margin-x: 10px;
