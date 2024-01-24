@@ -1,4 +1,3 @@
-$overview-padding-x: 25px;
 $content-padding-x: 10px;
 
 :root {
@@ -12,19 +11,41 @@ $content-padding-x: 10px;
 .plugin-overview {
 	display: flex;
 	flex-direction: row;
-	justify-content: center;
-	align-items: center;
 
 	padding-bottom: 20px;
-	padding-left: $overview-padding-x;
-	padding-right: $overview-padding-x;
 
-	> .spacer {
-		width: calc((100% - var(--main-content-max-width)) / 2);
+	// The header needs to be aligned with two things -- aligned at left with the main plugin
+	// body and aligned at right with the search bar.
+	//
+	// The navbar has a maximum with of $container-max-width:
+	//
+	//    |   | [J] Joplin         Nav   Items  Here   🔍 search |    |
+	//    ↑___________________________________________________________↑
+	//                max-width: $container-max-width;
+	//
+	// The content has maximum width var(--main-content-max-width):
+	//             max-width: var(--main-content-max-width);
+	//       ↓-------------------------------------------------↓
+	//       |  Details                                        |
+	//       |      Some plugin details here                   |
+	//
+	// To align the overview header **at left** with the details pane, we calculate
+	// how much space is added to the left of the details pane:
+	padding-left: calc((100% - var(--main-content-max-width)) / 2);
+	//
+	// We do something similar for the padding on the right:
+	@each $breakpoint, $container-max-width in $container-max-widths {
+		@include media-breakpoint-up($breakpoint) {
+			padding-right: calc((100% - $container-max-width) / 2 + 26px);
+		}
 	}
 
 	@include media-breakpoint-down(md) {
 		flex-direction: column;
+		padding-left: 0;
+		padding-right: 0;
+		justify-content: center;
+		align-items: center;
 
 		.plugin-page-header {
 			text-align: center;
