@@ -45,7 +45,7 @@
 		--width-percent: 50%;
 	}
 
-	@include media-breakpoint-up(lg) {
+	@include media-breakpoint-up(md) {
 		--width-percent: 33%;
 	}
 
