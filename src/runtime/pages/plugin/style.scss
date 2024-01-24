@@ -54,11 +54,6 @@ $content-padding-x: 10px;
 			padding-right: 0;
 		}
 
-		.download-link-container {
-			align-self: unset;
-			margin-top: 0;
-		}
-
 		.download-link-container a {
 			display: block;
 		}
@@ -71,10 +66,19 @@ $overview-header-offset: 0.5rem;
 	// Align the download link vertically with the header
 	margin-top: $overview-header-offset;
 	align-self: flex-start;
+	text-align: end;
+	margin-inline-start: auto;
 
 	& > * {
 		$download-link-size: 150px;
 		min-width: $download-link-size;
+	}
+
+	@include media-breakpoint-down(md) {
+		align-self: unset;
+		margin-top: 0;
+		text-align: center;
+		margin-inline-start: unset;
 	}
 }
 
