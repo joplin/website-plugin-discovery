@@ -16,8 +16,8 @@
 	}
 
 	.most-popular-section {
-		@include media-breakpoint-only(lg) {
-			// Hide the 4th and later most popular on lg sized screens (causes
+		@include media-breakpoint-between(md, xl) {
+			// Hide the 4th and later most popular plugins on md/lg sized screens (causes
 			// cards to fit the page width).
 			//
 			// There are 3 plugin cards by default on this screen size.
