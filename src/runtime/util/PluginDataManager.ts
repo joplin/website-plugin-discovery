@@ -179,7 +179,7 @@ class PluginDataManager {
 			}
 
 			if (bodyMatch) {
-				score++;
+				score += bodyMatch.quality * 2;
 			}
 
 			if (this.isRecommended(plugin.id)) {
