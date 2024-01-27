@@ -34,6 +34,14 @@ const renderMarkdown = (markdown: string, mapLinks?: LinkRewriter) => {
 	const transformImageOrAnchor = mapLinks
 		? makeTransformImageOrAnchorCallback(mapLinks)
 		: undefined;
+	const imageAnchorTransforms = transformImageOrAnchor
+		? {
+				// The TypeScript definitions aren't correct (or are outdated
+				// here).
+				img: transformImageOrAnchor as any,
+				a: transformImageOrAnchor as any,
+		  }
+		: undefined;
 
 	const sanitizeOptions = {
 		allowedTags: [
@@ -83,14 +91,18 @@ const renderMarkdown = (markdown: string, mapLinks?: LinkRewriter) => {
 			a: ['href'],
 			'*': ['align', 'alt', 'aria-label', 'class'],
 		},
-		transformTags: transformImageOrAnchor
-			? {
-					// The TypeScript definitions aren't correct (or are outdated
-					// here).
-					img: transformImageOrAnchor as any,
-					a: transformImageOrAnchor as any,
-			  }
-			: undefined,
+		transformTags: {
+			...imageAnchorTransforms,
+			table: (tagName: string, attribs: Record<string, string>) => {
+				return {
+					tagName,
+					attribs: {
+						...attribs,
+						class: `table table-hover ${attribs.class}`.trim(),
+					},
+				};
+			},
+		},
 	};
 
 	return sanitizeHtml(markdownRenderer.render(markdown), sanitizeOptions);

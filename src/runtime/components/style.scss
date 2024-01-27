@@ -44,6 +44,10 @@ p {
 	margin-bottom: 0.5rem;
 }
 
+thead {
+	border-bottom-width: 3px;
+}
+
 .navbar {
 	padding: 15px 30px 15px 30px;
 	box-shadow: var(--bs-box-shadow-sm);
@@ -111,7 +115,7 @@ code {
 }
 
 :root pre {
-	padding: 12px;
+	padding: 13px;
 }
 
 details {
