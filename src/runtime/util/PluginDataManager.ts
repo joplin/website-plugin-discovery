@@ -133,31 +133,44 @@ class PluginDataManager {
 			return wordMatchCount;
 		};
 
-		const hasMatch = (text: string): boolean => {
-			return hasFullTextMatch(query, text) || wordMatchCount(query, text) > 0;
+		// Returns null if no match
+		const getMatchQuality = (text: string): null | { quality: number } => {
+			text = text.toLowerCase();
+			if (hasFullTextMatch(query, text)) {
+				return { quality: 2 };
+			}
+			const wordMatch = wordMatchCount(query, text);
+			if (wordMatch > 0) {
+				return { quality: wordMatch / (query.split(/\s+/).length || 1) };
+			}
+			return null;
 		};
 
 		const matchQuality = (plugin: JoplinPlugin): number => {
-			const matchesTitle = hasMatch(plugin.name.toLowerCase());
-			const matchesBody = hasMatch(plugin.description.toLowerCase());
-			const hasAuthorMatch = hasMatch(plugin.author.toLowerCase());
+			const titleMatch = getMatchQuality(plugin.name);
+			const bodyMatch = getMatchQuality(plugin.description);
+			const authorMatch = getMatchQuality(plugin.author);
 			const matchesId = query === plugin.id;
 
-			if (!matchesTitle && !matchesBody && !matchesId && !hasAuthorMatch) {
+			if (!titleMatch && !bodyMatch && !matchesId && !authorMatch) {
 				return 0;
 			}
 
 			let score = 0;
 
-			if (matchesTitle || matchesId) {
+			if (matchesId) {
 				score += 10;
+			}
+
+			if (titleMatch) {
+				score += titleMatch.quality * 10;
 			}
 
 			if (plugin.name.toLowerCase() === query) {
 				score += 5;
 			}
 
-			if (hasAuthorMatch) {
+			if (authorMatch) {
 				score++;
 
 				if (plugin.author.toLowerCase() === query) {
@@ -165,7 +178,7 @@ class PluginDataManager {
 				}
 			}
 
-			if (matchesBody) {
+			if (bodyMatch) {
 				score++;
 			}
 
@@ -177,7 +190,7 @@ class PluginDataManager {
 			const weeksSinceUpdated = this.getWeeksSinceUpdated(plugin);
 			const updatedRecently = weeksSinceUpdated <= 12;
 			if (updatedRecently) {
-				score *= 1.1;
+				score *= 1.15;
 			} else if (!isNaN(weeksSinceUpdated)) {
 				// Otherwise, slightly adjust by how recently the plugin was updated.
 				score += 1 / weeksSinceUpdated;
