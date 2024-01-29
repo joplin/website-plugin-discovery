@@ -56,7 +56,6 @@ const showPluginSource = async (outputContainer: HTMLElement, pluginDownloadURL:
 	});
 
 	let firstTab: TabType | null = null;
-	let queriedTab: TabType | null = null;
 
 	// Customize the order of files in the sidebar
 	const pluginFiles = [...source.getFiles()];
@@ -79,8 +78,7 @@ const showPluginSource = async (outputContainer: HTMLElement, pluginDownloadURL:
 		return a > b ? 1 : -1;
 	});
 
-	// .substring(1): Remove the leading '#'
-	const queriedFileName = decodeURIComponent((location.hash ?? '').substring(1));
+	const filePathToTab = new Map<string, TabType>();
 
 	for (const filePath of pluginFiles) {
 		const navItem = document.createElement('li');
@@ -96,10 +94,7 @@ const showPluginSource = async (outputContainer: HTMLElement, pluginDownloadURL:
 
 		const tab = new Tab(tabButton);
 		firstTab ??= tab;
-		if (queriedFileName && queriedFileName === filePath) {
-			queriedTab = tab;
-			tabButton.scrollIntoView();
-		}
+		filePathToTab.set(filePath, tab);
 
 		const showCurrentFile = async () => {
 			const fileExtensionMatch = filePath.match(/\.(\w+)$/);
@@ -133,7 +128,18 @@ const showPluginSource = async (outputContainer: HTMLElement, pluginDownloadURL:
 		};
 	}
 
-	(queriedTab ?? firstTab)?.show();
+	const onHashChange = () => {
+		// .substring(1): Remove the leading '#'
+		const queriedFileName = decodeURIComponent((location.hash ?? '').substring(1));
+		if (queriedFileName && filePathToTab.has(queriedFileName)) {
+			filePathToTab.get(queriedFileName)?.show();
+		} else {
+			firstTab?.show();
+		}
+	};
+	onHashChange();
+	window.addEventListener('hashchange', onHashChange);
+
 	loadingMessage.remove();
 };
 
