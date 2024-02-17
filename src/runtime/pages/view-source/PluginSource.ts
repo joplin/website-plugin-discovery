@@ -40,19 +40,7 @@ export default class PluginSource {
 		return textData;
 	}
 
-	public static async fromURL(url: string) {
-		const fetchResult = await fetch(url);
-
-		if (!fetchResult.ok) {
-			throw new Error('Fetch error: ' + fetchResult.statusText);
-		}
-
-		const reader = fetchResult.body?.getReader();
-
-		if (!reader) {
-			throw new Error('fetchResult.body is undefined');
-		}
-
+	public static async fromReader(reader: ReadableStreamDefaultReader<Uint8Array>) {
 		const extract = tar.extract({ defaultEncoding: 'hex' });
 
 		const parseDataPromise = new Promise<TarRecordType>((resolve, reject) => {
@@ -94,5 +82,25 @@ export default class PluginSource {
 		extract.end();
 
 		return new PluginSource(await parseDataPromise);
+	}
+
+	public static async fromURL(url: string) {
+		const fetchResult = await fetch(url);
+
+		if (!fetchResult.ok) {
+			throw new Error('Fetch error: ' + fetchResult.statusText);
+		}
+
+		const reader = fetchResult.body?.getReader();
+
+		if (!reader) {
+			throw new Error('fetchResult.body is undefined');
+		}
+
+		return this.fromReader(reader);
+	}
+
+	public static async fromBlob(blob: Blob) {
+		return this.fromReader(blob.stream().getReader());
 	}
 }

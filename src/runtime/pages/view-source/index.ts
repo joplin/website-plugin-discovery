@@ -1,6 +1,40 @@
 import getPluginDataManager from '../../util/getPluginDataManager';
 import showPluginSource from './showPluginSource';
 
+const initializeDragAndDrop = (
+	outputContainer: HTMLElement,
+	pluginSource: ReturnType<typeof showPluginSource>,
+) => {
+	outputContainer.ondragover = (event) => {
+		event.preventDefault();
+		if (event.dataTransfer) {
+			event.dataTransfer.dropEffect = 'move';
+		}
+	};
+
+	const pluginInfoArea = document.querySelector<HTMLElement>('.plugin-info');
+	const pluginInfoAlert = document.querySelector<HTMLElement>('.plugin-info-alert');
+	outputContainer.ondrop = async (event) => {
+		event.preventDefault();
+		if (event.dataTransfer) {
+			for (const file of event.dataTransfer.files) {
+				if (file.name.endsWith('.jpl')) {
+					(await pluginSource)?.remove();
+
+					// Hide/update information that likely references the previous plugin.
+					if (pluginInfoArea) {
+						pluginInfoArea.innerText = `Loaded from file: ${file.name}`;
+					}
+					pluginInfoAlert?.remove();
+
+					pluginSource = showPluginSource(outputContainer, file);
+					return;
+				}
+			}
+		}
+	};
+};
+
 const initializeViewSourcePage = async () => {
 	const plugins = await getPluginDataManager();
 	const outputContainer = document.querySelector<HTMLElement>('#view-source-output')!;
@@ -48,7 +82,8 @@ const initializeViewSourcePage = async () => {
 		downloadLink.href = plugins.getReleaseDownloadLink(plugin);
 	}
 
-	showPluginSource(outputContainer, plugins.getCorsDownloadLink(plugin));
+	const pluginSource = showPluginSource(outputContainer, plugins.getCorsDownloadLink(plugin));
+	initializeDragAndDrop(outputContainer, pluginSource);
 };
 
 window.addEventListener('DOMContentLoaded', async () => {

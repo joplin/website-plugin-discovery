@@ -25,7 +25,8 @@ const fileExtensionToCMExtension: Record<string, Extension> = {
 
 const { Tab } = window.bootstrap;
 
-const showPluginSource = async (outputContainer: HTMLElement, pluginDownloadURL: string) => {
+// pluginSource: Should either be a download URL or a Blob with the source
+const showPluginSource = async (outputContainer: HTMLElement, pluginSource: string | Blob) => {
 	const filesNav = outputContainer.querySelector<HTMLElement>('#files-nav')!;
 	const sourceViewContainer = outputContainer.querySelector<HTMLElement>('#source-view')!;
 	const loadingMessage = outputContainer.querySelector<HTMLElement>('#loading-message')!;
@@ -35,7 +36,11 @@ const showPluginSource = async (outputContainer: HTMLElement, pluginDownloadURL:
 	// Load and show data
 	let source: PluginSource;
 	try {
-		source = await PluginSource.fromURL(pluginDownloadURL);
+		if (typeof pluginSource === 'string') {
+			source = await PluginSource.fromURL(pluginSource);
+		} else {
+			source = await PluginSource.fromBlob(pluginSource);
+		}
 	} catch (error) {
 		const errorMessage = `Error: ${error}`;
 		if (errorMessage.includes('tar header')) {
@@ -85,6 +90,8 @@ const showPluginSource = async (outputContainer: HTMLElement, pluginDownloadURL:
 	});
 
 	const filePathToTab = new Map<string, TabType>();
+
+	filesNav.replaceChildren();
 
 	for (const filePath of pluginFiles) {
 		const navItem = document.createElement('li');
@@ -146,7 +153,15 @@ const showPluginSource = async (outputContainer: HTMLElement, pluginDownloadURL:
 	onHashChange();
 	window.addEventListener('hashchange', onHashChange);
 
-	loadingMessage.remove();
+	loadingMessage.style.display = 'none';
+
+	return {
+		remove() {
+			loadingMessage.style.display = '';
+			sourceViewContainer.replaceChildren();
+			window.removeEventListener('hashchange', onHashChange);
+		},
+	};
 };
 
 export default showPluginSource;
