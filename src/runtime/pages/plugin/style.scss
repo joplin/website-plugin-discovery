@@ -160,6 +160,11 @@ $overview-header-offset: 0.5rem;
 		margin-top: auto;
 		margin-bottom: auto;
 	}
+
+	&.-single-item > .carousel-control-prev,
+	&.-single-item > .carousel-control-next {
+		display: none;
+	}
 }
 
 .screenshot-carousel-item {

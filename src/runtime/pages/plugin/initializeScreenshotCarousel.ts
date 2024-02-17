@@ -32,7 +32,11 @@ const initializeScreenshotCarousel = (screenshotsCard: HTMLElement) => {
 	screenshotsCarousel.appendChild(carouselItemContainer);
 	rawScreenshotContainer.remove();
 
-	new Carousel('#' + screenshotsCarousel.id);
+	if (images.length > 1) {
+		new Carousel('#' + screenshotsCarousel.id);
+	} else {
+		screenshotsCarousel.classList.add('-single-item');
+	}
 };
 
 export default initializeScreenshotCarousel;
