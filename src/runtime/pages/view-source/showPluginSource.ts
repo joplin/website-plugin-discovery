@@ -10,10 +10,16 @@ import type { Tab as TabType } from 'bootstrap';
 
 const fileExtensionToCMExtension: Record<string, Extension> = {
 	css: css(),
+	scss: css(),
 	js: javascript(),
+	mjs: javascript(),
+	cjs: javascript(),
+	jsx: javascript({ jsx: true }),
 	ts: javascript({ typescript: true }),
+	tsx: javascript({ typescript: true, jsx: true }),
 	json: javascript(),
 	html: html(),
+	xml: html(),
 	svg: html(),
 };
 
