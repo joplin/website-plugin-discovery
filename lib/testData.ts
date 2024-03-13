@@ -21,6 +21,7 @@ const testPlugin1: JoplinPlugin = {
 	_npm_package_maintainers: ['personalizedrefrigerator'],
 	downloadCount: 20,
 	timeModified: '2023-06-27T05:37:11Z',
+	popularity: 40,
 };
 
 const testPlugin2: JoplinPlugin = {
@@ -40,6 +41,7 @@ const testPlugin2: JoplinPlugin = {
 	_recommended: true,
 	downloadCount: 4410,
 	timeModified: '2021-06-01T08:31:07Z',
+	popularity: 100,
 };
 
 const testPlugin3: JoplinPlugin = {
@@ -57,6 +59,7 @@ const testPlugin3: JoplinPlugin = {
 	_recommended: false,
 	downloadCount: 1234,
 	timeModified: '1900-06-01T08:31:07Z',
+	popularity: 10,
 };
 
 const testPlugin4: JoplinPlugin = {
@@ -74,6 +77,7 @@ const testPlugin4: JoplinPlugin = {
 	_recommended: false,
 	downloadCount: 1234,
 	timeModified: '1901-06-01T08:31:07Z',
+	popularity: 10.1,
 };
 
 export const testPlugin5: JoplinPlugin = {
@@ -91,6 +95,7 @@ export const testPlugin5: JoplinPlugin = {
 	_recommended: false,
 	downloadCount: 0,
 	timeModified: 'N/A',
+	popularity: 10,
 };
 
 const testData: MarketplaceData = {

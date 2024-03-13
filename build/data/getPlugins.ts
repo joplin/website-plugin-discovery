@@ -10,6 +10,7 @@ import PluginRemoteInfoLoader from '../assets/PluginRemoteInfoLoader';
 import CategoryGuesser from './CategoryGuesser';
 import pluginDefaultCategories from './pluginDefaultCategories';
 import getPluginWarnings from './getPluginWarnings';
+import estimatePluginPopularity from './estimatePluginPopularity';
 
 async function fetchPluginData(): Promise<IdToManifestRecord> {
 	return await JSON.parse((await fetchFromGitHub('joplin/plugins/master/manifests.json')).result);
@@ -22,10 +23,6 @@ async function fetchStatsData(): Promise<Stats> {
 function convertToDomId(id: string): string {
 	return id.toLowerCase().replace(/[.]/g, '-');
 }
-
-const getPluginPopularity = (plugin: JoplinPlugin) => {
-	return plugin.downloadCount / (Date.now() - new Date(plugin.timeModified).getTime());
-};
 
 async function getPluginData(config: BuildConfig): Promise<IdToManifestRecord> {
 	const rawPlugins = await fetchPluginData();
@@ -43,6 +40,7 @@ async function getPluginData(config: BuildConfig): Promise<IdToManifestRecord> {
 			rawPlugins[pluginId].downloadCount = 0;
 			rawPlugins[pluginId].timeModified = 'N/A';
 		}
+		rawPlugins[pluginId].popularity = estimatePluginPopularity(rawStats[pluginId]);
 
 		rawPlugins[pluginId].domId = convertToDomId(pluginId);
 
@@ -91,7 +89,7 @@ export default async function getPlugins(config: BuildConfig): Promise<GlobalPlu
 
 	// Sort by popularity
 	all.sort((a, b) => {
-		return getPluginPopularity(b) - getPluginPopularity(a);
+		return b.popularity - a.popularity;
 	});
 
 	return {

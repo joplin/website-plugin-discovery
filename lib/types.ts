@@ -7,7 +7,16 @@ export interface BuildConfig {
 export type IdToManifestRecord = Record<string, JoplinPlugin>;
 export type IdToAssetsRecord = Record<string, PluginAssetData>;
 
-export type Stats = Record<string, any>;
+export interface PluginVersionInfo {
+	downloadCount: number;
+	createdAt: string;
+}
+
+export type Stats = {
+	[pluginId: string]: {
+		[version: string]: PluginVersionInfo;
+	};
+};
 
 export interface PluginIconSet {
 	'16'?: string;
@@ -52,6 +61,7 @@ export interface JoplinPlugin {
 
 	// Loaded separately
 	_npm_package_maintainers: string[];
+	popularity: number;
 	domId?: string;
 	warnings?: PluginWarning[];
 	assets?: PluginAssetData;
