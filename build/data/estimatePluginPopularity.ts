@@ -24,8 +24,12 @@ const estimatePluginPopularity = (versions: Record<string, PluginVersionInfo>) =
 		let timeAdjustment = fourWeeks / timeSinceLatestVersion;
 
 		// Less likely to be relevant if no updates in the last year
-		if (timeSinceLatestVersion > fourWeeks * 4) {
+		if (timeSinceLatestVersion > fourWeeks * 3) {
 			timeAdjustment *= 0.75;
+		}
+		// Even less likely after two years
+		if (timeSinceLatestVersion > fourWeeks * 6) {
+			timeAdjustment *= Math.pow(fourWeeks / timeSinceLatestVersion, 0.05);
 		}
 
 		return lastVersion.downloadCount * timeAdjustment;
