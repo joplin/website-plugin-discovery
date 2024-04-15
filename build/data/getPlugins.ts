@@ -69,6 +69,7 @@ async function getPluginData(config: BuildConfig): Promise<IdToManifestRecord> {
 		loadRemoteInfoTasks.push(
 			(async () => {
 				rawPlugins[pluginId]._npm_package_maintainers = await assetLoader.loadMaintainers();
+				rawPlugins[pluginId].provenance = await assetLoader.loadMayHaveVerifiedProvenance();
 			})(),
 			(async () => {
 				rawPlugins[pluginId].assets = await assetLoader.loadAssets();

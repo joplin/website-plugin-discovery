@@ -61,6 +61,7 @@ export interface JoplinPlugin {
 
 	// Loaded separately
 	_npm_package_maintainers: string[];
+	provenance?: boolean;
 	popularity: number;
 	domId?: string;
 	warnings?: PluginWarning[];

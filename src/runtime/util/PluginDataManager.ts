@@ -44,6 +44,10 @@ class PluginDataManager {
 		return `https://www.npmjs.com/package/${plugin._npm_package_name}`;
 	}
 
+	public getProvenanceDetailsLink(plugin: JoplinPlugin) {
+		return `${this.getNPMLink(plugin)}#provenance`;
+	}
+
 	public getWeeksSinceUpdated(plugin: JoplinPlugin): number {
 		const nowTime = new Date().getTime();
 		const modifiedTime = new Date(plugin.timeModified).getTime();
@@ -103,10 +107,14 @@ class PluginDataManager {
 
 			const onlyShowFromAuthor = getStringOption('author');
 			const onlyShowForMaintainers = getStringOption('maintainer')?.split(/\sOR\s/);
+			const onlyShowWithProvenance = ['yes', '1', 'true'].includes(
+				getStringOption('has-provenance')?.toLowerCase() ?? '',
+			);
 
 			return {
 				onlyShowFromAuthor,
 				onlyShowForMaintainers,
+				onlyShowWithProvenance,
 				maxResults,
 				newQuery,
 			};
@@ -200,6 +208,7 @@ class PluginDataManager {
 		};
 
 		const matches = this.allPlugins
+			.filter((plugin) => matchQuality(plugin) > 0)
 			.filter((plugin) => {
 				return !options.onlyShowFromAuthor || plugin.author === options.onlyShowFromAuthor;
 			})
@@ -214,7 +223,9 @@ class PluginDataManager {
 
 				return false;
 			})
-			.filter((plugin) => matchQuality(plugin) > 0);
+			.filter((plugin) => {
+				return !options.onlyShowWithProvenance || !!plugin.provenance;
+			});
 
 		matches.sort((a, b) => {
 			// Should be negative if a comes before b

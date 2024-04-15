@@ -65,7 +65,12 @@ class GitHubReference {
 interface NPMPackageVersionData {
 	dist: {
 		tarball: string;
+		shasum: string;
 		integrity: string;
+		attestations?: {
+			url: string;
+			provenance: { predicateType: string };
+		};
 	};
 	version: string;
 }
@@ -79,6 +84,7 @@ interface NPMPackageMetadata {
 	readme: string;
 	homepage: string;
 	versions: Record<string, NPMPackageVersionData>;
+	time: Record<string, string>; // version -> time
 	maintainers: NPMPackageMaintainerData[];
 }
 
@@ -332,6 +338,40 @@ export default class PluginRemoteInfoLoader {
 			iconUri,
 			iconAdditionalClassNames: !iconUri ? '-missing' : '-dark-mode-shadow',
 		};
+	}
+
+	private estimatedPackageVersion_: string | null = null;
+	private async estimateNpmPackageVersion() {
+		if (this.estimatedPackageVersion_) return this.estimatedPackageVersion_;
+
+		const packageMetadata = await this.npmReference.getPackageMetadata();
+		if (!packageMetadata) return null;
+
+		const modifiedAt = Date.parse(this.manifest.timeModified);
+		let latestVersion: string | null = null;
+		for (const [version, timestamp] of Object.entries(packageMetadata.time)) {
+			const time = Date.parse(timestamp);
+			if (!isFinite(time)) continue;
+			if (time - modifiedAt > 0) break;
+
+			latestVersion = version;
+		}
+
+		this.estimatedPackageVersion_ = latestVersion;
+		return latestVersion;
+	}
+
+	public async loadMayHaveVerifiedProvenance(): Promise<boolean> {
+		const packageMetadata = await this.npmReference.getPackageMetadata();
+		if (!packageMetadata) return false;
+
+		const latestVersion = await this.estimateNpmPackageVersion();
+		if (!latestVersion || !packageMetadata?.versions || !packageMetadata?.versions[latestVersion]) {
+			return false;
+		}
+
+		const latestVersionData = packageMetadata.versions[latestVersion];
+		return !!latestVersionData.dist.attestations?.provenance?.predicateType;
 	}
 
 	public async loadMaintainers(): Promise<string[]> {

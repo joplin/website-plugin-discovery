@@ -1,5 +1,9 @@
+import { JoplinPlugin } from '../../../../lib/types';
+import PluginDataManager from '../../util/PluginDataManager';
 import getPluginDataManager from '../../util/getPluginDataManager';
 import showPluginSource from './showPluginSource';
+
+const getProvenanceAlert = () => document.querySelector<HTMLElement>('.verified-provenance-alert');
 
 const initializeDragAndDrop = (
 	outputContainer: HTMLElement,
@@ -14,6 +18,7 @@ const initializeDragAndDrop = (
 
 	const pluginInfoArea = document.querySelector<HTMLElement>('.plugin-info');
 	const pluginInfoAlert = document.querySelector<HTMLElement>('.plugin-info-alert');
+	const pluginProvenanceAlert = getProvenanceAlert();
 	outputContainer.ondrop = async (event) => {
 		event.preventDefault();
 		if (event.dataTransfer) {
@@ -25,6 +30,7 @@ const initializeDragAndDrop = (
 					if (pluginInfoArea) {
 						pluginInfoArea.innerText = `Loaded from file: ${file.name}`;
 					}
+					pluginProvenanceAlert?.remove();
 					pluginInfoAlert?.remove();
 
 					pluginSource = showPluginSource(outputContainer, file);
@@ -33,6 +39,14 @@ const initializeDragAndDrop = (
 			}
 		}
 	};
+};
+
+const initializeProvenanceAlert = (plugins: PluginDataManager, plugin: JoplinPlugin) => {
+	const pluginProvenanceAlert = getProvenanceAlert();
+	if (pluginProvenanceAlert && plugin.provenance) {
+		pluginProvenanceAlert.style.display = 'block';
+		plugins.getProvenanceDetailsLink;
+	}
 };
 
 const initializeViewSourcePage = async () => {
@@ -78,12 +92,22 @@ const initializeViewSourcePage = async () => {
 		npmLinkContainer.replaceChildren(link);
 	}
 
+	for (const provenanceLink of document.querySelectorAll<HTMLAnchorElement>(
+		'a.plugin-provenance-link',
+	)) {
+		if (!plugin.provenance) {
+			provenanceLink.innerText = '[[No provenance]]';
+		}
+		provenanceLink.href = plugins.getProvenanceDetailsLink(plugin);
+	}
+
 	for (const downloadLink of document.querySelectorAll<HTMLAnchorElement>('a.plugin-jpl-link')) {
 		downloadLink.href = plugins.getReleaseDownloadLink(plugin);
 	}
 
 	const pluginSource = showPluginSource(outputContainer, plugins.getCorsDownloadLink(plugin));
 	initializeDragAndDrop(outputContainer, pluginSource);
+	initializeProvenanceAlert(plugins, plugin);
 };
 
 window.addEventListener('DOMContentLoaded', async () => {
