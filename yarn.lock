@@ -5360,12 +5360,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.2.4":
-  version: 3.2.4
-  resolution: "prettier@npm:3.2.4"
+"prettier@npm:3.3.3":
+  version: 3.3.3
+  resolution: "prettier@npm:3.3.3"
   bin:
     prettier: bin/prettier.cjs
-  checksum: 10c0/88dfeb78ac6096522c9a5b81f1413d875f568420d9bb6a5e5103527912519b993f2bcdcac311fcff5718d5869671d44e4f85827d3626f3a6ce32b9abc65d88e0
+  checksum: 10c0/b85828b08e7505716324e4245549b9205c0cacb25342a030ba8885aba2039a115dbcf75a0b7ca3b37bc9d101ee61fab8113fc69ca3359f2a226f1ecc07ad2e26
   languageName: node
   linkType: hard
 
@@ -6460,7 +6460,7 @@ __metadata:
     lint-staged: "npm:14.0.1"
     markdown-it: "npm:14.0.0"
     mustache: "npm:4.2.0"
-    prettier: "npm:3.2.4"
+    prettier: "npm:3.3.3"
     sanitize-html: "npm:2.12.1"
     sass: "npm:1.70.0"
     sass-loader: "npm:14.0.0"
