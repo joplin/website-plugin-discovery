@@ -40,7 +40,7 @@ const renderMarkdown = (markdown: string, mapLinks?: LinkRewriter) => {
 				// here).
 				img: transformImageOrAnchor as any,
 				a: transformImageOrAnchor as any,
-		  }
+			}
 		: undefined;
 
 	const sanitizeOptions = {
