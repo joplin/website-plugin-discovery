@@ -27,7 +27,7 @@
 		"mustache": "4.2.0",
 		"sanitize-html": "2.12.1",
 		"tar-stream": "3.1.7",
-		"webpack": "5.90.0"
+		"webpack": "5.94.0"
 	},
 	"devDependencies": {
 		"@popperjs/core": "2.11.8",
