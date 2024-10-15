@@ -3,10 +3,6 @@ name: Build and Deploy
 on:
   push:
     branches: ['main']
-  schedule:
-    # * is a special character in YAML so you have to quote this string
-    # Run on the 0th minute of hour 1 of every day
-    - cron: '0 1 * * *'
   workflow_dispatch:
 
 # Allow this job to clone the repo and create a page deployment
@@ -26,6 +22,7 @@ jobs:
         with:
           node-version: '18'
           cache: 'yarn'
+      - run: corepack enable
       - run: yarn install
       - run: yarn build-production /website-plugin-discovery
       - name: Upload artifact
