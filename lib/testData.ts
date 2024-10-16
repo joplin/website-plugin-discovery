@@ -123,6 +123,9 @@ const testData: MarketplaceData = {
 		distDir: path.join(__dirname, 'site'),
 		site: '/site',
 	},
+	buildInfo: {
+		copyright: 'test',
+	},
 };
 
 export { testPlugin1, testPlugin2, testPlugin3, testPlugin4 };

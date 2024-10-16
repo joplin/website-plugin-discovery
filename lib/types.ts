@@ -96,9 +96,14 @@ export interface Category {
 	plugins: JoplinPlugin[];
 }
 
+interface BuildInfo {
+	copyright: string;
+}
+
 // Global data about plugins, categories, etc.
 export interface MarketplaceData {
 	allPossibleCategories: Category[];
 	plugins: GlobalPluginData;
 	config: BuildConfig;
+	buildInfo: BuildInfo;
 }

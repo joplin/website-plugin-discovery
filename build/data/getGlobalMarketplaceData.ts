@@ -10,6 +10,9 @@ const getMarketplaceData = async (config: BuildConfig): Promise<MarketplaceData>
 		allPossibleCategories: await getAllPossibleCategories(plugins),
 		plugins,
 		config,
+		buildInfo: {
+			copyright: `© Joplin 2023 - ${new Date().getFullYear()}`,
+		},
 	};
 };
 
