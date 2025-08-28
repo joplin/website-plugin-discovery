@@ -147,9 +147,9 @@ class PluginDataManager {
 		};
 
 		const matchQuality = (plugin: JoplinPlugin): number => {
-			const titleMatch = getMatchQuality(plugin.name);
-			const bodyMatch = getMatchQuality(plugin.description);
-			const authorMatch = getMatchQuality(plugin.author);
+			const titleMatch = getMatchQuality(plugin.name ?? '');
+			const bodyMatch = getMatchQuality(plugin.description ?? '');
+			const authorMatch = getMatchQuality(plugin.author ?? '');
 			const matchesId = query === plugin.id;
 
 			if (!titleMatch && !bodyMatch && !matchesId && !authorMatch) {
