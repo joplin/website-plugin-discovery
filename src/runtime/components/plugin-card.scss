@@ -41,6 +41,7 @@
 	// Note: When changing these breakpoints, ensure that styles in the main
 	// page (plugin list page) that rely on some number of cards per row are not broken.
 	--width-percent: 100%;
+
 	@include media-breakpoint-up(sm) {
 		--width-percent: 50%;
 	}
@@ -75,4 +76,139 @@
 	}
 
 	transition: 0.2s ease opacity;
+}
+
+// ─── Icon decoration: dashed circle + orbiting puzzle pieces ────────────────
+//
+// Strategy: make the wrapper a square (aspect-ratio:1) so that any % distance
+// is identical horizontally and vertically → we can use trig to place the orbit
+// icons precisely on the dashed circle arc.
+//
+// Circle: centered at (50%, 50%), radius = 36% of wrapper side.
+// Icon size: 42px (half = 21px). We subtract the half-size from the arc center
+// so the icon's centre sits exactly on the arc.
+//
+// Arc positions used:
+//   Top-left  (135°): center = (50 - 36·cos45°, 50 - 36·sin45°) ≈ (24.5%, 24.5%)
+//   Right     (  0°): center = (50 + 36, 50)                     ≈ (86%, 50%)
+//   Bot-left  (225°): center = (50 - 36·cos45°, 50 + 36·sin45°) ≈ (24.5%, 75.5%)
+// ─────────────────────────────────────────────────────────────────────────────
+// Icon decoration: SVG dashed circle + orbiting puzzle pieces
+//
+// The dashed circle is an inline SVG (orbit-circle) with stroke-dasharray for
+// precise sparse-dash control matching the reference image.
+//
+// Orbit icon arc positions (r=44% of wrapper → arc at 44% from centre):
+//   Top-left  (135°): (50 - 44·cos45°, 50 - 44·sin45°) ≈ (19%, 19%)
+//   Right     (  0°): (50 + 44, 50) ≈ (94%, 50%)   [clipped, so use 88%]
+//   Bot-left  (225°): (50 - 44·cos45°, 50 + 44·sin45°) ≈ (19%, 81%)
+// ─────────────────────────────────────────────────────────────────────────────
+
+$icon-size: 28px;
+$icon-half: 14px;
+$icon-font: 12px;
+
+.promo-tile-wrapper {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #f5f7fa;
+	border-radius: var(--bs-card-border-radius) var(--bs-card-border-radius) 0 0;
+	overflow: hidden;
+	width: 100%;
+	aspect-ratio: 1;
+
+	@include color-mode(dark) {
+		background-color: #2a2d31;
+	}
+
+	// The SVG circle fills the wrapper and provides the dashed decoration
+	.orbit-circle {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 0;
+		pointer-events: none;
+
+		circle {
+			@include color-mode(dark) {
+				stroke: #4a6a8a;
+			}
+		}
+	}
+
+	.promo-tile {
+		position: relative;
+		z-index: 1;
+		border-radius: 0;
+		width: 85%;
+		height: auto;
+		aspect-ratio: 1;
+		object-fit: contain;
+		background: transparent;
+		padding: 0;
+
+		&.-shrink {
+			width: 41.1%; // Matches the 41.1% size of the category SVG's inner white circle
+			background-color: #ffffff;
+			border-radius: 50%;
+			padding: 2.5%; // Shrink the logo to fit nicely inside the white circle
+			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); // optional subtle definition
+		}
+	}
+
+	// Show orbit decoration ONLY for plugin logo icons (.-shrink).
+	// Category SVGs (.-auto-invert.-fill-icon-area) have their own built-in decoration.
+	// Poster images (.-fill-icon-area) are wide banners — no decoration.
+	&:not(:has(.promo-tile.-shrink)) {
+		.orbit-circle,
+		.orbit-icon {
+			display: none;
+		}
+
+		.promo-tile {
+			width: 85%;
+		}
+	}
+}
+
+// Orbit icons — match exactly the category-editor.svg style:
+// white circle background, #D9E8F8 puzzle piece icon color, no dashed rings
+.orbit-icon {
+	position: absolute;
+	z-index: 2;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 13.2%;
+	height: 13.2%;
+	border-radius: 50%;
+	background-color: #ffffff;
+	color: #d9e8f8;
+	font-size: $icon-font;
+
+	@include color-mode(dark) {
+		background-color: #2a3d4f;
+		color: #4a7a9b;
+	}
+
+	// Upper-left — matches mathematically scaled category SVG orbit circle 1
+	&.orbit-icon--top-left {
+		top: 11.5%;
+		left: 25.3%;
+	}
+
+	// Right — matches mathematically scaled category SVG orbit circle 2
+	&.orbit-icon--right {
+		top: 48.9%;
+		left: 79.3%;
+	}
+
+	// Bottom-left — matches mathematically scaled category SVG orbit circle 3
+	&.orbit-icon--bottom-left {
+		top: 70.1%;
+		left: 15.6%;
+	}
 }

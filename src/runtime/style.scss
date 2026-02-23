@@ -154,10 +154,6 @@ $form-select-border-color: transparent;
 	aspect-ratio: 1.5;
 	object-fit: contain;
 
-	&.-shrink {
-		padding: 34px;
-	}
-
 	&.-fill-icon-area {
 		object-fit: cover;
 	}

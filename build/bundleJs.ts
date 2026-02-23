@@ -1,6 +1,7 @@
 import * as path from 'path';
 
 import webpack from 'webpack';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 import { type BuildConfig } from '../lib/types';
 
@@ -34,11 +35,11 @@ const bundleJs = (buildConfig: BuildConfig, watch: boolean): Promise<void> => {
 			rules: [
 				{
 					test: /\.scss$/i,
-					use: ['style-loader', 'css-loader', 'sass-loader'],
+					use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
 				},
 				{
 					test: /\.css$/i,
-					use: ['style-loader', 'css-loader'],
+					use: [MiniCssExtractPlugin.loader, 'css-loader'],
 				},
 
 				// See https://webpack.js.org/guides/typescript/
@@ -59,12 +60,11 @@ const bundleJs = (buildConfig: BuildConfig, watch: boolean): Promise<void> => {
 				},
 			],
 		},
-		// Increase the maximum entrypoint size to hide warnings.
-		// TODO: Separate CSS from JS to decrease this.
-		performance: {
-			maxAssetSize: 1 * 1024 * 1024,
-			maxEntrypointSize: 1 * 1024 * 1024, // 1 MiB
-		},
+		plugins: [
+			new MiniCssExtractPlugin({
+				filename: 'bundle-[name].css',
+			}),
+		],
 		resolve: {
 			extensions: ['.ts', '.js'],
 		},
